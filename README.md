@@ -18,22 +18,22 @@ O ano de 2020 começou de uma maneira completamente inesperada, o mundo foi atin
 
 Partindo desse problema o projeto teve como ponto de partida analisar dados acerca de resultados de exames de sangue, sinais vitais, gases sanguíneos, grupos de doenças apresentadas pelo paciente, além de informações demográficas do mesmo. A partir disso foi procurado quais as relações de cada variável com a necessidade de um leito, para no final sermos capazes de prever com a maior certeza quem são aqueles que mais necessitam dessa internação.
 
-
 # Estrutura do projeto
 
-* [Dados brutos](https://github.com/PedroHCAlmeida/):w
+* [data](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/data):
 
-* [Dados limpos](https://github.com/PedroHCAlmeida/)
+* [functions](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/functions))
 
-* [Notebooks](https://github.com/PedroHCAlmeida/):
+* [notebooks](https://github.com/PedroHCAlmeida/tree/main/notebooks):
 
-* [funcoes](https://github.com/PedroHCAlmeida/)
+* [img](https://github.com/PedroHCAlmeida/tree/main/img)
 
-* [img]()
+# Fases do projeto
 
-* [requirements.txt](https://github.com/PedroHCAlmeida/):
+# Extras
 
 # Tecnologias utilizadas 💻
+
 Esse projeto foi realizado utilizando a linguagem Python versão 3.7.6 através do jupyter lab versão 1.2.6, as bibliotecas usadas foram:
 * Pandas versão 1.2.4 : biblioteca rápida e poderosa usada para manipulação de dados
 * Matplotlib versão 3.1.3 : biblioteca usada para visualização de dados
@@ -42,18 +42,11 @@ Esse projeto foi realizado utilizando a linguagem Python versão 3.7.6 através 
 * fbprophet 0.7.1 : biblioteca focada na previsão de séries temporais
 * Para mais informações de todas as versões utilizadas para replicação do projeto acesse o [requirements.txt](https://github.com/PedroHCAlmeida/)
 
-# Hipóteses
-
-# Modelo.
-
-# Conclusões
-
-# Referências
-
 # Agradecimentos
 
-# Contato 
+# Contato
 
 [<img src="https://img.shields.io/badge/pedrocorrea-0A66C2?style=flat-square&logo=linkedin&logoColor=white" />](https://www.linkedin.com/in/pedro-henrique-corrêa-de-almeida/)<br>
 [<img src="https://img.shields.io/badge/GitHub-PedroHCAlmeida-DCDCDC?style=flat-square" />](https://github.com/PedroHCAlmeida)<br>
 
+# Referências
