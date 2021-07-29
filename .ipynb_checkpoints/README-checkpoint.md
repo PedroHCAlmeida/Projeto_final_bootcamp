@@ -39,6 +39,7 @@ Esse projeto foi realizado utilizando a linguagem Python versão 3.7.6 através 
 # Agradecinmentos
 
 # Contato ☎️
-[<i class="fab fa-github"></i>](https://www.linkedin.com/in/pedro-henrique-corrêa-de-almeida/)<br>
+
+[<i class="fab fa-github"></i>](https://github.com/PedroHCAlmeida)<br>
 [<img src="https://img.shields.io/badge/pedrocorrea-0A66C2?style=flat-square&logo=linkedin&logoColor=white" />](https://www.linkedin.com/in/pedro-henrique-corrêa-de-almeida/)<br>
 [<img src="https://img.shields.io/badge/GitHub-PedroHCAlmeida-DCDCDC?style=flat-square" />](https://github.com/PedroHCAlmeida)<br>
