@@ -24,9 +24,9 @@ Partindo desse problema o projeto teve como ponto de partida analisar dados acer
 
 * [functions](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/functions))
 
-* [notebooks](https://github.com/PedroHCAlmeida/tree/main/notebooks):
+* [notebooks](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/notebooks):
 
-* [img](https://github.com/PedroHCAlmeida/tree/main/img)
+* [img](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/img)
 
 # Fases do projeto
 
