@@ -49,4 +49,8 @@ Esse projeto foi realizado utilizando a linguagem Python versão 3.7.6 através 
 [<img src="https://img.shields.io/badge/pedrocorrea-0A66C2?style=flat-square&logo=linkedin&logoColor=white" />](https://www.linkedin.com/in/pedro-henrique-corrêa-de-almeida/)<br>
 [<img src="https://img.shields.io/badge/GitHub-PedroHCAlmeida-DCDCDC?style=flat-square" />](https://github.com/PedroHCAlmeida)<br>
 
+<<<<<<< HEAD
 # Referências
+=======
+# Referências
+>>>>>>> a91182d941b6ff795c5db7c0fe6705720f86e0b3
