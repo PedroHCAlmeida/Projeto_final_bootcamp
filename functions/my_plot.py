@@ -37,32 +37,6 @@ def labs(ax, title:str='', subtitle:str='', xlabel:str='', ylabel:str='',
     
     plt.grid(**kwargs_grid)
 
-def plot_proportion_target(data, target, col, ax, kwargs_labs={}):
-        tab = data.groupby(col)[target].value_counts(normalize=True).reset_index(name='Prop').sort_values(col).reset_index(drop=True)
-        sns.barplot(col, 'Prop', hue=target, data=tab, ax=ax)
-        labs(ax=ax, **kwargs_labs)
-        plt.sca(ax)
-        plt.ylim([0,1])
-        plt.rcParams['legend.title_fontsize'] = 'large'
-        plt.legend(title=target,fontsize=12)
-        for _ , row in tab.iterrows():
-            ax.text(row[col] + 0.4*row[target] - 0.20, row['Prop'], str(round(row['Prop'] * 100, 2)) + '%', color='black', ha='center', fontsize=15)
-    
-def ecdf(data):
-    """Compute ECDF for a one-dimensional array of measurements."""
-    n = len(data)
-    x = np.sort(data)
-    y = np.arange(1, n+1) / n
-    return x, y
-
-def plot_ecdf(data, column, icu_value, color, ax,xlim=[]):
-    x, y = ecdf(data.query('ICU == @icu_value')[column])
-    sns.scatterplot(x, y,color=color, ax=ax)
-    plt.sca(ax)
-    plt.title(' '.join(column.split('_')) + f' ICU = {icu_value}')
-    plt.xlim(xlim)
-    return ax
-
 def central_trend(data, ax, colors=None):
     
     if colors==None:

@@ -7,123 +7,93 @@ from tqdm import tqdm_notebook as tqdm
 
 import matplotlib.pyplot as plt
 import seaborn as sns
-from plot import labs, central_trend
+from my_plot import labs, central_trend
 
-from sklearn.model_selection import RepeatedStratifiedKFold, ParameterGrid, ParameterSampler
+from sklearn.model_selection import RepeatedStratifiedKFold
 from sklearn import metrics
 from sklearn.pipeline import Pipeline
 
-from IPython.display import clear_output
 
-class Model:
+class Classifier:
     
-    def __init__(self, model, dados:pd.DataFrame, pipeline_args:list=None):
+    def __init__(self, 
+                 estimator, 
+                 dados:pd.DataFrame,
+                 pipeline_args:list=None,
+                 SEED=64541,
+                **estimator_args):
         
-        np.random.seed(64541)
-        dados = dados.sample(frac=1).reset_index(drop=True)
-        self.x = dados.drop(columns='ICU')
+        self.seed = SEED
+        dados = dados.sample(frac=1, random_state=self.seed).reset_index(drop=True)
+        self.x = dados.drop('ICU', axis=1)
         self.y = dados['ICU']
-        self.model = model
+        
+        if callable(estimator):
+            np.random.seed(self.seed)
+            self.estimator = estimator(**estimator_args)
+        else:
+            self.estimator = estimator
+            
         self.pipeline_args = pipeline_args
         
         if pipeline_args is None:
-            pipeline_args = [('feature_selection', None)]
-        pipeline_args.append(tuple(['clf', self.model]))
+            pipeline_args = [('others', None)]
+    
+        pipeline_args.append(tuple(['clf', self.estimator]))
         self.pipe = Pipeline(pipeline_args)
         
-    def search(self, params, score='roc_auc', n_iter=100, n_splits=5, n_repeats=10, report_final:bool=True):
+    def cross_val(self, 
+                  scoring:list = ['f1', 'roc_auc', 'precision', 'recall', 'accuracy'],
+                  n_splits:int = 5, 
+                  n_repeats:int = 10,  
+                  report:bool = True):
         
-        ps = ParameterSampler(params, n_iter=n_iter, random_state=64541)
-        
-        score_grid = []
-        for _, grid in zip(tqdm(range(ps.__len__())),ps.__iter__()):
-            new_model = self.model.__class__
-            new_pipe = self.pipe[:-1].steps
-            new_pipe.append(tuple(['clf', new_model(**grid)]))
-            self.pipe = Pipeline(new_pipe)
-            try:
-                self.cross_val(scoring=[score], fprs_tprs=False, train_results=False, report=False, n_splits=n_splits, n_repeats=n_repeats, print_tqdm=False)
-                score_grid.append(tuple([grid, self.means[score]]))
-            except ValueError:
-                continue   
-        self.best_params = max(score_grid, key = lambda t: t[1])[0]
-        if report_final:
-            new_model = self.model.__class__
-            new_pipe = self.pipe[:-1].steps
-            new_pipe.append(tuple(['clf', new_model(**self.best_params)]))
-            self.pipe = Pipeline(new_pipe)
-            self.cross_val(n_splits=n_splits, n_repeats=n_repeats)
-        return self.best_params
-        
-    def cross_val(self, train_results:bool=True , report:bool=True, n_splits:int=5, n_repeats:int=10, scoring=['f1', 'roc_auc', 'precision', 'recall', 'accuracy'], 
-                  fprs_tprs=True, print_tqdm=True):
-
         self.len = n_splits * n_repeats
         self.n_splits = n_splits
         self.n_repeats = n_repeats
-        np.random.seed(64541)
-        cv = RepeatedStratifiedKFold(n_splits=n_splits, n_repeats=n_repeats)
-        time_list = []
-        self.scores = {metric:[] for metric in scoring}
         self.scores_train = {metric:[] for metric in ['f1', 'roc_auc', 'precision', 'recall', 'accuracy']}
-        tprs = []
+        self.scores = {metric:[] for metric in scoring}
+        
         self.fpr_mean = np.linspace(0, 1, 100)
+        time_list = []
+        tprs = []
         
-        if print_tqdm == True:
-            bar = tqdm(range(self.len))
-        else:
-            bar = range(self.len)
+        cv = RepeatedStratifiedKFold(n_splits=n_splits, n_repeats=n_repeats, random_state=self.seed)
         
-        for _, (train, test) in zip(bar,cv.split(self.x, self.y)):
+        for _, (train, test) in zip(tqdm(range(self.len)),cv.split(self.x, self.y)):
             start = time.time()
             self.pipe.fit(self.x.iloc[train,:], self.y.iloc[train])
             end = time.time()
             time_list.append(end-start)
             pred_proba = self.pipe.predict_proba(self.x.iloc[test,:])
             pred = self.pipe.predict(self.x.iloc[test,:])
+            kwargs_func_scores = {'roc_auc': {'y_score':pred_proba[:,1]}, 'accuracy': {'y_pred':pred}, 'f1': {'y_pred':pred, 'average':'macro'},
+                                  'precision': {'y_pred':pred, 'average':'macro'},'recall': {'y_pred':pred, 'average':'macro'}}
             
             for metric in scoring:
-                try:
-                    _= getattr(metrics, f'{metric}_score')(self.y.iloc[test], pred_proba[:,1])  
-                    self.scores[metric].append(_)  
-                except ValueError:
-                    try:
-                        _ = getattr(metrics, f'{metric}_score')(self.y.iloc[test], pred, average='macro') 
-                        self.scores[metric].append(_)
-                    except TypeError:
-                        _ = getattr(metrics, f'{metric}_score')(self.y.iloc[test], pred) 
-                        self.scores[metric].append(_)
-            
-            if fprs_tprs:
-                fpr, tpr, _ = metrics.roc_curve(self.y.iloc[test], pred_proba[:,1])
-                interp_tpr = np.interp(self.fpr_mean, fpr, tpr)
-                interp_tpr[0] = 0.0
-                tprs.append(interp_tpr)
+                _= getattr(metrics, f'{metric}_score')(self.y.iloc[test], **kwargs_func_scores[metric])  
+                self.scores[metric].append(_)
                 
-            if train_results:
-                pred_proba = self.pipe.predict_proba(self.x.iloc[train,:])
-                pred = self.pipe.predict(self.x.iloc[train,:])
-                for metric in scoring:
-                    try:
-                        _ = getattr(metrics, f'{metric}_score')(self.y.iloc[train], pred_proba[:,1])  
-                        self.scores_train[metric].append(_)  
-                    except ValueError:
-                        try:
-                            _ = getattr(metrics, f'{metric}_score')(self.y.iloc[train], pred, average='macro') 
-                            self.scores_train[metric].append(_)
-                        except TypeError:
-                            _ = getattr(metrics, f'{metric}_score')(self.y.iloc[train], pred) 
-                            self.scores_train[metric].append(_)
-        
+            fpr, tpr, _ = metrics.roc_curve(self.y.iloc[test], pred_proba[:,1])
+            interp_tpr = np.interp(self.fpr_mean, fpr, tpr)
+            interp_tpr[0] = 0.0
+            tprs.append(interp_tpr)
+
+            pred_proba = self.pipe.predict_proba(self.x.iloc[train,:])
+            pred = self.pipe.predict(self.x.iloc[train,:])
+            kwargs_func_scores = {'roc_auc': {'y_score':pred_proba[:,1]}, 'accuracy': {'y_pred':pred}, 'f1': {'y_pred':pred, 'average':'macro'},
+                                 'precision': {'y_pred':pred, 'average':'macro'},'recall': {'y_pred':pred, 'average':'macro'}}
+            for metric in scoring:
+                _= getattr(metrics, f'{metric}_score')(self.y.iloc[train], **kwargs_func_scores[metric])  
+                self.scores_train[metric].append(_)
+                
         self.means = dict(map(lambda kv: (kv[0], np.mean(kv[1],axis=0)), self.scores.items()))
         self.stds = dict(map(lambda kv: (kv[0], np.std(kv[1],ddof=1)), self.scores.items()))
+        self.time_mean = np.mean(time_list,axis=0)
         self.means_train = dict(map(lambda kv: (kv[0], np.mean(kv[1],axis=0)), self.scores_train.items()))
         self.stds_train = dict(map(lambda kv: (kv[0], np.std(kv[1],ddof=1)), self.scores_train.items())) 
-        self.time_mean = np.mean(time_list,axis=0)
         self.tprs_mean = np.mean(tprs, axis=0)
         tprs_std = np.std(tprs, axis=0, ddof=1)
-        self.time_mean = np.mean(time_list,axis=0)
-        
         if report:
             self.report()
         
@@ -131,8 +101,8 @@ class Model:
         More_less = u"\u00B1"
         print(f'{self.n_repeats} repetições de Validação Cruzada com {self.n_splits} divisões no dataset')
         print(f'----------------------------------------------------------------------------------')
-        print(f'CLASSIFICADOR                   : {self.pipe["clf"]}')
-        print(f'MÉTODOS DE SELEÇÃO DE VARIÁVEIS : {self.pipe["feature_selection"]}\n')
+        print(f'CLASSIFICADOR                           : {self.pipe["clf"]}')
+        print(f'DEMAIS TAREFAS EXECUTADAS PELO PIPELINE : {[step for step in self.pipe[:-1]]}')
         print(f'------------------------------------------|---------------------------------------')
         print(f'Métricas no dataset de teste:             | Métricas no dataset de treino: ')
         print(f'------------------------------------------|---------------------------------------')
@@ -150,7 +120,12 @@ class Model:
         print(f'F1-SCORE  MÉDIO       : %0.3f             |F1-SCORE  MÉDIO       : %0.3f'% (np.round(self.means['f1'],3), np.round(self.means_train['f1'],3)))
         print(f'\nTEMPO MÉDIO DE TREINAMENTO:{np.round(self.time_mean,3)}')   
         
-    def hist_metrics(self, ax=None, show=True, central=True, **kwargs_histplot):
+    
+    def hist_metrics(self, 
+                     ax=None,  
+                     show=True, 
+                     central=True, 
+                     **kwargs_histplot):
     
         if ax == None:
             fig, ax = plt.subplots(ceil(len(self.scores)/2),2, figsize = (20, int(8*len(self.scores)/2)))
@@ -173,7 +148,7 @@ class Model:
             pos1 = ax[-1][0].get_position() 
             ax[-1][0].set_position([pos1.x0 + 0.2, pos1.y0, pos1.width, pos1.height])
 
-        ax[0,0].text(0,1.18,f'Distribuição dos desempenhos do modelo {self.model}', fontsize=25, transform=ax[0,0].transAxes)
+        ax[0,0].text(0,1.18,f'Distribuição dos desempenhos do modelo {self.estimator}', fontsize=25, transform=ax[0,0].transAxes)
         ax[0,0].text(0,1.12,'MÉTRICAS OBTIDAS PELO MÉTODO REPEATEDSTRATIFIEDKFOLD', fontsize=15, transform=ax[0,0].transAxes, color='gray')
         
         if show:
@@ -181,12 +156,14 @@ class Model:
         else:
             return ax
     
-    def plot_roc_curve(self, ax=None, **kwargs_lineplot):
+    def plot_roc_curve(self, 
+                       ax=None, 
+                       **kwargs_lineplot):
         
-        if ax==None:
-            fig,ax=plt.subplots(figsize=(20,10))
+        if ax == None:
+            fig,ax = plt.subplots(figsize=(20,10))
             
-        name = self.model
+        name = self.estimator
         sns.lineplot(self.fpr_mean, self.tprs_mean, ax=ax, label= r'ROC CURVE (AUC MEAN = %0.3f $\pm$ %0.2f)' % \
                      (np.round(self.means['roc_auc'],3), np.round(norm.ppf(0.975) * self.stds['roc_auc'] / np.sqrt(self.len),3)) + f'{name}', estimator=None, **kwargs_lineplot)
         
@@ -200,3 +177,35 @@ class Model:
         plt.legend(loc='lower right', fontsize=12)
         
         return ax
+'''
+def search(self, 
+               params:dict, 
+               score:str = 'roc_auc',
+               n_iter:int = 100, 
+               n_splits:int = 5, 
+               n_repeats:int = 5, 
+               report_final:bool = True):
+        
+        ps = ParameterSampler(params, n_iter=n_iter, random_state=64541)
+        
+        score_grid = []
+        for _, grid in zip(tqdm(range(ps.__len__())),ps.__iter__()):
+            new_model = self.estimator.__class__
+            new_pipe = self.pipe[:-1].steps
+            new_pipe.append(tuple(['clf', new_model(**grid)]))
+            self.pipe = Pipeline(new_pipe)
+            try:
+                self.cross_val(scoring=[score], fprs_tprs=False, train_results=False, report=False, n_splits=n_splits, n_repeats=n_repeats, print_tqdm=False, searching=True)
+                score_grid.append(tuple([grid, self.means[score]]))
+            except ValueError:
+                continue 
+
+        self.best_params = max(score_grid, key = lambda t: t[1])[0]
+        if report_final:
+            new_model = self.model.__class__
+            new_pipe = self.pipe[:-1].steps
+            new_pipe.append(tuple(['clf', new_model(**self.best_params)]))
+            self.pipe = Pipeline(new_pipe)
+            self.cross_val(n_splits=n_splits, n_repeats=n_repeats)
+        return self.best_params
+'''

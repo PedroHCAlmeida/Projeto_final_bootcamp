@@ -38,6 +38,7 @@ def labs(ax, title:str='', subtitle:str='', xlabel:str='', ylabel:str='',
     plt.grid(**kwargs_grid)
 
 def plot_proportion_target(data, target, col, ax, kwargs_labs={}):
+    
         tab = data.groupby(col)[target].value_counts(normalize=True).reset_index(name='Prop').sort_values(col).reset_index(drop=True)
         sns.barplot(col, 'Prop', hue=target, data=tab, ax=ax)
         labs(ax=ax, **kwargs_labs)

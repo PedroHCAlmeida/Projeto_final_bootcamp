@@ -15,7 +15,7 @@ class Drop_features_files(BaseEstimator, TransformerMixin):
     Parâmetros do construtor:
     -------------------------
     files : lista com os nomes dos arquivos sem a extensão .txt, padrão : []
-    direc : diretório onde se encontram os arquivos, padrão : '../features_text_files/'
+    direc : diretório onde se encontram os arquivos, padrão : '../data/features_text_files/'
     
     Atributos do construtor:
     ------------------------
@@ -26,7 +26,7 @@ class Drop_features_files(BaseEstimator, TransformerMixin):
     Funções:
     -------
     '''
-    def __init__(self, files:list = [], direc='../features_drop_txt/'):
+    def __init__(self, files:list = [], direc='../data/features_drop_txt/'):
         self.files = files
         self.features = []
         self.direc = direc
@@ -44,7 +44,7 @@ class Drop_features_files(BaseEstimator, TransformerMixin):
         X = X.drop(self.features,axis=1,errors='ignore')
         return X
 
-def features_high_corr(data, write=True, threshold=0.95, target_variable='ICU', direc='../features_drop_txt/', file='high_corr'):
+def features_high_corr(data, write=True, threshold=0.95, target_variable='ICU', direc='../data/features_drop_txt/', file='high_corr'):
 
     data_float = data.select_dtypes('float64')
         
@@ -60,7 +60,7 @@ def features_high_corr(data, write=True, threshold=0.95, target_variable='ICU', 
                 f.write(feature+'\n')
     return cols_drop
     
-def features_equal_var_mean(data, write=True, alpha_mean=0.05, alpha_var=0.05,target_variable='ICU', direc='../features_drop_txt/', file='equal_mean'):
+def features_equal_var_mean(data, write=True, alpha_mean=0.05, alpha_var=0.05,target_variable='ICU', direc='../data/features_drop_txt/', file='equal_mean'):
         
         #Criando uma lista vazia para armazenar as colunas onde as médias são consideradas iguais com uma significância igual ao p_valor passado no __init__
         equal = []
@@ -104,7 +104,7 @@ def features_equal_var_mean(data, write=True, alpha_mean=0.05, alpha_var=0.05,ta
                     f.write(feature+'\n')
         return equal
     
-def features_equal_mean(data, write=True, alpha=0.05, target_variable='ICU', direc='../features_drop_txt/', file='equal_mean'):
+def features_equal_mean(data, write=True, alpha=0.05, target_variable='ICU', direc='../data/features_drop_txt/', file='equal_mean'):
         
         #Criando uma lista vazia para armazenar as colunas onde as médias são consideradas iguais com uma significância igual ao p_valor passado no __init__
         equal = []
@@ -144,7 +144,7 @@ def features_equal_mean(data, write=True, alpha=0.05, target_variable='ICU', dir
                     f.write(feature+'\n')
         return equal
     
-def features_chi2(data, alpha=0.05, write=True, target_variable='ICU', direc='../features_drop_txt/', file='chi2'):
+def features_chi2(data, alpha=0.05, write=True, target_variable='ICU', direc='../data/features_drop_txt/', file='chi2'):
     
         cols_drop = []
         
