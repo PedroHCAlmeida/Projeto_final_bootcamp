@@ -26,7 +26,7 @@ def labs(ax, title:str='', subtitle:str='', xlabel:str='', ylabel:str='',
     if subtitle != '':
         title = title + '\n' 
     plt.title(title, fontsize=25, loc='left')
-    plt.text(0,1.03, subtitle, color='gray', transform=ax.transAxes, fontsize=15)
+    plt.text(0,1.02, subtitle, color='gray', transform=ax.transAxes, fontsize=15)
     plt.xlabel(xlabel, color='#333333', fontsize=15)
     plt.ylabel(ylabel, color='#333333', fontsize=15)
     plt.yticks(fontsize=15, color='#333333')
