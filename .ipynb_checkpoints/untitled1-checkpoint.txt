@@ -1,3 +1,0 @@
-https://machinelearningmastery.com/k-fold-cross-validation/
-https://machinelearningmastery.com/repeated-k-fold-cross-validation-with-python/
-https://towardsdatascience.com/5-reasons-why-you-should-use-cross-validation-in-your-data-science-project-8163311a1e79
