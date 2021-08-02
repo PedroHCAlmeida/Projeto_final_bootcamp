@@ -44,8 +44,8 @@ class Classifier:
         
     def cross_val(self, 
                   scoring:list = ['f1', 'roc_auc', 'precision', 'recall', 'accuracy'],
-                  n_splits:int = 5, 
-                  n_repeats:int = 10,  
+                  n_splits:int = 10, 
+                  n_repeats:int = 5,  
                   report:bool = True):
         
         self.len = n_splits * n_repeats
@@ -68,11 +68,11 @@ class Classifier:
             pred_proba = self.pipe.predict_proba(self.x.iloc[test,:])
             pred = self.pipe.predict(self.x.iloc[test,:])
             kwargs_func_scores = {'roc_auc': {'y_score':pred_proba[:,1]}, 'accuracy': {'y_pred':pred}, 'f1': {'y_pred':pred, 'average':'macro'},
-                                  'precision': {'y_pred':pred, 'average':'macro'},'recall': {'y_pred':pred, 'average':'macro'}}
+                                 'precision': {'y_pred':pred, 'average':'macro'},'recall': {'y_pred':pred, 'average':'macro'}}
             
             for metric in scoring:
-                score = getattr(metrics, f'{metric}_score')(self.y.iloc[test], **kwargs_func_scores[metric])  
-                self.scores[metric].append(score)
+                    score = getattr(metrics, f'{metric}_score')(self.y.iloc[test], **kwargs_func_scores[metric])  
+                    self.scores[metric].append(score)
                 
             fpr, tpr, _ = metrics.roc_curve(self.y.iloc[test], pred_proba[:,1])
             interp_tpr = np.interp(self.fpr_mean, fpr, tpr)
@@ -84,8 +84,8 @@ class Classifier:
             kwargs_func_scores = {'roc_auc': {'y_score':pred_proba[:,1]}, 'accuracy': {'y_pred':pred}, 'f1': {'y_pred':pred, 'average':'macro'},
                                  'precision': {'y_pred':pred, 'average':'macro'},'recall': {'y_pred':pred, 'average':'macro'}}
             for metric in scoring:
-                score = getattr(metrics, f'{metric}_score')(self.y.iloc[train], **kwargs_func_scores[metric])  
-                self.scores_train[metric].append(score)
+                    score = getattr(metrics, f'{metric}_score')(self.y.iloc[train], **kwargs_func_scores[metric])  
+                    self.scores_train[metric].append(score)
                 
         self.means = dict(map(lambda kv: (kv[0], np.mean(kv[1],axis=0)), self.scores.items()))
         self.stds = dict(map(lambda kv: (kv[0], np.std(kv[1],ddof=1)), self.scores.items()))
@@ -162,15 +162,15 @@ class Classifier:
         
         if ax == None:
             fig,ax = plt.subplots(figsize=(20,10))
-            
-        name = self.estimator
-        sns.lineplot(self.fpr_mean, self.tprs_mean, ax=ax, label= r'ROC CURVE (AUC MEAN = %0.3f $\pm$ %0.2f)' % \
+        
+        name = str(self.estimator) + '\n' + str(self.pipe[:-1])
+        sns.lineplot(self.fpr_mean, self.tprs_mean, ax=ax, label= r'ROC CURVE (AUC MEAN = %0.3f $\pm$ %0.3f)' % \
                      (np.round(self.means['roc_auc'],3), np.round(norm.ppf(0.975) * self.stds['roc_auc'] / np.sqrt(self.len),3)) + f'{name}', estimator=None, **kwargs_lineplot)
         
         plt.sca(ax)
         tprs_upper = np.minimum(self.tprs_mean + norm.ppf(0.975) * self.stds_train['roc_auc'] / np.sqrt(self.len), 1)
         tprs_lower = np.maximum(self.tprs_mean - norm.ppf(0.975) * self.stds_train['roc_auc'] / np.sqrt(self.len), 0)
-        plt.fill_between(self.fpr_mean, tprs_lower, tprs_upper, color=ax.lines[-1].get_color(), alpha=.05)
+        plt.fill_between(self.fpr_mean, tprs_lower, tprs_upper, color=ax.lines[-1].get_color(), alpha=0.5)
         plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
         labs(title = 'ROC CURVE', xlabel='False Positive Rate', ylabel='True Positive Rate', ax=ax, \
              subtitle='ROC CURVE COMPUTADA PELAS VALORES DE VERDADEIROS POSITIVOS E FALSOS POSITIVOS OBTIDOS PELA VALIDAÇÃO CRUZADA')

@@ -90,6 +90,8 @@ def fill_exam(data, group_id='PATIENT_VISIT_IDENTIFIER', target_variable='ICU'):
     Retono:
     -------
     Retorna o conjunto de dados preenchido
+    
+    OBS: OS VALORES DE QUANDO O PACIENTE JÁ ESTÁ NA UTI NÃO SÃO UTILIZADOS PARA PREENCHER DADOS ANTERIORES
     '''
     data = data.groupby([group_id, target_variable]).apply(fill_table)
     return data

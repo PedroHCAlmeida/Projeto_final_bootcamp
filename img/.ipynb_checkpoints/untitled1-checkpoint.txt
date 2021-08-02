@@ -5,7 +5,7 @@ https://towardsdatascience.com/5-reasons-why-you-should-use-cross-validation-in-
 https://g1.globo.com/sp/sao-paulo/noticia/2020/11/18/pacientes-e-medicos-relatam-falta-de-leitos-de-uti-em-ao-menos-tres-grandes-hospitais-particulares-da-cidade-de-sp.ghtml
 https://caiquecoelho.medium.com/um-guia-completo-para-o-pr%C3%A9-processamento-de-dados-em-machine-learning-f860fbadabe1
 https://searchsoftwarequality.techtarget.com/definition/garbage-in-garbage-out#:~:text=George%20Fuechsel%2C%20an%20early%20IBM,processes%20what%20it%20is%20given.
-https://machinelearningmastery.com/k-fold-cross-validation/#:~:text=Cross%2Dvalidation%20is%20a%20resampling,k%2Dfold%20cross%2Dvalidation.
+
 
 
 
