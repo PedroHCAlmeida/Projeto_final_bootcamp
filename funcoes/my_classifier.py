@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from my_plot import labs, central_trend
 
-from sklearn.model_selection import RepeatedStratifiedKFold
+from sklearn.model_selection import RepeatedStratifiedKFold, cross_validate, ParameterSampler
 from sklearn import metrics
 from sklearn.pipeline import Pipeline
 
@@ -41,6 +41,7 @@ class Classifier:
     
         pipeline_args.append(tuple(['clf', self.estimator]))
         self.pipe = Pipeline(pipeline_args)
+        
         
     def cross_val(self, 
                   scoring:list = ['f1', 'roc_auc', 'precision', 'recall', 'accuracy'],
@@ -125,6 +126,7 @@ class Classifier:
                      ax=None,  
                      show=True, 
                      central=True, 
+                     bins=5,
                      **kwargs_histplot):
     
         if ax == None:
@@ -133,7 +135,7 @@ class Classifier:
         j=0
         for k, v in self.scores.items():
             plt.sca(ax[i,j])
-            sns.histplot(v, bins=10, **kwargs_histplot)
+            sns.histplot(v, bins=bins, **kwargs_histplot)
             labs(title=k.upper() + ' SCORE',xlabel='Valor',ylabel='Frequência', ax=ax[i,j])
             if central:
                 central_trend(v, ax[i,j])
@@ -177,35 +179,3 @@ class Classifier:
         plt.legend(loc='lower right', fontsize=12)
         
         return ax
-'''
-def search(self, 
-               params:dict, 
-               score:str = 'roc_auc',
-               n_iter:int = 100, 
-               n_splits:int = 5, 
-               n_repeats:int = 5, 
-               report_final:bool = True):
-        
-        ps = ParameterSampler(params, n_iter=n_iter, random_state=64541)
-        
-        score_grid = []
-        for _, grid in zip(tqdm(range(ps.__len__())),ps.__iter__()):
-            new_model = self.estimator.__class__
-            new_pipe = self.pipe[:-1].steps
-            new_pipe.append(tuple(['clf', new_model(**grid)]))
-            self.pipe = Pipeline(new_pipe)
-            try:
-                self.cross_val(scoring=[score], fprs_tprs=False, train_results=False, report=False, n_splits=n_splits, n_repeats=n_repeats, print_tqdm=False, searching=True)
-                score_grid.append(tuple([grid, self.means[score]]))
-            except ValueError:
-                continue 
-
-        self.best_params = max(score_grid, key = lambda t: t[1])[0]
-        if report_final:
-            new_model = self.model.__class__
-            new_pipe = self.pipe[:-1].steps
-            new_pipe.append(tuple(['clf', new_model(**self.best_params)]))
-            self.pipe = Pipeline(new_pipe)
-            self.cross_val(n_splits=n_splits, n_repeats=n_repeats)
-        return self.best_params
-'''
