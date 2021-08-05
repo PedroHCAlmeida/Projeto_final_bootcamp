@@ -101,6 +101,7 @@ class Classifier:
         self.x = df.drop('ICU', axis=1)
         self.y = df['ICU']
         if callable(estimator):
+            np.random.seed(self.seed)
             self.estimator = estimator(**estimator_args)
         else:
             self.estimator = estimator     
@@ -169,19 +170,19 @@ class Classifier:
         print(f'CLASSIFICADOR                           : {self.estimator}')
         print(f'----------------------------------------------------------------------------------')
         print(f'Métricas no dataset de teste:             ')
-        print(f'Intervalo de 95% da média assumindo uma população seguindo uma distribuição normal')
+        print(f'Intervalo de 95% da média')
         print(f'----------------------------------------------------------------------------------')
         print(r'ROC AUC MÉDIA      : %0.3f %s %0.3f     ' %\
              (np.round(self.means['roc_auc'],3), More_less, np.round(norm.ppf(0.975) * self.stds['roc_auc'] / np.sqrt(self.len),3)))
         print(f'----------------------------------------------------------------------------------')
-        print(f'ACCURACY  MÉDIA       : %0.3f %s %0.3f ' %\
+        print(f'ACCURACY  MÉDIA    : %0.3f %s %0.3f ' %\
              (np.round(self.means['accuracy'],3), More_less, np.round(norm.ppf(0.975) * self.stds['accuracy'] / np.sqrt(self.len),3)))
 
-        print(f'PRECISÃO  MÉDIA       : %0.3f %s %0.3f '%\
+        print(f'PRECISÃO  MÉDIA    : %0.3f %s %0.3f '%\
                   (np.round(self.means['precision'],3), More_less, np.round(norm.ppf(0.975) * self.stds['precision'] / np.sqrt(self.len),3)))
-        print(f'RECALL MÉDIO          : %0.3f %s %0.3f '%\
+        print(f'RECALL MÉDIO       : %0.3f %s %0.3f '%\
                   (np.round(self.means['recall'],3), More_less, np.round(norm.ppf(0.975) * self.stds['recall'] / np.sqrt(self.len),3)))
-        print(f'F1-SCORE  MÉDIO       : %0.3f %s %0.3f'%\
+        print(f'F1-SCORE  MÉDIO    : %0.3f %s %0.3f'%\
                   (np.round(self.means['f1'],3), More_less, np.round(norm.ppf(0.975) * self.stds['f1'] / np.sqrt(self.len),3)))
         print(f'\nTEMPO MÉDIO DE TREINAMENTO:{np.round(self.time_mean,3)}')   
 
