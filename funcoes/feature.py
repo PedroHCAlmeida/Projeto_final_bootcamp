@@ -1,5 +1,5 @@
 from sklearn.base import BaseEstimator, TransformerMixin
-from sklearn.feature_selection import chi2 as sklearn_chi2, SelectKBest
+from sklearn.feature_selection import chi2
 
 from statsmodels.stats.weightstats import CompareMeans, DescrStatsW
 from scipy.stats import levene
@@ -35,87 +35,32 @@ def binary_features(data:pd.DataFrame):
                 
     return features
 
-
-class chi2_drop(BaseEstimator, TransformerMixin):
+def compute_chi2(X:pd.DataFrame, y:pd.Series):
+    '''
+    Recebe um dataframe do pandas com as colunas variáveis preditoras e uma series do pandas da variável de reposta e calcula através da função sklearn.model_selection.chi2 
+    os p valores para cada coluna da hipótese nula de que as variáveis preditoras são independentes da variável de reposta
     
-    def __init__(self, alpha=0.05):
-        self.alpha = alpha
-        self.cols_drop = []
-            
-    def fit(self, X ,y):
-        
-        cols_binary = binary_features(X)
-        p_values = compute_chi2(X[cols_binary], y)
-        for col in cols_binary:
-            if p_values[col] > self.alpha or np.isnan(p_values[col]):
-                self.cols_drop.append(col)
-        return self
-                
-    def transform(self, X, y=None):
-        X = X.drop(self.cols_drop, axis=1, errors='ignore')
-        return X
-
-def compute_chi2(X, y):
+    Parâmetros:
+    -----------
+    X : dataframe com as variáveis preditoras, tipo : pd.DataFrame, OBS: pode conter apenas uma coluna mas precisa ser do tipo pd.DataFrame
+    y : series do pandas da variável de resposta, tipo : pd.Series
     
+    Retorno:
+    -------
+    p_values : dicionário contendo os p valores de cada coluna analisada
+    '''
+    #Criando o dicionário vazio para armazenar os p valores
     p_values = {}
         
-    #Criando uma lista vazia para armazenar as colunas onde as médias são consideradas iguais com uma significância igual ao p_valor passado no __init__
-    chi2 = sklearn_chi2(X, y)
-        
+    #Calulando as estatísticas de teste e p valores através da função sklearn.chi2
+    chi2 = chi2(X, y)
+    
+    #Criando o dicionário com os p_valores
     for i,col in enumerate(X):
         p_values[col] = chi2[1][i]
+        
     return p_values
 
-class high_corr_drop(BaseEstimator, TransformerMixin):
-    '''
-    Classe personalizada do tipo TransformerMixin do sklearn. Tem o objetivo de eliminar todas as colunas que possuem uma alta correlação com colunas anteriores.
-    
-    Construtor:
-    -----------
-        Parâmetros:
-        -----------
-        threshold : valor limite da correlação entre duas variáveis, ou seja, se duas colunas que possuem uma correlação absoluta maior que esse valor uma das duas será eliminada,
-                    tipo : str, padrão : 0.95
-    
-    Métodos:
-    --------
-        fit(): Calcula as colunas a serem eliminadas com base no threshold passado no construtor e salva em um aributo cols_high_corr
-        ------
-            Parâmetros:
-            -----------
-            X : variáveis independentes, tipo : pd.DataFrame
-            y : variável dependente/alvo, tipo : pd.DataFrame, padrão : None
-            
-            Retorno:
-            --------
-            self : retorna o próprio objeto
-        
-        transform(): Recebe o dataframe com as variáveis dependentes e elimina as colunas calculadas no método fit()
-        ------------
-            Parâmetros:
-            -----------
-            X : variáveis independentes, tipo : pd.DataFrame
-            y : variável dependente/alvo, tipo : pd.DataFrame, padrão : None
-            
-            Retorno:
-            --------
-            X : Retorna o dataframe com as variáveis dependentes após eliminar as colunas calculadas no método fit()
-    Atributos:
-    ----------
-    thd : threshold definido no construtor
-    cols_high_corr : colunas a eliminar
-    '''
-    def __init__(self, threshold=0.95):
-        #
-        self.thd = threshold
-    
-    def fit(self, X, y=None):
-        self.cols_high_corr = compute_high_corr(data=X, threshold=self.thd)
-        return self
-    
-    def transform(self, X, y=None):
-        return X.drop(self.cols_high_corr, axis=1)
-        
 def compute_high_corr(data:pd.DataFrame, threshold:float=0.95):
     '''
     Função que recebe um dataframe do pandas, calcula a matriz de correlação, seleciona o triângulo superior da matriz e percorre as colunas verificando quais colunas apresentam
@@ -138,40 +83,3 @@ def compute_high_corr(data:pd.DataFrame, threshold:float=0.95):
     cols_drop = [col for col in matrix_corr_upper.columns if any(matrix_corr_upper[col] >= threshold)]
     
     return cols_drop
-
-class drop_equal_var_mean(BaseEstimator, TransformerMixin):
-    
-    def __init__(self, alpha_var=0.05, alpha_mean=0.05):
-        self.alpha_var = alpha_var
-        self.alpha_mean = alpha_mean
-        self.cols_drop = []
-    
-    def fit(self, X, y):
-        p_values = compute_equal_var_mean(X.select_dtypes('float64'), y)
-        for column in X.select_dtypes('float64').columns:
-            if p_values['var'][column] > self.alpha_var or np.isnan(p_values['var'][column]):
-                if p_values['mean'][column] > self.alpha_mean or np.isnan(p_values['mean'][column]):
-                    self.cols_drop.append(column)
-        return self
-    
-    def transform(self, X, y=None):
-        return X.drop(self.cols_drop, axis=1)
-
-def compute_equal_var_mean(X, y):
-    
-    p_values = {'var':{},'mean':{}}
-    group0 = X[y == 0]
-    group1 = X[y == 1]
-    
-    for column in X.columns:
-        
-        _, p_var = levene(group0[column], group1[column])
-        p_values['var'][column] = p_var
-        
-        test0 = DescrStatsW(group0[column])
-        test1 = DescrStatsW(group1[column])
-        test_mean = CompareMeans(test1, test0)
-        _, p_mean = test_mean.ztest_ind()
-        p_values['mean'][column] = p_mean
-
-    return p_values
