@@ -1,9 +1,4 @@
-from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.feature_selection import chi2
-
-from statsmodels.stats.weightstats import CompareMeans, DescrStatsW
-from scipy.stats import levene
-
 import pandas as pd
 import numpy as np
 
