@@ -39,8 +39,8 @@ def central_trend(data, ax, axis:str='x', colors=None):
     
     Parâmetros:
     -----------
-    data : conjunto de dados
-    ax : eixo do matplotlib onde será plotada as linhas
+    data : conjunto de dados, qualquer tipo aceito pela função np.mean, np.median, exemplos : list, np.array, pd.Series ... 
+    ax : eixo do matplotlib onde será plotada as linhas, tipo : matplotlib.Axes
     axis : eixo indicando a horientação das linhas, tipo : str, padrão : 'x', 'x' indica linhas verticais e 'y' horinzontais, tipo : matplotlib.axes
     colors : dicionário da forma {'Mean':cor, 'Median':cor}, se não for passado a média será na cor vermelha e a mediana na cor azul, tipo : dict, padrão : None 
     
@@ -70,8 +70,8 @@ def central_trend(data, ax, axis:str='x', colors=None):
         plt.axvline(median, alpha=0.7, linestyle='--', color=colors['Median'])
         
         #Plota as legendas
-        plt.text(mean, 0.90,'Média', fontsize=15, transform = transforms.blended_transform_factory(ax.transData, ax.transAxes), color=colors['Mean'])
-        plt.text(median, 0.85,'Mediana', fontsize=15, transform = transforms.blended_transform_factory(ax.transData, ax.transAxes), color=colors['Median'])
+        plt.text(mean, 0.90,'Média' + str(mean), fontsize=15, transform = transforms.blended_transform_factory(ax.transData, ax.transAxes), color=colors['Mean'])
+        plt.text(median, 0.85,'Mediana' + str(median), fontsize=15, transform = transforms.blended_transform_factory(ax.transData, ax.transAxes), color=colors['Median'])
     
     #Checa a orientação
     elif axis == 'y':
@@ -81,9 +81,10 @@ def central_trend(data, ax, axis:str='x', colors=None):
         plt.axhline(median, alpha=0.7, linestyle='--', color=colors['Median'])
         
         #Plota as legendas
-        plt.text(0.9, mean,'Média', fontsize=15, transform = transforms.blended_transform_factory(ax.transAxes, ax.transData), color=colors['Mean'])
-        plt.text(0.85, median,'Mediana', fontsize=15, transform = transforms.blended_transform_factory(ax.transAxes, ax.transData), color=colors['Median'])
+        plt.text(0.9, mean, 'Média ' + str(mean) , fontsize=15, transform = transforms.blended_transform_factory(ax.transAxes, ax.transData), color=colors['Mean'])
+        plt.text(0.85, median,'Mediana ' + str(median), fontsize=15, transform = transforms.blended_transform_factory(ax.transAxes, ax.transData), color=colors['Median'])
     
+    #Retona o eixo
     return ax
 
 def annot_bar(ax, prop=True):

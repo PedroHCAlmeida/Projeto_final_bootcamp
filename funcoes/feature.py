@@ -9,16 +9,16 @@ import numpy as np
 
 def binary_features(data:pd.DataFrame):
     '''
-    Função que recebe um DataFrame do pandas e verifica quais as colunas binárias.Realiza essa verificação consultando quantos valores únicos a coluna possui
-    e tenta transformar-la em números inteiros
+    Função que recebe um DataFrame do pandas e verifica quais as colunas binárias.Realiza essa verificação consultando quantos valores únicos a coluna possui qual o valor máximo e minímo, precisam
+    ser 1 e 0, repectivamente.
     
     Parâmetros:
     -----------
-    data : DataFrame do pandas que será 
+    data : DataFrame do pandas que será conferida quais as colunas binárias, tipo : pd.DataFrame
     
     Retorno:
     --------
-    features : colunas binárias do dataframe
+    features : colunas binárias do dataframe, tipo : list
     '''
     #Criando a lista vazia para armazenar as colunas binarias
     features = []
@@ -32,7 +32,7 @@ def binary_features(data:pd.DataFrame):
             if max(data[feature])==1 and min(data[feature])==0:
                 #Salvando o nome da coluna na lista
                 features.append(feature)
-                
+    #Retorna as colunas           
     return features
 
 def compute_chi2(X:pd.DataFrame, y:pd.Series):
@@ -47,7 +47,7 @@ def compute_chi2(X:pd.DataFrame, y:pd.Series):
     
     Retorno:
     -------
-    p_values : dicionário contendo os p valores de cada coluna analisada
+    p_values : dicionário contendo os p valores de cada coluna analisada, tipo : dict
     '''
     #Criando o dicionário vazio para armazenar os p valores
     p_values = {}
@@ -59,6 +59,7 @@ def compute_chi2(X:pd.DataFrame, y:pd.Series):
     for i,col in enumerate(X):
         p_values[col] = chi2[1][i]
         
+    #Retorna os p valores
     return p_values
 
 def compute_high_corr(data:pd.DataFrame, threshold:float=0.95):
@@ -71,6 +72,9 @@ def compute_high_corr(data:pd.DataFrame, threshold:float=0.95):
     data : DataFrame do pandas com as variáveis a serem analisadas
     threshold : valor limite da correlação entre duas variáveis, ou seja, se duas colunas que possuem uma correlação absoluta maior que esse valor uma das duas será eliminada,
                     tipo : str, padrão : 0.95
+    Retorno:
+    --------
+    cols_drop : colunas a serem eliminadas com base nas correlações, tipo : list
     
     '''
     #Calculando a matriz de correlação absoluta
@@ -82,4 +86,5 @@ def compute_high_corr(data:pd.DataFrame, threshold:float=0.95):
     #Selecionando as colunas que estão apresentam uma correlação maior que o valor de corte
     cols_drop = [col for col in matrix_corr_upper.columns if any(matrix_corr_upper[col] >= threshold)]
     
+    #Retorna as colunas a serem eliminadas
     return cols_drop
