@@ -48,11 +48,11 @@ def compute_chi2(X:pd.DataFrame, y:pd.Series):
     p_values = {}
         
     #Calulando as estatísticas de teste e p valores através da função sklearn.chi2
-    chi2 = chi2(X, y)
+    chi2_results = chi2(X, y)
     
     #Criando o dicionário com os p_valores
     for i,col in enumerate(X):
-        p_values[col] = chi2[1][i]
+        p_values[col] = chi2_results[1][i]
         
     #Retorna os p valores
     return p_values
