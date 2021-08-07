@@ -1,7 +1,7 @@
 # Prevendo a necessidade de internação para pacientes com COVID-19
 [![Made withJupyter](https://img.shields.io/badge/Made%20with-Jupyter-orange?style=flat-square&logo=Jupyter)](https://jupyter.org/try) [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg?style=flat-square)](https://github.com/PedroHCAlmeida/analise_temporal_COVID_Brasil/edit/main/LICENSE)
 
-![Alt](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/img/AWG6I4CLAQI6VCQ73YKZPPTMXQ.png)
+![Alt](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/img/previsao_banner.png)
 
 # Apresentação
 
