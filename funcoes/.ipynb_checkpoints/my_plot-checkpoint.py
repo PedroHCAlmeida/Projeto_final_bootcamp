@@ -87,7 +87,7 @@ def central_trend(data, ax, axis:str='x', colors=None):
     #Retona o eixo
     return ax
 
-def annot_bar(ax, prop=True, fontsize=15):
+def annot_bar(ax, prop=True):
     '''
     Realiza anotações em cima das barras em um gráfico de barras 
     
@@ -95,7 +95,6 @@ def annot_bar(ax, prop=True, fontsize=15):
     -----------
     ax : ax : eixo do matplotlib onde será plotada as linhas, tipo : matplotlib.axes
     prop : indicando se os valores serão representados como porcentagens ou não, tipo : bool, padrão : True
-    fontsize : tamanho da fonte do texto, tipo : int, padrão : 15
     
     OBS : precisa ser chamada após o gráfico de barras
     '''
@@ -113,4 +112,4 @@ def annot_bar(ax, prop=True, fontsize=15):
     #Anota no gráfico em cima de cada barra os valores 
     for rect in rects:
         height = rect.get_height()
-        ax.text(rect.get_x() + rect.get_width() / 2, height, str(round(height * mult_value,2)) + str_symbol, color='black', ha='center', va='bottom', fontsize=fontsize)
+        ax.text(rect.get_x() + rect.get_width() / 2, height, str(round(height * mult_value,2)) + str_symbol, color='black', ha='center', va='bottom', fontsize=15)

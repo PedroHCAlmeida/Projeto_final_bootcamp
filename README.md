@@ -47,19 +47,20 @@ Esse projeto foi realizado utilizando a linguagem Python versão 3.7.6 através 
 
 # Referências
 
-https://medium.com/data-hackers/como-selecionar-as-melhores-features-para-seu-modelo-de-machine-learning-faf74e357913
-https://machinelearningmastery.com/k-fold-cross-validation/
-https://machinelearningmastery.com/repeated-k-fold-cross-validation-with-python/
-https://towardsdatascience.com/5-reasons-why-you-should-use-cross-validation-in-your-data-science-project-8163311a1e79
-https://g1.globo.com/sp/sao-paulo/noticia/2020/11/18/pacientes-e-medicos-relatam-falta-de-leitos-de-uti-em-ao-menos-tres-grandes-hospitais-particulares-da-cidade-de-sp.ghtml
-https://caiquecoelho.medium.com/um-guia-completo-para-o-pr%C3%A9-processamento-de-dados-em-machine-learning-f860fbadabe1
-https://searchsoftwarequality.techtarget.com/definition/garbage-in-garbage-out#:~:text=George%20Fuechsel%2C%20an%20early%20IBM,processes%20what%20it%20is%20given
-https://machinelearningmastery.com/k-fold-cross-validation/#:~:text=Cross%2Dvalidation%20is%20a%20resampling,k%2Dfold%20cross%2Dvalidation
-https://numpy.org/doc/stable/index.html
-https://pandas.pydata.org/docs/index.html
-https://scikit-learn.org/stable/index.html
-https://matplotlib.org/
-https://seaborn.pydata.org/
+https://medium.com/data-hackers/como-selecionar-as-melhores-features-para-seu-modelo-de-machine-learning-faf74e357913<br>
+https://scikit-learn.org/stable/auto_examples/model_selection/plot_roc_crossval.html<br>
+https://machinelearningmastery.com/k-fold-cross-validation/<br>
+https://machinelearningmastery.com/repeated-k-fold-cross-validation-with-python/<br>
+https://towardsdatascience.com/5-reasons-why-you-should-use-cross-validation-in-your-data-science-project-8163311a1e79<br>
+https://g1.globo.com/sp/sao-paulo/noticia/2020/11/18/pacientes-e-medicos-relatam-falta-de-leitos-de-uti-em-ao-menos-tres-grandes-hospitais-particulares-da-cidade-de-sp.ghtml<br>
+https://caiquecoelho.medium.com/um-guia-completo-para-o-pr%C3%A9-processamento-de-dados-em-machine-learning-f860fbadabe1<br>
+https://searchsoftwarequality.techtarget.com/definition/garbage-in-garbage-out#:~:text=George%20Fuechsel%2C%20an%20early%20IBM,processes%20what%20it%20is%20given<br>
+https://machinelearningmastery.com/k-fold-cross-validation/#:~:text=Cross%2Dvalidation%20is%20a%20resampling,k%2Dfold%20cross%2Dvalidation<br>
+https://numpy.org/doc/stable/index.html<br>
+https://pandas.pydata.org/docs/index.html<br>
+https://scikit-learn.org/stable/index.html<br>
+https://matplotlib.org/<br>
+https://seaborn.pydata.org/<br>
 
 # Contato
 
