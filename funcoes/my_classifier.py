@@ -240,7 +240,7 @@ class Classifier:
         
         #Gerando as labels e títulos
         labs(title=f'Matriz de confusão do modelo {name_estimator}', ax=ax, xlabel='VALORES PREVISTOS', ylabel='VALORES REAIS',
-             subtitle=f'VALORES CALCULADOS PELA APROXIMAÇÃO DA MÉDIA DA VALIDAÇÃO CRUZADA COM {self.n_repeats} REPETIÇÕES E COM {self.n_splits} DIVISÕES NO DATASET')
+             subtitle=f'VALORES CALCULADOS PELA APROXIMAÇÃO DA MÉDIA DA MATRIZ DE CONFUSÃO NA VALIDAÇÃO CRUZADA COM {self.n_repeats} REPETIÇÕES E COM {self.n_splits} DIVISÕES NO DATASET')
         
         #Mudando o tamnho da fonte da barra de cor
         cbar = ax.collections[0].colorbar
