@@ -13,83 +13,10 @@ from sklearn.model_selection import RepeatedStratifiedKFold
 from sklearn import metrics
 
 class Classifier:
-    ''''
+    '''
     Classe que recebe um modelo de machine learning, os dados que serão realizados os treinamentos e previsões, com isso embaralha esses dados e separa em um conjunto de dados para
     as variáveis preditoras(x) e a variável de resposta(y).Realiza uma validação cruzada através da função cross_val() e imprime seus resultados pela função report(), plota a curva roc
-    pela função plot_roc_curve() e plota os histogramas das métricas calculadas pela função hist_metrics().
-    
-    Parâmetros Construtor:
-    ---------------------
-    estimator : modelo de machine learning com que possua um método fit(), predict() e predict_proba()
-    df : DataFrame com os dados a serem previstos, tipo : pd.DataFrame
-    SEED : número que define a semente aleatória utilizada em todos os métodos, tipo : int, padrão : 64541
-    target_variable : nome da variável de resposta(alvo), tipo : str, padrão : 'ICU'
-    **estimator_args : parâmetros a serem passados para o modelo se o mesmo ainda não ter sido instanciado
-    
-    Atributos definidos no construtor:
-    ---------
-    seed : número inteiro que define a aleatoriedade
-    x : conjunto de dados sem a váriavel alvo
-    y : conjunto de dados com as respostas da variável alvo
-    estimator : modelo de machine learning
-    
-    Métodos:
-    --------
-        cross_val() : Realiza uma validação cruzada do tipo RepeatedStratifiedKFold e salva os resultados das métricas passadas no parâmetro scoring
-        
-            Parâmetros:
-            ----------
-            scoring : lista os nomes das métricas que serão calculadas na validação cruzada, essa lista aceita as seguintes métricas {'f1','roc_auc','precision','recall','accuracy'},
-                      tipo : list, padrão : ['f1', 'roc_auc', 'precision', 'recall', 'accuracy'],
-            n_splits : número inteiro indicando a quantidade de divisões realizadas no dataset na hora da validação cruzada, padrão : 5
-            n_repeats : número inteiro indicando a quantidade de repetições realizadas da validação cruzada, tipo : int, padrão : 10
-            report : valor booleano indicando a chamada da função report que imprime os resultados, tipo : bool, padrão : True
-
-            Atributos definidos:
-            --------------------
-            n_splits: número inteiro indicando a quantidade de divisões realizadas no dataset na hora da validação cruzada
-            n_repeats : número inteiro indicando a quantidade de repetições realizadas da validação cruzada
-            len : número inteiro indicando a quantidade total de treinamentos realizados, igual a n_splits * n_repeats
-            scores : dicionário com os resultados de todos os treinamentos realizados na validação cruzada
-            means : dicionário com as médias de todas as métricas calculadas na validação cruzada
-            confusion_matrix_mean : média das matrizes de confusão geradas em cada FOLD da validação cruzada
-            stds : dicionário com os desvios padrões amostrais de todas as métricas calculadas na validação cruzada
-            time_mean : lista com os tempos médios de treinamento
-            tprs_mean : lista com as médias dos valores verdadeiros positivos da curva ROC
-            tprs_std : lista com os desvios padrões amostrais dos valores verdadeiros positivos da curva ROC
-            fpr_mean : lista com os valores falsos positivos da curva ROC
-            
-            
-        
-        report():
-            Imprime os resultados da validação cruzada realizada na função cross_val()
-            
-        plot_roc_curve():
-            
-            Parâmetros:
-            -----------
-            ax : eixo a ser plotado o gráfico, se nenhum for passado será criado automaticamnete, tipo : matplotlib.axes, padrão : None
-            name_estimator: Nome do modelo que aparece na legenda do gráfico, se nenhum for passado será imprimido como a função foi passada, tipo : str, padrão : None
-            **kwargs_lineplot : argumentos adicionais a serem passados para função lineplot do seaborn
-            
-            Retorno:
-            --------
-            ax : eixo que o gráfico foi plotado, tipo : matplotlib.axes
-        
-        hist_metrics():
-            
-            Parâmetros:
-            -----------
-            ax : eixo a ser plotado o gráfico, se nenhum for passado será criado automaticamnete, tipo : matplotlib.axes, padrão : None
-            central : booleano indicando se é para plotar a média e a mediana das métricas no histograma, tipo : bool, padrão : True, 
-            bins : quantidade de barras do histograma, tipo : int, padrão : 5
-            **kwargs_histplot : argumentos adicionais a serem passados para função lineplot do seaborn
-            
-            Retorno:
-            --------
-            ax : eixo que o gráfico foi plotado, tipo : matplotlib.axes
-        
-            
+    pela função plot_roc_curve(), plota os histogramas das métricas calculadas pela função hist_metrics() e plota a média das matrizes de confusão pela função plot_confusion().
     '''
     def __init__(self,
                  estimator,
@@ -97,6 +24,22 @@ class Classifier:
                  SEED:int = 64541,
                  target_variable='ICU',
                   **estimator_args):
+        '''
+        Parâmetros Construtor:
+        ---------------------
+        estimator : modelo de machine learning com que possua um método fit(), predict() e predict_proba()
+        df : DataFrame com os dados a serem previstos, tipo : pd.DataFrame
+        SEED : número que define a semente aleatória utilizada em todos os métodos, tipo : int, padrão : 64541
+        target_variable : nome da variável de resposta(alvo), tipo : str, padrão : 'ICU'
+        **estimator_args : parâmetros a serem passados para o modelo se o mesmo ainda não ter sido instanciado
+    
+        Atributos definidos no construtor:
+        ---------
+        seed : número inteiro que define a aleatoriedade
+        x : conjunto de dados sem a váriavel alvo
+        y : conjunto de dados com as respostas da variável alvo
+        estimator : modelo de machine learning
+        '''
         
         #Definindo a semente aleatória como atributo
         self.seed = SEED
@@ -110,10 +53,7 @@ class Classifier:
         
         #Verificando se a função do modelo já foi instanciado, e se não, instancia com os parâmetros passados
         if callable(estimator):
-            
-            #Definindo a semente aleatória
-            np.random.seed(self.seed)
-            self.estimator = estimator(**estimator_args)
+            self.estimator = estimator(random_state=self.seed, **estimator_args)
         
         else:
             self.estimator = estimator     
@@ -124,6 +64,8 @@ class Classifier:
                   n_repeats = 10,
                   report=True):
         '''
+        Realiza uma validação cruzada do tipo RepeatedStratifiedKFold e salva os resultados das métricas passadas no parâmetro scoring
+        
         Parâmetros:
         ----------
         scoring : lista os nomes das métricas que serão calculadas na validação cruzada, essa lista aceita as seguintes métricas {'f1','roc_auc','precision','recall','accuracy'},
@@ -131,6 +73,20 @@ class Classifier:
         n_splits : número inteiro indicando a quantidade de divisões realizadas no dataset na hora da validação cruzada, padrão : 5
         n_repeats : número inteiro indicando a quantidade de repetições realizadas da validação cruzada, tipo : int, padrão : 10
         report : valor booleano indicando a chamada da função report que imprime os resultados, tipo : bool, padrão : True
+        
+        Atributos definidos:
+        --------------------
+        n_splits: número inteiro indicando a quantidade de divisões realizadas no dataset na hora da validação cruzada
+        n_repeats : número inteiro indicando a quantidade de repetições realizadas da validação cruzada
+        len : número inteiro indicando a quantidade total de treinamentos realizados, igual a n_splits * n_repeats
+        scores : dicionário com os resultados de todos os treinamentos realizados na validação cruzada
+        means : dicionário com as médias de todas as métricas calculadas na validação cruzada
+        confusion_matrix_mean : média das matrizes de confusão geradas em cada FOLD da validação cruzada
+        stds : dicionário com os desvios padrões amostrais de todas as métricas calculadas na validação cruzada
+        time_mean : lista com os tempos médios de treinamento
+        tprs_mean : lista com as médias dos valores verdadeiros positivos da curva ROC
+        tprs_std : lista com os desvios padrões amostrais dos valores verdadeiros positivos da curva ROC
+        fpr_mean : lista com os valores falsos positivos da curva ROC
         '''
         
         #Definindo os atributos
@@ -172,8 +128,8 @@ class Classifier:
             #gerando a matriz de confusão e realizando a soma com as geradas anteriormente
             confusion_matrixs_sum += metrics.confusion_matrix(self.y.iloc[test], pred)
             #definindo os parâmetros para cada função das métricas
-            kwargs_func_scores = {'roc_auc': {'y_score':pred_proba[:,1]}, 'accuracy': {'y_pred':pred}, 'f1': {'y_pred':pred, 'average':'macro', 'pos_label':0},
-                                     'precision': {'y_pred':pred, 'average':'macro', 'pos_label':0},'recall': {'y_pred':pred, 'average':'macro', 'pos_label':0}}
+            kwargs_func_scores = {'roc_auc': {'y_score':pred_proba[:,1]}, 'accuracy': {'y_pred':pred}, 'f1': {'y_pred':pred, 'average':'macro'},
+                                     'precision': {'y_pred':pred, 'average':'macro'},'recall': {'y_pred':pred, 'average':'macro'}}
             #Percorrendo a lista das métricas
             for metric in scoring:
                 #Calculando cada métrica pelo módulo metrics do sklearn
@@ -254,13 +210,14 @@ class Classifier:
                       name_estimator='',
                       **kwargs_heatmap):
         '''
-        Plota um mapa de calor com os valores compuatados de verdadeiros positivos, falsos positivos, verdadeiros neagtivos e falsos negativos. Esses valores são obtidos através da média de diversas 
+        Plota um mapa de calor com os valores compuatados de verdadeiros positivos, falsos positivos,
+        verdadeiros neagtivos e falsos negativos. Esses valores são obtidos através da média de diversas 
         matrizes de confusões geradas na validação cruzada. OBS: os valores foram aproximados para o número inteiro mais próximo da média.
         
         Parâmetros:
         -----------
         ax : eixo a ser plotado o gráfico, se nenhum for passado será criado automaticamnete, tipo : matplotlib.axes, padrão : None
-        name_estimator: Nome do modelo que aparece na legenda do gráfico, se nenhum for passado será imprimido como a função foi passada, tipo : str, padrão : None
+        name_estimator: Nome do modelo que aparece no título do gráfico, se nenhum for passado será imprimido como o modelo foi instanciado, tipo : str, padrão : None
         **kwargs_heatmap : argumentos adicionais a serem passados para função heatmap do seaborn
         
         Retorno:
@@ -298,6 +255,8 @@ class Classifier:
                     bins:int=5,
                     **kwargs_histplot):
         '''
+        Plota os histogramas das métricas calculadas pela validação cruzada na função cross_val()
+        
         Parâmetros:
         -----------
         central : booleano indicando se é para plotar a média e a mediana das métricas no histograma, tipo : bool, padrão : True, 
@@ -364,10 +323,12 @@ class Classifier:
                       **kwargs_lineplot):
 
         '''
+        Plota a curva ROC construída pelos tprs e fprs calculados na validação cruzada pela função cross_val() 
+        
         Parâmetros:
         -----------
         ax : eixo a ser plotado o gráfico, se nenhum for passado será criado automaticamnete, tipo : matplotlib.axes, padrão : None
-        name_estimator: Nome do modelo que aparece na legenda do gráfico, se nenhum for passado será imprimido como a função foi passada, tipo : str, padrão : None
+        name_estimator: Nome do modelo que aparece na legenda do gráfico, se nenhum for passado será imprimido como o modelo foi instanciado, tipo : str, padrão : None
         **kwargs_lineplot : argumentos adicionais a serem passados para função lineplot do seaborn
         
         Retorno:

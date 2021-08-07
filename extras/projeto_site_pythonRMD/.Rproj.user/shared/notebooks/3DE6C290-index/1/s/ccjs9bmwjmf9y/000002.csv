@@ -1,0 +1,7 @@
+"0","Sys.setenv(RETICULATE_PYTHON = ""C:/Users/pedro/anaconda3_02/envs/bootcampfinal/python.exe"")"
+"0","library(reticulate)"
+"0","use_condaenv(""C:/Users/pedro/anaconda3_02/envs/bootcampfinal"", required = TRUE)"
+"0","repl_python()"
+"2","Python 3.9.6 (C:/Users/pedro/anaconda3_02/envs/bootcampfinal/python.exe)
+Reticulate 1.20 REPL -- A Python interpreter in R.
+"

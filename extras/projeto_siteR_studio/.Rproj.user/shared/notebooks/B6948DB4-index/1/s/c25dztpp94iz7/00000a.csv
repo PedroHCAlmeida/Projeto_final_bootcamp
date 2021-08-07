@@ -1,0 +1,8 @@
+"0","rmarkdown:::convert_ipynb(""../../notebooks/Analise_exploratoria.ipynb"", "
+"0","              output = xfun::with_ext(""Analise_exploratoria.ipynb"", ""Rmd""))"
+"0","rmarkdown:::convert_ipynb(""../../notebooks/Previsoes"", "
+"0","              output = xfun::with_ext(""Previsoes"", ""Rmd""))"
+"2","Error: lexical error: invalid char in json text.
+                                       ../../notebooks/Previsoes
+                     (right here) ------^
+"

@@ -1,0 +1,12 @@
+"0","reticulate::repl_python()"
+"2","Python 3.9.6 (C:/Users/pedro/anaconda3_02/envs/bootcampfinal/python.exe)
+Reticulate 1.20 REPL -- A Python interpreter in R.
+"
+"0","import pandas as pd"
+"0","import numpy as np"
+"0",""
+"0","import matplotlib.pyplot as plt"
+"0","import seaborn as sns"
+"0",""
+"0","import re"
+"0","import warnings"
