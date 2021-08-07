@@ -11,3 +11,5 @@ https://pandas.pydata.org/docs/index.html
 https://scikit-learn.org/stable/index.html
 https://matplotlib.org/
 https://seaborn.pydata.org/
+https://machinelearningmastery.com/k-fold-cross-validation/
+https://towardsdatascience.com/accuracy-precision-recall-or-f1-331fb37c5cb9

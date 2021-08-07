@@ -20,13 +20,14 @@ Partindo desse problema o projeto teve como ponto de partida analisar dados acer
 
 # Estrutura do projeto
 
-* [data](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/data):
+## [dados](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/data):
 
-* [functions](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/functions))
 
-* [notebooks](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/notebooks):
+## [funcoes](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/functions))
 
-* [img](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/img)
+## [notebooks](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/notebooks):
+
+## [img](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/img)
 
 # Fases do projeto
 
