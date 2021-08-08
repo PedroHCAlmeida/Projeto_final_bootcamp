@@ -364,7 +364,11 @@ class Classifier:
         '''
         #Verificando se foi passado um eixo
         if ax == None:
+            #Salvando que é o primeiro gráfico para plotar os títulos
+            first=True
             fig,ax = plt.subplots(figsize=(20,10))
+        else:
+            first=False
         
         #Verificando se algum nome para o modelo foi passado
         if name_estimator == None:
@@ -383,11 +387,12 @@ class Classifier:
         
         #Preenchendo esse intervalo com a mesma cor
         plt.fill_between(self.fpr_mean, tprs_lower, tprs_upper, color=ax.lines[-1].get_color(), alpha=0.05)
-    
         
-        #Gerando as labels e títulos
-        labs(title = 'CURVA ROC', xlabel='Taxa de Falsos Positivos', ylabel='Taxa de Verdadeiros Positivos', ax=ax, \
-             subtitle='CURVA ROC COMPUTADA PELAS VALORES DE VERDADEIROS POSITIVOS E FALSOS POSITIVOS OBTIDOS PELA VALIDAÇÃO CRUZADA')
+        if first:
+            #Gerando as labels e títulos
+            labs(title = 'CURVA ROC', xlabel='Taxa de Falsos Positivos', ylabel='Taxa de Verdadeiros Positivos', ax=ax, \
+                     subtitle='CURVA ROC COMPUTADA PELOS VALORES DE VERDADEIROS POSITIVOS E FALSOS POSITIVOS OBTIDOS NA VALIDAÇÃO CRUZADA')
+        #Gerando a legenda
         plt.legend(loc='lower right', fontsize=12)
         
         #Retorna o eixo
