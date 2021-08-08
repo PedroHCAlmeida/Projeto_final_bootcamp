@@ -1,4 +1,0 @@
-"0","rmarkdown:::convert_ipynb(""../../notebooks/Analise_exploratoria.ipynb"", "
-"0","             output = xfun::with_ext(""Analise_exploratoria.ipynb"", ""Rmd""))"
-"0","rmarkdown:::convert_ipynb(""../../notebooks/Previsoes.ipynb"", "
-"0","              output = xfun::with_ext(""Previsoes"", ""Rmd""))"
