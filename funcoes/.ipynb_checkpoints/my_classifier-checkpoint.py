@@ -187,7 +187,7 @@ class Classifier:
         print(f'-------------------------------------|--------------------------------------------')
         print(r'ROC AUC MÉDIA      : %0.3f %s %0.3f   |  ' %\
              (np.round(self.means['roc_auc'],3), More_less, np.round(norm.ppf(0.975) * self.stds['roc_auc'] / np.sqrt(self.len),3)))
-        print(f'ACCURACY  MÉDIA    : %0.3f %s %0.3f   |' %\
+        print(f'ACURÁCIA  MÉDIA    : %0.3f %s %0.3f   |' %\
              (np.round(self.means['accuracy'],3), More_less, np.round(norm.ppf(0.975) * self.stds['accuracy'] / np.sqrt(self.len),3)))
         print(f'-------------------------------------|--------------------------------------------')
         print(f'                      MÉDIA MACRO    |CLASSE 0  |CLASSE 1')
