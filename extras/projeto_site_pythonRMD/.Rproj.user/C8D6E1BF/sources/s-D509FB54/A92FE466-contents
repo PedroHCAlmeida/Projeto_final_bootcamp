@@ -16,9 +16,9 @@ repl_python()
 ```
 
 ```{r, include=FALSE}
-rmarkdown:::convert_ipynb("../../notebooks/Analise_exploratoria.ipynb", 
-             output = xfun::with_ext("Analise_exploratoria.ipynb", "Rmd"))
-rmarkdown:::convert_ipynb("../../notebooks/Previsoes.ipynb", 
-              output = xfun::with_ext("Previsoes", "Rmd"))
+#rmarkdown:::convert_ipynb("../../notebooks/Analise_exploratoria.ipynb", 
+ #            output = xfun::with_ext("Analise_exploratoria.ipynb", "Rmd"))
+#rmarkdown:::convert_ipynb("../../notebooks/Previsoes.ipynb", 
+  #            output = xfun::with_ext("Previsoes", "Rmd"))
 ```
 
