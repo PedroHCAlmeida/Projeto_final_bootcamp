@@ -39,7 +39,7 @@ Partindo desse problema o projeto teve como ponto de partida analisar dados acer
 <a name="estru"></a>
 # Estrutura do projeto 🧱
 
-## [dados](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/data):
+## [dados](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/dados):
 
 Neste diretório se encontram os dados utilizados no projeto, esses dados estão dividos em duas pastas:
 
