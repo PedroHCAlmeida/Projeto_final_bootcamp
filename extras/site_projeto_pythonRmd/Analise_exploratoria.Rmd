@@ -1,0 +1,724 @@
+---
+title: ""
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = T,
+                      results = "hide")
+```
+
+# Análise Exploratória dos dados
+![](https://raw.githubusercontent.com/PedroHCAlmeida/img/main/charts1.png)
+
+## Resumo
+Este notebook foi destinado para análise exploratória do dataset disponibilizado pelo Hospital Sírio-Libanês no [kaggle](https://www.kaggle.com/S%C3%ADrio-Libanes/covid19). A análise teve como objetivo, primeiramente, entender o dataset, pré-processar os dados de forma que seja possível usá-los como valores entrada a um algoritmo de Machine Learning, e após isso estudar proporções, correlações e variâncias com o objetivo de encontrar os possíveis caminhos ao se selecionar apenas os dados mais úteis para o problema. Por fim, os dados pré-processados foram salvos na pasta [dados/dados_preprocessados](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/dados/dados_preprocessados), a fim de serem utilizados no notebook de [notebooks/Previsoes](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/notebooks/Previsoes.ipynb).
+
+## Importância do pré-processamento 
+O pré-processamento dos dados em Machine Learning é um dos passos fundamentais em um projeto que se propõe a realizar previsões, a famosa frase **"garbage in, garbage out"** atribuída ao técnico da IBM George Fuechsel que significa, **"entra lixo, sai lixo"**, demonstra muito bem o porque essa fase é tão importante, se não prepararmos os nossos dados da maneira correta os resultados podem ser mentirosos, ou não ter utilidade alguma no final, e, muitas vezes podem passar despercebidos, por esta razão essas é uma das fases mais importantes na hora de manipular dados.<br>
+
+Uma boa parte desse processo já foi realizado pela equipe do Hospital Sírio-Libanês, de acordo com o hospital esse conjunto de dados contém dados anonimizados coletados em São Paulo e em Brasília. Toda a anonimização desses dados seguiu as melhores práticas e recomendações internacionais, e os dados passaram por um processo de limpeza e normalização por coluna de acordo com os valores máximos e mínimos de forma que todos os valores estivessem no intervalo entre -1 e 1.<br>
+
+## Estrutura dos dados
+<br>
+### Chave identificadora<br>
+A coluna "PATIENT_VISIT_IDENTIFIER" é composta por números inteiros e é responsável por identificar cada paciente diferente.<br>
+<br>
+### Variável a ser prevista<br>
+A variável a ser prevista é a coluna "ICU", que, no conjunto de dados original, indica se o paciente correspondente estava ou não na UTI naquela janela de tempo correspondente.<br>
+<br>
+### Janela de tempo<br>
+De acordo com o Hospital a variável "WINDOW" diz respeito à janela de tempo onde as medições foram realizadas, ela está organizada da seguinte maneira:<br>
+
+|Janela | Descrição|
+|:-------------|:----------:|
+|0-2 | Entre 0 até 2 horas a partir da admissão do paciente 
+|2-4 | Entre 2 até 4 horas a partir da admissão do paciente 
+|4-6 | Entre 4 até 6 horas a partir da admissão do paciente 
+|6-12| Entre 6 até 12 horas a partir da admissão do paciente 
+|Above-12| Mais de 12 horas horas a partir da admissão do paciente 
+
+### Demais variáveis
+<br>
+As demais colunas do conjunto conjunto de dados trazem informações sobre:
+* Informações demográficas do paciente (03)
+* Grupos de doenças previamente identificadas pelos pacientes (09)
+* Resultados de exames de sangue (36)
+* Sinais vitais (06)<br>
+
+No total são 54 variáveis, correspondente às médias, medianas, máximos, mínimos, diferenças e diferenças relativas dos dados do paciente.<br>
+
+### Dados faltantes
+<br>
+Um dos maiores desafios ao se analisar dados médicos é a variação entre diferentes tipos de medições, por exemplo, os sinais vitais são coletados com mais frequência (geralmente de hora em hora) do que os laboratórios de sangue (geralmente diariamente).Fato esse acaba causando diversos dados faltantes uma vez que estamos analisando todos esses dados juntos em um mesmo conjunto.<br>
+
+De acordo com o Hospital, para solucionar o problema dos dados faltantes, é razoável supor que um paciente que não tem uma medição registrada em uma janela de tempo esteja clinicamente estável, podendo apresentar sinais vitais e exames de sangue semelhantes às janelas vizinhas. Portanto, pode-se preencher os valores ausentes usando a entrada seguinte ou anterior.<br>  
+
+# Problema a ser resolvido
+A identificação precoce dos pacientes que desenvolverão um curso adverso da doença (e precisam de cuidados intensivos) é a chave para um tratamento adequado (salvar vidas) e para gerenciar leitos e recursos. Um bom modelo usando apenas a **primeira janela (0-2)** provavelmente será mais **clinicamente relevante**, por esta razão os dados serão reorganizados a fim de agrupar os dados médicos por paciente e apenas as informações da primeira janela serão utilizadas para identificar se um paciente precisou de internação em **qualquer uma das janelas**.
+
+# Escopo do notebook
+- Importação dos pacotes 
+- Importação das funções locais 
+- Leitura dos dados brutos
+- Pré-processamento
+- Análise da variável alvo
+- Análise das informações demográficas
+- Análise das demais variáveis categóricas
+- Análise das variáveis numéricas
+- Salvamento dos dados pré-processados
+
+# Importação dos pacotes
+
+```{python}
+import pandas as pd
+import numpy as np
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+import warnings
+```
+
+```{python}
+#Configurando o estilo dos gráficos
+sns.set_style('darkgrid')
+
+#Filtrando os avisos
+warnings.filterwarnings('ignore')
+
+#Definindo a semente de números aleatórios
+SEED = 64541
+```
+
+# Importação das funções locais
+
+```{python}
+import os
+os.chdir("../../funcoes")
+from feature import compute_chi2, compute_high_corr, binary_features
+from my_plot import labs, annot_bar
+from preprocessing import fill_table, select_window
+os.chdir("../extras/projeto_site_pythonRmd")
+```
+
+```{python}
+print(binary_features.__doc__)
+```
+
+```{python}
+print(compute_chi2.__doc__)
+```
+
+```{python}
+print(compute_high_corr.__doc__)
+```
+
+```{python}
+print(labs.__doc__)
+```
+
+```{python}
+print(annot_bar.__doc__)
+```
+
+```{python}
+print(fill_table.__doc__)
+```
+
+```{python}
+print(select_window.__doc__)
+```
+
+# Leitura dos dados brutos
+
+Primeiramente, vou usar a função read_excel( ) para ler o arquivo .xlsx disponibilizado pelo Hospital Sírio-Libanês no [kaggle](https://www.kaggle.com/S%C3%ADrio-Libanes/covid19), armazenando esses dados em um dataframe do pandas.
+
+```{python}
+# Lendo os dados brutos 
+df = pd.read_excel('../../dados/dados_brutos/Kaggle_Sirio_Libanes_ICU_Prediction.xlsx')
+```
+
+# Pré-Processamento
+
+A fim de tratar os dados e usá-los da melhor forma para resolver o problema, temos que entender as variáveis e como está organizado o dataset, para isso vamos dar uma olhada nas primeiras linhas do mesmo.
+
+```{python}
+df.head(10)
+```
+
+Olhando para as primeiras linhas conseguimos perceber que a coluna "PATIENT_VISIT_IDENTIFIER", como o próprio nome sugere, é a coluna identificadora do paciente, portanto tal coluna deve ser usada de uma maneira que conseguimos agrupá-las por cada paciente e registrar se o paciente correspondente **foi para UTI em qualquer uma das janelas de tempo**.
+
+```{python}
+df.shape
+```
+
+Observando o tamanho no dataset temos **1925** linhas, e **231** colunas, no entanto para o nosso problema precisamos que cada linha represente um paciente, porém antes de resolvermos esse problema, vamos olhar se existem dados faltantes no dataset.
+
+```{python}
+df.isna().sum().sum()
+```
+
+Somando os dados nulos de todas as colunas temos **223863** valores faltantes. Como foi divulgado pelo Hospital Sirío-Libanês, a fonte dos dados, podemos resolver esse problema preenchendo valores de janelas anteriores e posteriores, assumindo que esses valores não sofrem mudanças bruscas, e desde que usemos apenas **dados do mesmo paciente**. 
+
+<br>Para isso vou agrupar os dados pela variável identificadora "PATIENT_VISIT_IDENTIFIER" e aplicar a função fill_table(), definida no arquivo [funcoes/preprocessing](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/funcoes/preprocessing.py), essa função selecionará as colunas contínuas e realizará o preenchimento de dados nulos utilizando as técnicas de "bfill"(utilizando valores posteriores), e "ffil" utilizando valores anteriores. <br><br>
+
+Além disso, temos o problema de que, uma vez que o objetivo é prever se um paciente irá precisar de cuidados intensivos com base nos valores da primeira janela de tempo, **não devemos utilizar dados de quando o paciente já estava na UTI para preencher dados anteriores("bfill")**. Para resolver esse problema vou agrupar os dados por duas variáveis, a variável identificadora("PATIENT_VISIT_IDENTIFIER") e a variável que indica se o paciente estava na UTI("ICU"), dessa forma apenas os dados que possuem o **mesmo valor de "PATIENT_VISIT_IDENTIFIER" e de "ICU"** serão utilizados para realizar o preenchimento de dados nulos.
+
+```{python}
+# Agrupando os dados por "PATIENT_VISIT_IDENTIFIER" e "ICU" e aplicando a função fill_table
+df = df.groupby(['PATIENT_VISIT_IDENTIFIER', 'ICU']).apply(fill_table)
+```
+
+```{python}
+df.isna().sum().sum()
+```
+
+Após aplicar o preenchimento temos **8781** dados nulos. Esses dados nulos agora são informações faltantes que não podemos aplicar o preenchimento, por esta razão vou remover todas as linhas que possuem esses dados nulos.
+
+```{python}
+# Eliminando dados nulos
+df = df.dropna()
+```
+
+```{python}
+df.isna().sum().sum()
+```
+
+Resolvido o problema dos dados nulos, agora vamos resolver o problema das janelas de tempo. Para isso vou realizar os seguintes passos:
+
+* Casos de pacientes que foram para **UTI nas duas primeiras horas **serão **desconsiderados** e eliminados do dataset.
+* O dataframe será agrupado pela variável identificadora de cada paciente.
+* Através da função select_window(), apenas a **linha referente a primeira janela de tempo(0-2)** de cada paciente continuará no dataset, e a variável "ICU" não vai mais depender da janela de tempo e indicará **se o paciente foi para UTI em qualquer momento**.
+* A variável "WINDOW" será eliminada pois todos os dados se referem a primeira janela, e tal informação não possui mais relação com a variável alvo "ICU".
+* A variável "PATIENT_VISIT_IDENTIFIER" será eliminada pois os dados foram agrupados e cada paciente será representado por apenas uma linha
+* O index do dataframe será resetado por conta do agrupamento da variável "PATIENT_VISIT_IDENTIFIER".
+
+```{python}
+#Selecionando as linhas onde o paciente chegou na UTI
+rows_to_drop = df[(df['WINDOW'] == '0-2') & (df['ICU'] == 1)].index
+
+#Eliminando as linhas do dataframe original
+df.drop(index=rows_to_drop, inplace=True)
+
+# Agrupando por paciente e aplicando a função select_window
+df = df.groupby('PATIENT_VISIT_IDENTIFIER').apply(select_window)
+
+#Não são mais úteis as variáveis da janela de tempo e do identificador
+df.drop(['WINDOW', 'PATIENT_VISIT_IDENTIFIER'], axis=1, inplace=True)
+
+#Resetando o index e eliminando essa informação 
+df.reset_index(drop=True, inplace=True)
+```
+
+```{python}
+df.shape
+```
+
+Por fim podemos ver que agora o dataset possui 294 linhas, que representam **294 pacientes**, e 229 colunas pois duas colunas foram eliminadas("WINDOW", "PATIENT_VISIT_IDENTIFIER").
+
+Agora vamos investigar se os tipos dos dados estão corretos, para isso utilizarei a função info( ) que retorna informações técnicas do dataframe.
+
+```{python}
+df.info()
+```
+
+Percebe-se que temos 225 colunas do tipo numérico(float64), 3 colunas do tipo inteiro(int64) e 1 colunas de caracteres(object). Vamos investigar se era para ser dessa maneira mesmo.
+
+```{python}
+df.head()
+```
+
+Olhando o dataset parece haver diversas colunas que apresentam apenas valores 0 ou 1, variáveis categóricas binárias, como todas as variáveis indicando se o paciente pertence alguma doença dentro de algum grupo pré-definido, e portanto, devem ser classificadas como números inteiros.<br><br>
+No entanto, foram identificadas apenas 3 variáveis inteiras, para resolver esse problema vou utilizar a função binary_features( ), definida no arquivo [funcoes/feature](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/funcoes/feature.py), para definir quais as colunas binárias no dataframe e transformá-las em números inteiros.
+
+```{python}
+binary = binary_features(df)
+binary
+```
+
+É possível perceber que realmente existem mais que 3 colunas binárias que deviam ser classificadas como tipo inteiro, por esta razão vou convertê-las para o tipo correto. 
+
+```{python}
+df[binary] = df[binary].astype('int64')
+df.info()
+```
+
+Agora percebemos que temos 13 variáveis do tipo inteiro, 216 do tipo numérico e 1 do tipo caractere. Por fim vamos checar qual a coluna ele está identificando como caractere, uma vez que para um modelo de Machine Learning precisamos fornecer valores numéricos como entrada.
+
+```{python}
+df.select_dtypes('object').head()
+```
+
+Podemos ver que a variável do tipo caractere é a "AGE_PERCENTIL", e realmente está classificada corretamente, porém vamos transformar essa variável de forma que um modelo de Machine Learning consiga entender, no entanto vou realizar essa transformação quando analisar essa variável separadamente na parte de Análise de informações demográficas, para assim entender o melhor a se fazer. 
+
+# Análise da variável alvo
+
+Um dos maiores problemas ao tentar resolver problemas com Machine Learning é o desbalanceamento em relação a variável alvo. Por exemplo, podemos ter muitos dados de pessoas que foram para UTI e poucos que não foram, ou vice-versa, e isso pode fazer o modelo criar um viés na hora de modelar as relações das variáveis. Por esta razão vou analisar a quantidade de pacientes que precisaram ir para UTI e pacientes que não precisaram ir para UTI.
+
+```{python}
+#Criando a figura
+fig, ax1 = plt.subplots(figsize=(20,10)) 
+
+#Criando o gráfico
+sns.countplot(df['ICU'], ax=ax1, palette=['#3366ff', '#993300'])
+
+#Plotando rótulos e títulos
+labs(title='Quantidades de pacientes que necessitaram de cuidados intensivos',
+     subtitle='QUANTIDADE TOTAL SOMADA DE OBSERVAÇÕES EM RELAÇÃO A VARIÁVEL ALVO',
+     xlabel='ICU', ylabel='Pacientes',ax=ax1)
+
+#Anotando em cima das barras
+annot_bar(prop=False, ax=ax1, fontsize=25)
+
+#Configurando a legenda
+handles, labels = ax1.get_legend_handles_labels()
+plt.legend(handles[0:2], ['Não foi para UTI', 'Foi para UTI'], bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0., fontsize=15)
+
+#Definindo eixo y
+plt.ylim([0,220])
+
+#Adicionando uma referência para o gráfico
+plt.text(0,-0.1, 'GRÁFICO 1', color='black', transform=ax1.transAxes, fontsize=15)
+plt.show()
+```
+
+Observando o gráfico 1 fica claro que a maioria dos pacientes presentes no dataset não precisaram de cuidados intensivos, fato este que apoia a realização de uma reamostragem a fim de balancear o dataframe em relação a variável "ICU", porém essa reamostragem será realizada e testada apenas quando formos comparar os modelos de Machine Learning no notebook [notebooks/Previsoes](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/notebooks/Previsoes.ipynb).
+
+# Análise das informações demográficas
+
+De acordo com o Sirío-Libanês o dataset possui 3 variáveis demográficas, para identificá-las vamos observar novamente as primeiras linhas.
+
+```{python}
+df.head()
+```
+
+Fica claro que essas informações são representadas pelas colunas "AGE_ABOVE65", "AGE_PERCENTIL" e "GENDER", e dizem respeito a idade e genêro dos pacientes.
+
+### Coluna "AGE_PERCENTIL"
+
+A primeira coluna analisada será a coluna "AGE_PERCENTIL", que traz informações sobre a idade dos pacientes. No entanto temos um problema nessa variável, como foi identificado anteriormente, ela foi representada através de caracteres representando o percentil da idade.
+<br><br>
+Pensando em modelos de Machine Learning precisamos transformá-la em uma variável inteira ou numérica, para decidir como realizar essa transformação vou analisar como a variável alvo "ICU" se comporta em relação a cada percentil de idade, para isso vou calcular qual a porcentagem de pacientes que foram para UTI para cada valor dessa coluna.
+
+```{python}
+# Agrupando o dataframe pela variável "AGE_PERCENTIL" e calculando a proporção de pessoas que foram para UTI 
+percentil_prop = df.groupby('AGE_PERCENTIL')['ICU'].value_counts(normalize=True).reset_index(name='Prop')
+percentil_prop
+```
+
+Com a tabela pronta podemos visualizar em um gráfico esse comportamento.
+
+```{python}
+#Criando a figura
+fig, ax2 = plt.subplots(figsize=(20,10)) 
+
+#Criando o gráfico
+sns.barplot(data=percentil_prop, y='Prop', x='AGE_PERCENTIL', hue='ICU', ax=ax2, palette=['#3366ff', '#993300'])
+
+#Plotando rótulos e títulos
+labs(title='Proporção de pacientes que foram para UTI por idade', subtitle='IDADE REPRESENTADA PELO PERCENTIL DA IDADE DO PACIENTE',
+     xlabel='Percentil da idade', ylabel='Proporção',ax=ax2)
+#Configurando a legenda
+handles, labels = ax2.get_legend_handles_labels()
+plt.legend(handles[0:2], ['Não foi para UTI', 'Foi para UTI'], bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0., fontsize=15)
+
+#Definindo o eixo y
+plt.ylim([0,1])
+
+#Adicionando uma referência para o gráfico
+plt.text(0,-0.1, 'GRÁFICO 2', color='black', transform=ax2.transAxes, fontsize=15)
+plt.show()
+```
+
+Observando o gráfico 2 fica claro que dependendo da idade há uma proporção de pacientes diferentes que precisaram de cuidados intensivos. Além disso parece haver faixas etárias onde essa proporção sofre um aumento, por esta razão vou utilizar essa informação a fim de criar colunas categóricas binárias com base na faixa etária, a partir do gráfico decidi transformá-la nas seguintes colunas:
+
+|Coluna | Descrição|
+|:-------------|:----------:|
+|"AGE_UNDER_30th" | Pacientes com idade abaixo dos 30 anos
+|"AGE_UNDER_50th" | Pacientes com idade abaixo dos 50 anos
+|"AGE_ABOVE_50th"| Pacientes com idade acima dos 50 anos
+|"AGE_ABOVE_80th"| Pacientes com idade acima dos 80 anos
+
+```{python}
+#Criando as colunas com base no percentil da idade
+df['AGE_UNDER_30th']=[1 if row['AGE_PERCENTIL'] in ['10th', '20th'] 
+                      else 0 for _,row in df.iterrows()] 
+
+df['AGE_UNDER_50th']=[1 if row['AGE_PERCENTIL'] in ['10th', '20th','30th', '40th'] 
+                      else 0 for _,row in df.iterrows()] 
+
+df['AGE_ABOVE_50th']=[1 if row['AGE_PERCENTIL'] in ['50th','60th', '70th','80th', '90th', 'Above 90th'] 
+                      else 0 for _,row in df.iterrows()]
+
+df['AGE_ABOVE_80th']=[1 if row['AGE_PERCENTIL'] in ['80th', '90th', 'Above 90th'] 
+                      else 0 for _,row in df.iterrows()] 
+
+# Eliminando a coluna "AGE_PERCENTIL" original
+df.drop('AGE_PERCENTIL', axis=1, inplace=True)
+df.head()
+```
+
+Agora com o problema da coluna Percentil resolvido temos 6 colunas demográficas, todas elas do tipo inteiro e categóricas.
+
+### Teste de Chi Quadrado
+
+Considerando que essas informações demográficas não possuem uma influência das demais variáveis, vou analisar cada uma individualmente, verificando se elas possuem alguma relação de dependência com a variável alvo, ou seja, a variável "ICU". Para isso vou realizar um teste de Chi Quadrado de Pearson com significância de **5%** para decidir se alguma dessas variáveis deve ser retirada.<br>
+Este teste vai testar a seguinte hipótese:
+
+$H_0$ : Colunas demográficas são independentes em relação a variável alvo('ICU')
+$H_a$ : Colunas demográficas são dependentes em relação a variável alvo('ICU') 
+
+![](https://raw.githubusercontent.com/PedroHCAlmeida/Projeto_final_bootcamp/main/img/img017.png?token=ASNXTHX6JMBD6FU7V53TOKDBB3TEC)
+
+### Variáveis de idade
+
+Para visualizar melhor as relações dessa variáveis com a variável "ICU" vou calcular a proporção de pessoas que foram para UTI para cada valor 0 ou 1 dessas variáveis, ou seja, dado que um paciente pertence a um grupo ele tem mais chance de ir para UTI do quem não pertence.
+
+```{python}
+#Selecionando as variáveis
+ages = ['AGE_UNDER_30th','AGE_UNDER_50th','AGE_ABOVE_50th','AGE_ABOVE_80th','AGE_ABOVE65', 'ICU']
+
+#Transformando as colunas em uma coluna "variable" e os valores em uma coluna "value" e mantendo a variável "ICU" fixa
+ages_melt = pd.melt(df[ages], id_vars='ICU')
+
+#Calculando a proporção da variável "ICU" para cada combinação "variable"(coluna), "value"(valor)
+ages_prop = ages_melt.groupby(['variable','value'])['ICU'].mean().reset_index(name='Prop')
+```
+
+```{python}
+ages_prop
+```
+
+Com a tabela pronta indicando a proporção, para cada valor de cada variável de idade, podemos visualizar em um gráfico esse comportamento.
+
+```{python}
+#Criando a figura
+fig, ax3 = plt.subplots(figsize=(20,10)) 
+
+#Criando o gráfico
+sns.barplot(data=ages_prop, y='Prop', x='variable', hue='value', ax=ax3, palette='muted')
+
+#Plotando rótulos e títulos
+labs(title='Proporção de pacientes que foram para UTI dado que pertence a uma faixa etária', 
+     subtitle='PROPORÇÃO CALCULADA DE PACIENTES QUE FORAM PARA UTI DADO QUE PERTENCIA  A UM GRUPO DAS COLUNAS DE IDADE',
+     xlabel='Variável', ylabel='Proporção',ax=ax3)
+
+#Configurando a legenda
+handles, labels = ax3.get_legend_handles_labels()
+plt.legend(handles[0:2], ['0','1'], bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0., fontsize=15)
+
+#Configurando o eixo x
+plt.xticks(range(5),labels=ages_prop['variable'].str.split(r'_| ').str.join('\n').unique())
+
+#Anotando em cima das barras
+annot_bar(ax3)
+
+#Definindo o eixo y
+plt.ylim([0,1])
+
+#Adicionando uma referência para o gráfico
+plt.text(0,-0.1, 'GRÁFICO 3', color='black', transform=ax3.transAxes, fontsize=15)
+plt.show()
+```
+
+A partir do gráfico 3 parece que as variáveis de idade influenciam se o paciente vai ou não para UTI, para confirmar tal afirmação vou realizar um teste de Chi-Quadrado através da função compute_chi2( ), definida no arquivo [funcoes/feature](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/funcoes/feature.py), essa função nos retorna os p valores para cada uma das variáveis, e se, algum deles for maior que **5%** não rejeitaremos a hipótese nula de que a variável é independente da variável alvo "ICU".
+
+```{python}
+#Calculando os p valores para colunas de idade
+p_values = compute_chi2(df[ages].drop('ICU', axis=1), df['ICU'])
+for col, p_value in p_values.items():
+    print(f'Considerando a hipótese nula de que a coluna {col} é independente da variável alvo "ICU"\n\
+    obteve-se um p valor igual a {np.round(p_value,4)}')
+```
+
+Analisando o p valor das colunas relacionadas às idades dos pacientes no teste de Chi-Quadrado da hipótese nula das variáveis serem independentes do paciente ir para UTI, todos os p valores foram **menores que 5%**, por esta razão temos evidências para **rejeitar a hipótese nula** e, por isso, essas variávies serão mantidas no dataframe.
+
+### Variável de genêro
+
+A outra variável demográfica é a variável de genêro, para identificar se o genêro influencia vamos repetir o mesmo processo.
+
+```{python}
+#Construindo um dataframe com a coluna "GENDER" e "ICU", mantendo o "ICU" fixo e tranformando a coluna "GENDER" em duas uma para o nome 
+#da variável("variable") e outra para os valores correspondentes("value")
+gender_melt  = pd.melt(df[['GENDER', 'ICU']], id_vars='ICU')
+
+#Calculando a proporção da variável "ICU" para cada combinação "variable"(coluna), "value"(valor)
+gender_prop = gender_melt.groupby(['variable','value'])['ICU'].mean().reset_index(name='Prop')
+```
+
+```{python}
+gender_prop
+```
+
+Com a tabela pronta indicando a proporção de pacientes que foram para UTI dependendo do genêro podemos visualizar em um gráfico esse comportamento.
+
+**OBS: POR CONTA DA ANONIMIZAÇÃO DOS DADOS NÃO FOI INFORMADO QUAL GENÊRO É REPRESENTADO POR QUAL NÚMERO, POR ISSO SERÁ REPRESENTADO COMO 0 e 1**
+
+```{python}
+#Criando a figura
+fig, ax4 = plt.subplots(figsize=(12,8)) 
+
+#Criando o gráfico
+sns.barplot(data=gender_prop, y='Prop', x='variable', hue='value', ax=ax4, palette=['#ffcc00','#0066ff'])
+
+#Plotando rótulos e títulos
+labs(title='Proporção de pacientes que foram para UTI de acordo com o gênero', 
+     subtitle='PROPORÇÃO CALCULADA DE PACIENTES QUE FORAM PARA UTI DADO O GENÊRO',
+     xlabel='Variável', ylabel='Proporção',ax=ax4)
+
+#Configurando a legenda
+handles, labels = ax4.get_legend_handles_labels()
+plt.legend(handles[0:2], ['0','1'], bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0., fontsize=15)
+
+#Anotando em cima das barras
+annot_bar(ax4)
+
+#Definindo o eixo y
+plt.ylim([0,1])
+
+#Adicionando uma referência para o gráfico
+plt.text(0,-0.1, 'GRÁFICO 4', color='black', transform=ax4.transAxes, fontsize=15)
+plt.show()
+```
+
+A partir do gráfico 4 percebe-se que dependendo do genêro parece haver uma diferença na chance de ir para UTI, porém vamos realizar um teste de Chi-Quadrado para decidir se essa variável será mantida.
+
+```{python}
+p_value_gender = compute_chi2(df[['GENDER']], df['ICU'])
+print(f'Considerando a hipótese nula de que a coluna GENDER é independente da variável alvo "ICU" obteve-se um p valor igual a \
+      {np.round(p_value_gender["GENDER"],4)}')
+```
+
+Analisando o p valor da coluna de genêro no teste de Chi-Quadrado da hipótese nula da variável ser **independente** do paciente ir para **UTI**, foi maior que **5%**, portanto **não temos evidências para rejeitar a hipótese nula** e por esta razão vou eliminar a coluna "GENDER" do dataframe.
+
+```{python}
+#Eliminando a coluna "GENDER"
+df.drop('GENDER', axis=1, inplace=True)
+```
+
+# Análise das demais variáveis categóricas
+
+Além das colunas demográficas, as colunas que nos dizem se o paciente possui alguma doença ou alguma condição de saúde também são colunas categóricas binárias, portanto, podemos realizar o mesmo processo para visualizar as proporções e realizar um teste de Chi-Quadrado<br><br>
+No entanto, **não realizarei este teste**. Tomei esta decisão pois acredito que essas variáveis possuem uma relação direta com a saúde de um paciente e podem sofrer uma influência muito grande de outros fatores, como por exemplo, uma doença pode se agravar com a idade e, portanto, a proporção de pacientes que precisaram ir para UTI dado que esse paciente possui uma certa condição de saúde pode ser diferente dependendo da idade, o que não seria levado em conta em um teste realizado individualmente para cada variável.
+
+```{python}
+#Selecionando as variáveis categóricas a respeito das doenças e condições médicas
+diseases = ['DISEASE GROUPING 1','DISEASE GROUPING 2','DISEASE GROUPING 3','DISEASE GROUPING 4',\
+            'DISEASE GROUPING 5','DISEASE GROUPING 6','HTN','IMMUNOCOMPROMISED','OTHER', 'ICU']
+```
+
+```{python}
+#Construindo um dataframe com as colunas relacionadas as doenças e "ICU", mantendo o "ICU" fixo e tranformando as demais colunas 
+#em duas que representarão o nome da variável("variable") e outra os valores correspondentes("value")
+diseases_melt  = pd.melt(df[diseases], id_vars='ICU')
+
+#Calculando a proporção da variável "ICU" para cada combinação "variable"(coluna), "value"(valor)
+diseases_prop = diseases_melt.groupby(['variable','value'])['ICU'].mean().reset_index(name='Prop')
+```
+
+```{python}
+diseases_prop
+```
+
+Com a tabela pronta indicando a proporção de pacientes que foram para UTI, dado que possuia alguma condição de saúde, podemos visualizar em um gráfico esse comportamento.<br>
+**OBS: POR CONTA DA ANONIMIZAÇÃO DOS DADOS NÃO FOI INFORMADO O QUE REPRESENTA CADA GRUPO DE DOENÇA**
+
+```{python}
+#Criando a figura
+fig, ax5 = plt.subplots(figsize=(20,10)) 
+
+#Criando o gráfico
+sns.barplot(data=diseases_prop, y='Prop', x='variable', hue='value', ax=ax5, palette='muted')
+
+#Plotando rótulos e títulos
+labs(title='Proporção de pacientes que foram para UTI dentre os grupos de doenças', 
+     subtitle='PROPORÇÃO CALCULADA DE PACIENTES QUE FORAM PARA UTI DADO QUE APRESENTOU DETERMINADO GRUPO DE DOENÇA',
+     xlabel='Variável', ylabel='Proporção',ax=ax5)
+
+#Configurando a legenda
+handles, labels = ax5.get_legend_handles_labels()
+plt.legend(handles[0:2], ['0','1'], bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0., fontsize=15)
+
+#Configurando o eixo x
+plt.xticks(range(9),labels=diseases_prop['variable'].str.split(r'_| ').str.join('\n').unique())
+
+#Anotando em cima das barras
+annot_bar(ax5)
+
+#Definindo o eixo y
+plt.ylim([0,1])
+
+#Adicionando uma referência para o gráfico
+plt.text(0,-0.12, 'GRÁFICO 5', color='black', transform=ax5.transAxes, fontsize=15)
+plt.show()
+```
+
+A partir do gráfico 5 parece que algumas condições não apresentam uma chance maior de ir para UTI dado que o paciente possuia tal condição, por exemplo as variáveis "DISEASE GROUPING 6" e "OTHER", possuem proporções muito próximas, independente do valor. 
+<br><br>
+No entanto, como foi mencionado anteriormente, não aplicarei nenhum teste para removê-las, e manterei no dataset por enquanto.
+
+# Análise das variáveis numéricas
+
+Como foi visto no início deste notebook, o dataset que estamos analisando possuem muitas colunas e, a maior parte delas eram numéricas. A fim de estudar se todas essas variáveis são importantes na hora de criar um modelo de Machine Learning existem algumas técnicas que podem ser aplicadas, como por exemplo:<br>
+
+* Análise de correlação : se tivermos em nosso dataset muitas variáveis que estão altamente correlacionadas elas podem ser representados com apenas uma dessas colunas, por exemplo, em vez de ter 5 colunas que trazem a mesma informação, de modo de que quando uma aumente a outra possua um comportamento semelhante, aumentando ou descrescendo na mesma intensidade, podemos eliminar 4 delas e manter apenas 1 dessas colunas.<br><br>
+* Análise de variância : colunas com uma variância igual a 0, ou seja, possuem o mesmo valor em todo o dataset não trazem nenhuma informação em relação a variável alvo e podem ser todas eliminadas.
+
+## Análise de correção entre as variáveis
+
+Para entender se existem colunas com uma correlação muito alta em nosso dataset, vamos observar um mapa de calor com as correlações calculadas para cada combinação de colunas.
+
+**OBS: A CORRELAÇÃO SERÁ CALCULADA EM FORMA DE MÓDULO, OU SEJA, MEDINDO A FORÇA DESSA CORRELAÇÃO INDEPENDENTE DO SINAL(positiva ou negativa)**
+
+```{python}
+#Criando a figura
+fig,ax6 = plt.subplots(figsize=(35, 30))
+
+#Criando a matriz de correlação absoluta usando apenas colunas contínuas
+cor = df.select_dtypes('float64').corr().abs()
+
+#Criando uma máscara para ocultar a diagonal e a parte triangular superior da matriz
+mask = np.triu(np.ones_like(cor, dtype=bool))
+
+#Criando o gráfico
+sns.heatmap(cor,
+            cmap='Reds',
+            mask=mask,
+            ax=ax6)
+
+#Plotando rótulos e títulos
+labs(title='Correlação entre variáveis contínuas do conjunto de dados', ax=ax6)
+
+#Mudando o tamnho da fonte da barra de cor
+cbar = ax6.collections[0].colorbar
+cbar.ax.tick_params(labelsize=20)
+
+#Adicionando uma referência para o gráfico
+plt.text(0,-0.15, 'GRÁFICO 6', color='black', transform=ax6.transAxes, fontsize=15)
+plt.show()
+```
+
+A partir do gráfico 6 percebemos que muitas colunas possuem uma alta correlação absoluta, ou seja, temos uma motivação para eliminar colunas correlacionadas de forma que apenas uma delas continue no dataset.<br><br>
+Para isso, vou utilizar a função compute_high_corr( ), definida no arquivo [funcoes/feature](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/funcoes/feature.py), que irá calcular a matriz de correlação das colunas e percorrer essa matriz de tal forma que se uma coluna tiver uma correlação mais alta que o valor de corte em relação a alguma coluna que já foi percorrida ela será armazenada em uma lista e essa lista será retornada ao final, ou seja, em um grupo onde existem diversas colunas correlacionas apenas uma delas será mantida.
+
+```{python}
+#Calculando as colunas para eliminar com um valor de corte de 0.95
+cols_drop_high_corr = compute_high_corr(df.select_dtypes('float64'), 0.95)
+#Mostrando na tela essas colunas
+print(cols_drop_high_corr)
+#Mostrando na tela a quantidade de colunas
+print(len(cols_drop_high_corr))
+```
+
+Podemos perceber que, de acordo com a função compute_high_corr( ), podemos eliminar essas 134 colunas pois existem outras colunas no dataset que possuem uma alta correlação com estas.
+
+```{python}
+df.drop(cols_drop_high_corr, axis=1, inplace=True)
+```
+
+## Análise da variância 
+
+Outro fator que podemos analisar de forma fácil e, já nos diz muito sobre determinada variável, é a variância. Esta é uma medida usada para mensurar a dispersão dos dados em um conjunto, ou seja, quanto menor essa variância mais agrupados estão os valores. <br>
+
+Uma vez que nós estamos trabalhando com dados normalizados, como foi informado pelo Sírio-Libanês, fica difícil ter uma referência de qual o valor mínimo de uma variância para uma variável ser considerada importante, no entanto, temos uma certeza, se alguma das variáveis possui uma **variância igual a zero**, é porque ela é **completamente desnecessária** ao se resolver o nosso problema.
+
+Para analisar este fato, primeiramente vou olhar para o boxplot de 15 colunas aleatórias a fim de encontrar algo que possamos analisar, ou, conseguimos ver se alguma dessas colunas possui variância zero.
+
+```{python}
+#Setando a semente aletória que foi definida no começo do notebook
+np.random.seed(SEED)
+
+#Selecionando o dataset com as colunas contínuas
+cont = df.select_dtypes('float64')
+
+#Escolhendo o dataset com 15 colunas aleatórias
+sample = cont[np.random.choice(cont.columns, size=15, replace=False)]
+
+#Juntando com a informação da variável alvo para analisar a diferença entre os grupos
+sample_cont = pd.concat([sample, df['ICU']],axis=1) 
+
+#Transformando as colunas em uma coluna "variable" e os valores em uma coluna "value" e mantendo a variável "ICU" fixa 
+cont_melt = pd.melt(sample_cont, id_vars='ICU')
+```
+
+```{python}
+cont_melt.head()
+```
+
+```{python}
+#Criando a figura
+fig, ax7 = plt.subplots(figsize=(20,10))
+
+#Criando os boxplots
+sns.boxplot(x='variable', y='value', hue='ICU',
+            data=cont_melt, palette=['#3366ff', '#993300'], 
+            ax=ax7, showfliers=False)
+
+#Criando os stripsplots
+sns.stripplot(x='variable', y='value', hue='ICU',
+              data=cont_melt, palette=['#3366ff', '#993300'],
+              ax=ax7, dodge=True)
+
+#Plotando rótulos e títulos
+labs(title='Boxplots de 15 colunas contínuas aleatórias', 
+     xlabel='Variável', 
+     ylabel='Valor', 
+     subtitle='COLUNAS REFERENTES AOS DADOS MÉDICOS DE EXAMES E SINAIS VITAIS', ax=ax7)
+
+#Configurando o eixo x
+plt.xticks(range(15),labels=cont_melt['variable'].str.split('_').str.join('\n').unique(), rotation=35)
+
+#Configurando a legenda
+handles, labels = ax7.get_legend_handles_labels()
+plt.legend(handles[0:2], ['Não foi para UTI', 'Foi para UTI'], bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0., fontsize=15)
+
+#Adicionando uma referência para o gráfico
+plt.text(0,-0.15, 'GRÁFICO 7', color='black', transform=ax7.transAxes, fontsize=15)
+plt.show()
+```
+
+A partir dos boxplots percebemos que algumas variáveis parecem realmente ter uma variância muito baixa, como a "SODIUM DIFF", "CREATININ DIFF", e as demais que representam diferenças. Por outro lado, percebe-se uma diferença muito grande dos valores de quem foi para UTI e de quem não foi na variável "LACTATE MEDIAN, podendo indicar que essa variável seja importante na hora de modelar os dados.<br><br>
+Por esta razão vou eliminar todas aquelas variáveis com um valor de variância igual a 0.
+
+```{python}
+#Criando uma série com as variâncias para cada coluna numérica
+var = df.select_dtypes('float64').var()
+#Ordenando em ordem crescente e mostrando os primeiros valores
+var.sort_values().head()
+```
+
+Observando os primeiros valores já percebe-se que temos algumas colunas com variância igual a 0.
+
+```{python}
+#Selecionando as colunas com variância igual a 0
+cols_0_var = [col for col in var.index if var[col] == 0]
+#Imprimindo na tela as colunas com variância igual a 0
+print(cols_0_var)
+#Mostrando na tela a quantidade de colunas
+print(len(cols_0_var))
+```
+
+Podemos perceber que temos 36 colunas com variância igual a 0 no dataset, e, por esta razão irei eliminá-las.
+
+```{python}
+#Eliminando as colunas com variância igual a 0
+df.drop(cols_0_var,axis=1, inplace=True)
+```
+
+```{python}
+df.head()
+```
+
+```{python}
+df.shape
+```
+
+Podemos ver que saímos de 231 para 62 colunas e agora chegou o momento de testar os modelos de Machine Learning a fim de solucionar o problema. Para isso vou salvar esses dados pré-processados na pasta [dados/dados_preprocessados](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/dados/dados_preprocessados). E continuar o trabalho no notebook, dedicado aos modelos, [notebooks/Previsoes](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/notebooks/Previsoes.ipynb).
+
+# Salvando dados pré-processados
+
+```{python}
+#df.to_csv('../../dados/dados_preprocessados/preprocessados.csv', index=False)
+```
+

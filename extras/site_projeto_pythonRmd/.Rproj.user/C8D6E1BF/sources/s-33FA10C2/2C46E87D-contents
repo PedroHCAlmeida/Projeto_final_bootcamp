@@ -1,0 +1,21 @@
+name: "Projeto_final_bootcamp"
+navbar:
+  title: "Prevendo a necessidade de internação para pacientes com COVID-19"
+  left:
+    - text: "Análise Exploratória"
+      href: Analise_exploratoria.html
+    - text: "Previsões"
+      href: Previsoes.html
+  right:
+    - icon: "fa-github"
+      href: "https://github.com/PedroHCAlmeida"
+    - icon: "fa-linkedin"
+      href: "https://www.linkedin.com/in/pedro-henrique-corr%C3%AAa-de-almeida-15398b105/"
+  css: styles.css
+output: 
+  html_document:
+    theme: flatly
+    highlight: kate
+    toc: true
+    toc_float:
+      collapsed: true
