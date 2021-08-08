@@ -10,7 +10,7 @@
    * [Contexto](#cont)
    * [Estrutura do projeto](#estru)
    * [Modelos](#model)
-   * [Bibliotecas utilizada](#bibli)
+   * [Bibliotecas utilizadas](#bibli)
    * [Agradecimentos](#agrad)
    * [Referências](#ref)
    * [Contato](#contato)
