@@ -7,6 +7,7 @@ from tqdm import tqdm_notebook as tqdm
 
 import matplotlib.pyplot as plt
 import seaborn as sns
+from pylab import MaxNLocator
 from my_plot import labs, central_trend
 
 from sklearn.model_selection import RepeatedStratifiedKFold
@@ -203,7 +204,7 @@ class Classifier:
                    np.round((2 * (tn/(tn+fn) * (tn/(tn+fp)))) / ((tn/(tn+fn)+(tn/(tn+fp)))), 3),
                    np.round((2 * (tp/(tp+fp) * (tp/(tp+fn)))) / ((tp/(tp+fp)+(tp/(tp+fn)))), 3)))
                    
-        print(f'\nTEMPO MÉDIO DE TREINAMENTO:{np.round(self.time_mean,3)}')   
+        print(f'\nTEMPO MÉDIO DE TREINAMENTO:{np.round(self.time_mean,3)} segundos')   
     
     def plot_confusion(self,
                       ax=None,
@@ -282,7 +283,8 @@ class Classifier:
         
         '''
         #Cria uma figura sempre com 2 colunas
-        fig, ax = plt.subplots(ceil(len(self.scores)/2),2, figsize = (20, int(8*len(self.scores)/2)))
+        fig, ax = plt.subplots(ceil(len(self.scores)/2),2, figsize = (20, int(8*len(self.scores)/2)),
+                              sharex=True, sharey=True)
         
         #Defini a linha e coluna como zeros
         i=0
@@ -303,6 +305,12 @@ class Classifier:
                 
                 #Gerando as labels e títulos
                 labs(title=k.upper() + ' SCORE',xlabel='Valor da métrica',ylabel='Frequência', ax=ax[i,j])
+                
+                #Configurando o eixo y para mostrar apenas valores inteiros(como é um histograma)
+                ax[i,j].get_yaxis().set_major_locator(MaxNLocator(integer=True))
+                
+                #Configurando o eixo x para exibi-los em todos os subplots
+                ax[i,j].xaxis.set_tick_params(labelbottom=True, labelsize =15)
                 
                 #Verificando se é para plotar as medidas de tendência central(média e mediana)
                 if central:
