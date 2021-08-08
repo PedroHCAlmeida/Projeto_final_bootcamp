@@ -102,6 +102,8 @@ Após realizar o pré-processamento dos dados e a análise exploratória, foram 
 |XGBClassifier          |pacote xgboost      |Ensemble
 |LGBMClassifier         |pacote lightgbm     |Ensemble
 
+Entre os modelos testados, os dois com as melhores métricas de ROC AUC foram escolhidos para realizar uma otimização dos hyperparâmetros. Foi levado em conta a média das métricas obtidas em uma validação cruzada pelo método RepeatedStratifiedKFold, realizando 10 validações cruzadas diferentes com 5 divisões no dataset.
+
 
 <a name="bibli"></a>
 # Bibliotecas utilizadas 💻
