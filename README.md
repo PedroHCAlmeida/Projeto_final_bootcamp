@@ -56,6 +56,7 @@ Diretório com todas as imagens utilizadas no projeto.
 
 ## [extras](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/extras):
 Neste diretório experimentei testar diferentes funcionalidades que é possível entre o Rstudio e python. Para isso criei um projeto de um website dentro do Rstudio, e transformei os arquivos .ipynb em .Rmd, após isso configurei o Rstudio para utilizar o mesmo ambiente do anaconda que foi desenvolvido os notebooks originais. <br>
+
 Por fim fiz pequenas mudanças em relação as leituras de dados e importações de funções locais e utilizei o arquivo [SearchCV_salvo/random_searchcv](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/arquivos_modelo/SearchCV_salvo/random_searchcv) para não realizar o processo de otimização de hyperparâmetros novamente.
 
 * Comando utilizado para utilizar o python no Rstudio no mesmo ambiente que foi desenvolvido os notebooks pelo jupyter lab
@@ -63,7 +64,8 @@ Por fim fiz pequenas mudanças em relação as leituras de dados e importações
 
 * Comando utilizado para gerar uma cópia dos notebooks no formato .Rmd
 ![](https://raw.githubusercontent.com/PedroHCAlmeida/Projeto_final_bootcamp/main/img/Screenshot%202021-08-07%20214603.png?token=ASNXTHTRWBEYRIBZY4AOKYTBB4VRI)
-
+ 
+ * Obs: esses comandos só foram realizados uma vez na hora de iniciar a sessão, depois foram retirados
 
 # Fases do projeto
 
