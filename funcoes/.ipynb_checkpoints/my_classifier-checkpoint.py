@@ -15,9 +15,11 @@ from sklearn import metrics
 
 class Classifier:
     '''
-    Classe que recebe um modelo de machine learning, os dados que serão realizados os treinamentos e previsões, com isso embaralha esses dados e separa em um conjunto de dados para
-    as variáveis preditoras(x) e a variável de resposta(y).Realiza uma validação cruzada através da função cross_val() e imprime seus resultados pela função report(), plota a curva roc
-    pela função plot_roc_curve(), plota os histogramas das métricas calculadas pela função hist_metrics() e plota a média das matrizes de confusão pela função plot_confusion().
+    Classe que recebe um modelo de machine learning, os dados que serão realizados os treinamentos e previsões, com isso,
+    embaralha esses dados e separa em um conjunto de dados para as variáveis preditoras(x) e a variável de resposta(y).
+    Realiza uma validação cruzada através da função cross_val() e imprime seus resultados pela função report(), 
+    plota a curva roc pela função plot_roc_curve(), plota os histogramas das métricas calculadas pela função hist_metrics()
+    e plota a média das matrizes de confusão pela função plot_confusion().
     '''
     def __init__(self,
                  estimator,
@@ -65,15 +67,20 @@ class Classifier:
                   n_repeats = 10,
                   report=True):
         '''
-        Realiza uma validação cruzada do tipo RepeatedStratifiedKFold e salva os resultados das métricas passadas no parâmetro scoring
+        Realiza uma validação cruzada do tipo RepeatedStratifiedKFold e salva os resultados das métricas passadas no parâmetro 
+        scoring
         
         Parâmetros:
         ----------
-        scoring : lista os nomes das métricas que serão calculadas na validação cruzada, essa lista aceita as seguintes métricas {'f1','roc_auc','precision','recall','accuracy'},
-        tipo : list, padrão : ['f1', 'roc_auc', 'precision', 'recall', 'accuracy'],
-        n_splits : número inteiro indicando a quantidade de divisões realizadas no dataset na hora da validação cruzada, padrão : 5
-        n_repeats : número inteiro indicando a quantidade de repetições realizadas da validação cruzada, tipo : int, padrão : 10
-        report : valor booleano indicando a chamada da função report que imprime os resultados, tipo : bool, padrão : True
+        scoring : lista os nomes das métricas que serão calculadas na validação cruzada, essa lista aceita as 
+                  seguintes métricas : {'f1','roc_auc','precision','recall','accuracy'},
+                  tipo : list, padrão : ['f1', 'roc_auc', 'precision', 'recall', 'accuracy'],
+        n_splits : número inteiro indicando a quantidade de divisões realizadas no dataset na hora da validação cruzada, 
+                   tipo : int, padrão : 5
+        n_repeats : número inteiro indicando a quantidade de repetições realizadas da validação cruzada, 
+                    tipo : int, padrão : 10
+        report : valor booleano indicando a chamada da função report que imprime os resultados, 
+                 tipo : bool, padrão : True
         
         Atributos definidos:
         --------------------

@@ -7,7 +7,7 @@ import numpy as np
 
 def labs(ax, title:str='', subtitle:str='', xlabel:str='', ylabel:str=''):
     '''
-    Função que plota as informações adicionais dos gráficos, título, subtítulo, rótulos, labels, fontes
+    Função que plota as informações adicionais dos gráficos, título, subtítulo, rótulos
     
     Parâmetros:
     ----------
@@ -95,8 +95,8 @@ def annot_bar(ax, prop=True, fontsize=15):
     
     Parâmetros:
     -----------
-    ax : ax : eixo do matplotlib onde será plotada as linhas, tipo : matplotlib.axes
-    prop : indicando se os valores serão representados como porcentagens ou não, tipo : bool, padrão : True
+    ax : eixo do matplotlib onde estão as barras, tipo : matplotlib.axes
+    prop : indica se os valores serão representados como porcentagens ou não, tipo : bool, padrão : True
     fontsize : tamanho da fonte do texto, tipo : int, padrão : 15
     
     OBS : precisa ser chamada após o gráfico de barras
