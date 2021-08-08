@@ -89,7 +89,19 @@ Por fim fiz pequenas mudanças em relação as leituras de dados e importações
 * O resultado final do site pode ser conferido [aqui](https://prevendo-uti-bootcamp-alura.netlify.app/)
 
 <a name="model"></a>
-# Modelo Final
+# Modelos 
+
+Após realizar o pré-processamento dos dados e a análise exploratória, foram testados diferentes modelos de Machine Learning foram eles:
+
+|Modelo                 |Pacote              |Método
+|:----------------------|:-------------------|-----------|
+|LogisticRegression     |sklearn.linear_model|Regressão Logística
+|DecisionTreeClassifier |sklearn.tree        |Árvore de decisão
+|RandomForestClassifier |sklearn.ensemble    |Ensemble
+|ExtraTreesClassifier   |sklearn.ensemble    |Ensemble
+|XGBClassifier          |pacote xgboost      |Ensemble
+|LGBMClassifier         |pacote lightgbm     |Ensemble
+
 
 <a name="bibli"></a>
 # Bibliotecas utilizadas 💻
