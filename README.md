@@ -46,7 +46,7 @@ Neste diretório se encontram os dados utilizados no projeto, esses dados estão
 * [dados_brutos](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/dados/dados_brutos) : aqui está o arquivo .xlsx original que foi disponibilizado pelo Hospital Sírio-Libanês
 * [dados_preprocessados](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/dados/dados_preprocessados) : aqui está o aquivo .csv com os dados pré-processados na [Análise Exploratória]()
 
-## [funcoes](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/functions):
+## [funcoes](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/funcoes):
 
 Este diretório foi destinado as funções utilizadas no projeto, essas foram divididas em 4 arquivos .py dependendo do objetivo das mesmas, são eles:
 
