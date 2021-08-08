@@ -344,7 +344,7 @@ class Classifier:
             name_estimator = str(self.estimator)
         
         #Gerando o gráfico com os valores das taxas de verdadeiros positivos e falsos positivos(curva ROC)
-        sns.lineplot(self.fpr_mean, self.tprs_mean, ax=ax, label= r'ROC CURVE (AUC MEAN = %0.3f $\pm$ %0.3f)' % \
+        sns.lineplot(self.fpr_mean, self.tprs_mean, ax=ax, label= r'CURVA ROC (MÉDIA AUC = %0.3f $\pm$ %0.3f)' % \
                          (np.round(self.means['roc_auc'],3), np.round(norm.ppf(0.975) * self.stds['roc_auc'] / np.sqrt(self.len),3)) + f'{name_estimator}', estimator=None, **kwargs_lineplot)
         
         #Setando o eixo atual
@@ -356,13 +356,11 @@ class Classifier:
         
         #Preenchendo esse intervalo com a mesma cor
         plt.fill_between(self.fpr_mean, tprs_lower, tprs_upper, color=ax.lines[-1].get_color(), alpha=0.05)
-        
-        #Plota uma linha de referência no meio do gráfico do minímo aceitável
-        plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+    
         
         #Gerando as labels e títulos
-        labs(title = 'ROC CURVE', xlabel='Taxa de Falsos Positivos', ylabel='Taxa de Verdadeiros Positivos', ax=ax, \
-             subtitle='ROC CURVE COMPUTADA PELAS VALORES DE VERDADEIROS POSITIVOS E FALSOS POSITIVOS OBTIDOS PELA VALIDAÇÃO CRUZADA')
+        labs(title = 'CURVA ROC', xlabel='Taxa de Falsos Positivos', ylabel='Taxa de Verdadeiros Positivos', ax=ax, \
+             subtitle='CURVA ROC COMPUTADA PELAS VALORES DE VERDADEIROS POSITIVOS E FALSOS POSITIVOS OBTIDOS PELA VALIDAÇÃO CRUZADA')
         plt.legend(loc='lower right', fontsize=12)
         
         #Retorna o eixo
