@@ -104,6 +104,14 @@ Após realizar o pré-processamento dos dados e a análise exploratória, foram 
 
 Entre os modelos testados, os dois com as melhores métricas de ROC AUC foram escolhidos para realizar uma otimização dos hyperparâmetros. Foi levado em conta a média das métricas obtidas em uma validação cruzada pelo método RepeatedStratifiedKFold, realizando 10 validações cruzadas diferentes com 5 divisões no dataset.
 
+Além disso, foram realizadas técnicas de reamostragem e de seleção de variáveis a partir de outro modelo. Os resultados obtidos do modelo final foram:
+
+Métrica   |Média
+:---------|----------:
+ROC AUC   | **0.946**
+ACURÁCIA  | **0.882**
+PRECISÃO  | **0.885**
+F1-SCORE  | **0.882**
 
 <a name="bibli"></a>
 # Bibliotecas utilizadas 💻
