@@ -1,26 +1,26 @@
 # Prevendo a necessidade de internação para pacientes com COVID-19
 [![Made withJupyter](https://img.shields.io/badge/Made%20with-Jupyter-orange?style=flat-square&logo=Jupyter)](https://jupyter.org/try) [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg?style=flat-square)](https://github.com/PedroHCAlmeida/analise_temporal_COVID_Brasil/edit/main/LICENSE)
 
-![Alt](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/img/AWG6I4CLAQI6VCQ73YKZPPTMXQ.png)
+![Alt](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/img/previsao_banner.png?raw=true)
 
 # Apresentação
 
 Olá, meu nome é Pedro Henrique, e esse é meu repositório referente ao projeto final do [Bootcamp de Data Science Aplicada](https://www.alura.com.br/bootcamp/data-science-aplicada/matriculas-abertas) promovido pela [Alura](https://www.alura.com.br/).
 
-# Resumo
+# Resumo 📜
 Esse projeto teve como _**objetivo**_ criar um modelo capaz de prever se um paciente com suspeita de COVID-19 precisará ou não ser internado na UTI levando em consideração apenas os dados obtidos até as _**duas primeiras horas**_ que o mesmo chega ao local. Para isso foi utilizada uma base de dados disponibilizada pelo Hospital Sírio-Libanês, essa base de dados pode ser encontrada no [kaggle](https://www.kaggle.com/S%C3%ADrio-Libanes/covid19). 
 
 Os _**impactos**_ esperados com a criação desse modelo são de um lado conseguir melhorar a logística de recursos do hospital, e o mais importante prever quais são aqueles pacientes que mais necessitam dessa internação, dando a prioridade para quem mais precisará, uma vez que _**cada leito vago pode significar uma vida salva**_.
 
-![]()
+![curva_covid](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/img/curva_covid.gif?raw=true)
 
-# Contexto
+# Contexto 🦠
 
 O ano de 2020 começou de uma maneira completamente inesperada, o mundo foi atingido por uma das maiores crises sanitárias da história contemporânea, e uma palavra tomou conta das notícias nos jornais e mídias sociais brasileiras, _**"Leito"**_, a superlotação dos hopitais e a falta de leitos se tornou normal em todo o Brasil, nos anos de 2020 e 2021. Diante de uma doença desconhecida, encontrar como identificar seus perigos e as alterações corporais se tornou um desafio para medicina moderna.
 
 Partindo desse problema o projeto teve como ponto de partida analisar dados acerca de resultados de exames de sangue, sinais vitais, gases sanguíneos, grupos de doenças apresentadas pelo paciente, além de informações demográficas do mesmo. A partir disso foi procurado quais as relações de cada variável com a necessidade de um leito, para no final sermos capazes de prever com a maior certeza quem são aqueles que mais necessitam dessa internação.
 
-# Estrutura do projeto
+# Estrutura do projeto 🧱
 
 ## [dados](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/data):
 
@@ -84,11 +84,11 @@ Esse projeto foi realizado utilizando a linguagem Python versão 3.9.6, e os not
 * Scikit-learn versão 0.24.2 : biblioteca utilizada na criação de modelos de Machine Learning
 * Todas as bibliotecas e versões podem ser encontradas no arquivo [requirements.txt](https://github.com/PedroHCAlmeida/)
 
-# Agradecimentos
+# Agradecimentos 😀
 
 Gostaria de deixar o meu agradecimento a Alura por essa oportunidade incrível de participar do bootcamp de Data Science Aplicada, aos instrutores Thiago Santos, Guilherme Silveira, Allan Spadini e Karoline Penteado, que nos acompanharam durante todo o bootcamp. Ao Paulo Vasconcellos, que sempre participou das lives nesse período e trouxe dicas valiosas para melhorar os projetos. Além disso, queria agradecer a todo pessoal do discord e do Scuba team que sempre ajudou quando foi preciso.
 
-# Referências
+# Referências 📚
 
 https://medium.com/data-hackers/como-selecionar-as-melhores-features-para-seu-modelo-de-machine-learning-faf74e357913<br>
 https://scikit-learn.org/stable/auto_examples/model_selection/plot_roc_crossval.html<br>
@@ -105,7 +105,7 @@ https://scikit-learn.org/stable/index.html<br>
 https://matplotlib.org/<br>
 https://seaborn.pydata.org/<br>
 
-# Contato
+# Contato ☎️
 
 [<img src="https://img.shields.io/badge/pedrocorrea-0A66C2?style=flat-square&logo=linkedin&logoColor=white" />](https://www.linkedin.com/in/pedro-henrique-corr%C3%AAa-de-almeida-15398b105/)<br>
 [<img src="https://img.shields.io/badge/GitHub-PedroHCAlmeida-DCDCDC?style=flat-square" />](https://github.com/PedroHCAlmeida)<br>
