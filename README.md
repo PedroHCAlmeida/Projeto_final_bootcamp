@@ -49,8 +49,8 @@ Aqui foram criados os notebooks onde foram realizadas as análises e criação d
 
 Neste repositório estão os objetos criados dentro do notebook e salvos em arquivos para serem carregados em outros locais,estes foram organizados em duas pastas:
 
-* [SearchCV_salvo](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/arquivos_modelo/SearchCV_salvo) : possui o arquivo onde foi armazenado o objeto que foi utilizado na otimização dos hyperparâmetros. Optei por salvá-lo, uma vez que é um processo computacionalmente custoso e demorado, dessa forma é possível carregá-lo em outros ambientes.
-* [Modelo_Salvo](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/arquivos_modelo/Modelo_Salvo) : aqui está salvo o modelo final que obteve as melhores métricas de acordo com o previsto no início do projeto. Esse modelo foi treinado, no final, foi treinado com todos os dados e salvo em um aquivo .joblib nesta pasta 
+* [SearchCV_salvo](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/arquivos_modelo/SearchCV_salvo) : possui o arquivo onde salvo do objeto que foi utilizado na otimização dos hyperparâmetros. Optei por salvá-lo, uma vez que é um processo computacionalmente custoso e demorado, dessa forma é possível carregá-lo em outros ambientes.
+* [Modelo_Salvo](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/arquivos_modelo/Modelo_salvo) : aqui está salvo o modelo final que obteve as melhores métricas de acordo com o previsto no início do projeto. Esse modelo, no final, foi treinado com todos os dados e salvo em um aquivo .joblib nesta pasta .
 
 ## [img](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/img)
 Diretório com todas as imagens utilizadas no projeto.
@@ -107,5 +107,5 @@ https://seaborn.pydata.org/<br>
 
 # Contato
 
-[<img src="https://img.shields.io/badge/pedrocorrea-0A66C2?style=flat-square&logo=linkedin&logoColor=white" />](https://www.linkedin.com/in/pedro-henrique-corrêa-de-almeida/)<br>
+[<img src="https://img.shields.io/badge/pedrocorrea-0A66C2?style=flat-square&logo=linkedin&logoColor=white" />](https://www.linkedin.com/in/pedro-henrique-corr%C3%AAa-de-almeida-15398b105/)<br>
 [<img src="https://img.shields.io/badge/GitHub-PedroHCAlmeida-DCDCDC?style=flat-square" />](https://github.com/PedroHCAlmeida)<br>
