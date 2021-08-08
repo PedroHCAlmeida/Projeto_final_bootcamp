@@ -434,13 +434,14 @@ os.chdir(&quot;../extras/projeto_site_pythonRMD&quot;)</code></pre>
 <pre class="python"><code>help(annot_bar)</code></pre>
 <pre><code>## Help on function annot_bar in module my_plot:
 ## 
-## annot_bar(ax, prop=True)
+## annot_bar(ax, prop=True, fontsize=15)
 ##     Realiza anotações em cima das barras em um gráfico de barras 
 ##     
 ##     Parâmetros:
 ##     -----------
 ##     ax : ax : eixo do matplotlib onde será plotada as linhas, tipo : matplotlib.axes
 ##     prop : indicando se os valores serão representados como porcentagens ou não, tipo : bool, padrão : True
+##     fontsize : tamanho da fonte do texto, tipo : int, padrão : 15
 ##     
 ##     OBS : precisa ser chamada após o gráfico de barras</code></pre>
 <pre class="python"><code>help(fill_table)</code></pre>
@@ -594,7 +595,7 @@ handles, labels = ax.get_legend_handles_labels()
 plt.legend(handles[0:2], [&#39;Não foi para UTI&#39;, &#39;Foi para UTI&#39;], bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0., fontsize=15)
 
 #Adicionando uma referência para o gráfico</code></pre>
-<pre><code>## &lt;matplotlib.legend.Legend object at 0x000000006403B2E0&gt;</code></pre>
+<pre><code>## &lt;matplotlib.legend.Legend object at 0x0000000063C96520&gt;</code></pre>
 <pre class="python"><code>plt.text(0,-0.1, &#39;GRÁFICO 1&#39;, color=&#39;black&#39;, transform=ax.transAxes, fontsize=15)</code></pre>
 <pre><code>## Text(0, -0.1, &#39;GRÁFICO 1&#39;)</code></pre>
 <pre class="python"><code>plt.show()</code></pre>
@@ -657,7 +658,7 @@ handles, labels = ax.get_legend_handles_labels()
 plt.legend(handles[0:2], [&#39;Não foi para UTI&#39;, &#39;Foi para UTI&#39;], bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0., fontsize=15)
 
 #Definindo o eixo y</code></pre>
-<pre><code>## &lt;matplotlib.legend.Legend object at 0x0000000063F10220&gt;</code></pre>
+<pre><code>## &lt;matplotlib.legend.Legend object at 0x0000000063718040&gt;</code></pre>
 <pre class="python"><code>plt.ylim([0,1])
 
 #Adicionando uma referência para o gráfico</code></pre>
@@ -766,11 +767,11 @@ handles, labels = ax.get_legend_handles_labels()
 plt.legend(handles[0:2], [&#39;0&#39;,&#39;1&#39;], bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0., fontsize=15)
 
 #Configurando o eixo x</code></pre>
-<pre><code>## &lt;matplotlib.legend.Legend object at 0x00000000643D2FA0&gt;</code></pre>
+<pre><code>## &lt;matplotlib.legend.Legend object at 0x0000000063B90FD0&gt;</code></pre>
 <pre class="python"><code>plt.xticks(range(5),labels=ages_prop[&#39;variable&#39;].str.split(r&#39;_| &#39;).str.join(&#39;\n&#39;).unique())
 
 #Anotando em cima das barras</code></pre>
-<pre><code>## ([&lt;matplotlib.axis.XTick object at 0x000000006423A8E0&gt;, &lt;matplotlib.axis.XTick object at 0x000000006423A8B0&gt;, &lt;matplotlib.axis.XTick object at 0x000000006424C4F0&gt;, &lt;matplotlib.axis.XTick object at 0x000000000471BA60&gt;, &lt;matplotlib.axis.XTick object at 0x00000000046E31F0&gt;], [Text(0, 0, &#39;AGE\nABOVE65&#39;), Text(1, 0, &#39;AGE\nABOVE\n50th&#39;), Text(2, 0, &#39;AGE\nABOVE\n80th&#39;), Text(3, 0, &#39;AGE\nUNDER\n30th&#39;), Text(4, 0, &#39;AGE\nUNDER\n50th&#39;)])</code></pre>
+<pre><code>## ([&lt;matplotlib.axis.XTick object at 0x00000000639CE910&gt;, &lt;matplotlib.axis.XTick object at 0x00000000639CE8E0&gt;, &lt;matplotlib.axis.XTick object at 0x00000000639B8520&gt;, &lt;matplotlib.axis.XTick object at 0x0000000064064A90&gt;, &lt;matplotlib.axis.XTick object at 0x0000000063B6A220&gt;], [Text(0, 0, &#39;AGE\nABOVE65&#39;), Text(1, 0, &#39;AGE\nABOVE\n50th&#39;), Text(2, 0, &#39;AGE\nABOVE\n80th&#39;), Text(3, 0, &#39;AGE\nUNDER\n30th&#39;), Text(4, 0, &#39;AGE\nUNDER\n50th&#39;)])</code></pre>
 <pre class="python"><code>annot_bar(ax)
 
 #Definindo o eixo y
@@ -826,7 +827,7 @@ handles, labels = ax.get_legend_handles_labels()
 plt.legend(handles[0:2], [&#39;0&#39;,&#39;1&#39;], bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0., fontsize=15)
 
 #Anotando em cima das barras</code></pre>
-<pre><code>## &lt;matplotlib.legend.Legend object at 0x00000000643EBB50&gt;</code></pre>
+<pre><code>## &lt;matplotlib.legend.Legend object at 0x0000000063B20B80&gt;</code></pre>
 <pre class="python"><code>annot_bar(ax)
 
 #Definindo o eixo y
@@ -898,11 +899,11 @@ handles, labels = ax.get_legend_handles_labels()
 plt.legend(handles[0:2], [&#39;0&#39;,&#39;1&#39;], bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0., fontsize=15)
 
 #Configurando o eixo x</code></pre>
-<pre><code>## &lt;matplotlib.legend.Legend object at 0x00000000642C6460&gt;</code></pre>
+<pre><code>## &lt;matplotlib.legend.Legend object at 0x0000000063A25490&gt;</code></pre>
 <pre class="python"><code>plt.xticks(range(9),labels=diseases_prop[&#39;variable&#39;].str.split(r&#39;_| &#39;).str.join(&#39;\n&#39;).unique())
 
 #Anotando em cima das barras</code></pre>
-<pre><code>## ([&lt;matplotlib.axis.XTick object at 0x000000006405D070&gt;, &lt;matplotlib.axis.XTick object at 0x000000006405D040&gt;, &lt;matplotlib.axis.XTick object at 0x000000006406C6D0&gt;, &lt;matplotlib.axis.XTick object at 0x00000000642DC760&gt;, &lt;matplotlib.axis.XTick object at 0x00000000642DCEB0&gt;, &lt;matplotlib.axis.XTick object at 0x00000000642A4640&gt;, &lt;matplotlib.axis.XTick object at 0x00000000642A4DC0&gt;, &lt;matplotlib.axis.XTick object at 0x00000000642A4940&gt;, &lt;matplotlib.axis.XTick object at 0x00000000642DC7C0&gt;], [Text(0, 0, &#39;DISEASE\nGROUPING\n1&#39;), Text(1, 0, &#39;DISEASE\nGROUPING\n2&#39;), Text(2, 0, &#39;DISEASE\nGROUPING\n3&#39;), Text(3, 0, &#39;DISEASE\nGROUPING\n4&#39;), Text(4, 0, &#39;DISEASE\nGROUPING\n5&#39;), Text(5, 0, &#39;DISEASE\nGROUPING\n6&#39;), Text(6, 0, &#39;HTN&#39;), Text(7, 0, &#39;IMMUNOCOMPROMISED&#39;), Text(8, 0, &#39;OTHER&#39;)])</code></pre>
+<pre><code>## ([&lt;matplotlib.axis.XTick object at 0x00000000638CC0A0&gt;, &lt;matplotlib.axis.XTick object at 0x00000000638CC070&gt;, &lt;matplotlib.axis.XTick object at 0x00000000638C2700&gt;, &lt;matplotlib.axis.XTick object at 0x0000000063A35790&gt;, &lt;matplotlib.axis.XTick object at 0x0000000063A35EE0&gt;, &lt;matplotlib.axis.XTick object at 0x0000000063A2C670&gt;, &lt;matplotlib.axis.XTick object at 0x0000000063A2CDF0&gt;, &lt;matplotlib.axis.XTick object at 0x0000000063A2C970&gt;, &lt;matplotlib.axis.XTick object at 0x0000000063A357F0&gt;], [Text(0, 0, &#39;DISEASE\nGROUPING\n1&#39;), Text(1, 0, &#39;DISEASE\nGROUPING\n2&#39;), Text(2, 0, &#39;DISEASE\nGROUPING\n3&#39;), Text(3, 0, &#39;DISEASE\nGROUPING\n4&#39;), Text(4, 0, &#39;DISEASE\nGROUPING\n5&#39;), Text(5, 0, &#39;DISEASE\nGROUPING\n6&#39;), Text(6, 0, &#39;HTN&#39;), Text(7, 0, &#39;IMMUNOCOMPROMISED&#39;), Text(8, 0, &#39;OTHER&#39;)])</code></pre>
 <pre class="python"><code>annot_bar(ax)
 
 #Definindo o eixo y
@@ -1018,12 +1019,12 @@ sns.boxplot(x=&#39;variable&#39;, y=&#39;value&#39;, hue=&#39;ICU&#39;,
 plt.xticks(range(15),labels=cont_melt[&#39;variable&#39;].str.split(&#39;_&#39;).str.join(&#39;\n&#39;).unique(), rotation=35)
 
 #Configurando a legenda</code></pre>
-<pre><code>## ([&lt;matplotlib.axis.XTick object at 0x000000006418BBB0&gt;, &lt;matplotlib.axis.XTick object at 0x000000006418BF70&gt;, &lt;matplotlib.axis.XTick object at 0x00000000644F4FD0&gt;, &lt;matplotlib.axis.XTick object at 0x000000006413ADF0&gt;, &lt;matplotlib.axis.XTick object at 0x000000006416D580&gt;, &lt;matplotlib.axis.XTick object at 0x000000006416DCD0&gt;, &lt;matplotlib.axis.XTick object at 0x0000000064157490&gt;, &lt;matplotlib.axis.XTick object at 0x000000006416D880&gt;, &lt;matplotlib.axis.XTick object at 0x0000000064157340&gt;, &lt;matplotlib.axis.XTick object at 0x0000000064157F40&gt;, &lt;matplotlib.axis.XTick object at 0x00000000641544F0&gt;, &lt;matplotlib.axis.XTick object at 0x0000000064154DC0&gt;, &lt;matplotlib.axis.XTick object at 0x00000000641345B0&gt;, &lt;matplotlib.axis.XTick object at 0x0000000064154D60&gt;, &lt;matplotlib.axis.XTick object at 0x0000000064157AC0&gt;], [Text(0, 0, &#39;SODIUM\nDIFF&#39;), Text(1, 0, &#39;CREATININ\nDIFF&#39;), Text(2, 0, &#39;BLOODPRESSURE\nSISTOLIC\nMEAN&#39;), Text(3, 0, &#39;LACTATE\nMEDIAN&#39;), Text(4, 0, &#39;PH\nVENOUS\nMEDIAN&#39;), Text(5, 0, &#39;GLUCOSE\nDIFF&#39;), Text(6, 0, &#39;TGO\nDIFF&#39;), Text(7, 0, &#39;P02\nVENOUS\nMEDIAN&#39;), Text(8, 0, &#39;BLOODPRESSURE\nSISTOLIC\nDIFF&#39;), Text(9, 0, &#39;PC02\nVENOUS\nDIFF&#39;), Text(10, 0, &#39;PC02\nVENOUS\nMEDIAN&#39;), Text(11, 0, &#39;OXYGEN\nSATURATION\nDIFF&#39;), Text(12, 0, &#39;BE\nVENOUS\nMEDIAN&#39;), Text(13, 0, &#39;HEART\nRATE\nMEAN&#39;), Text(14, 0, &#39;LEUKOCYTES\nDIFF&#39;)])</code></pre>
+<pre><code>## ([&lt;matplotlib.axis.XTick object at 0x0000000064046A60&gt;, &lt;matplotlib.axis.XTick object at 0x00000000638B4940&gt;, &lt;matplotlib.axis.XTick object at 0x00000000640B1FD0&gt;, &lt;matplotlib.axis.XTick object at 0x000000006393DE20&gt;, &lt;matplotlib.axis.XTick object at 0x000000006394A5B0&gt;, &lt;matplotlib.axis.XTick object at 0x000000006394AD00&gt;, &lt;matplotlib.axis.XTick object at 0x00000000639494C0&gt;, &lt;matplotlib.axis.XTick object at 0x000000006394A8E0&gt;, &lt;matplotlib.axis.XTick object at 0x0000000063949460&gt;, &lt;matplotlib.axis.XTick object at 0x0000000063925070&gt;, &lt;matplotlib.axis.XTick object at 0x0000000063925700&gt;, &lt;matplotlib.axis.XTick object at 0x0000000063925E50&gt;, &lt;matplotlib.axis.XTick object at 0x000000006394F5E0&gt;, &lt;matplotlib.axis.XTick object at 0x0000000063925E20&gt;, &lt;matplotlib.axis.XTick object at 0x0000000063949B50&gt;], [Text(0, 0, &#39;SODIUM\nDIFF&#39;), Text(1, 0, &#39;CREATININ\nDIFF&#39;), Text(2, 0, &#39;BLOODPRESSURE\nSISTOLIC\nMEAN&#39;), Text(3, 0, &#39;LACTATE\nMEDIAN&#39;), Text(4, 0, &#39;PH\nVENOUS\nMEDIAN&#39;), Text(5, 0, &#39;GLUCOSE\nDIFF&#39;), Text(6, 0, &#39;TGO\nDIFF&#39;), Text(7, 0, &#39;P02\nVENOUS\nMEDIAN&#39;), Text(8, 0, &#39;BLOODPRESSURE\nSISTOLIC\nDIFF&#39;), Text(9, 0, &#39;PC02\nVENOUS\nDIFF&#39;), Text(10, 0, &#39;PC02\nVENOUS\nMEDIAN&#39;), Text(11, 0, &#39;OXYGEN\nSATURATION\nDIFF&#39;), Text(12, 0, &#39;BE\nVENOUS\nMEDIAN&#39;), Text(13, 0, &#39;HEART\nRATE\nMEAN&#39;), Text(14, 0, &#39;LEUKOCYTES\nDIFF&#39;)])</code></pre>
 <pre class="python"><code>handles, labels = ax.get_legend_handles_labels()
 plt.legend(handles[0:2], [&#39;Não foi para UTI&#39;, &#39;Foi para UTI&#39;], bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0., fontsize=15)
 
 #Adicionando uma referência para o gráfico</code></pre>
-<pre><code>## &lt;matplotlib.legend.Legend object at 0x0000000064138EE0&gt;</code></pre>
+<pre><code>## &lt;matplotlib.legend.Legend object at 0x0000000063927400&gt;</code></pre>
 <pre class="python"><code>plt.text(0,-0.15, &#39;GRÁFICO 7&#39;, color=&#39;black&#39;, transform=ax.transAxes, fontsize=15)</code></pre>
 <pre><code>## Text(0, -0.15, &#39;GRÁFICO 7&#39;)</code></pre>
 <pre class="python"><code>plt.show()</code></pre>

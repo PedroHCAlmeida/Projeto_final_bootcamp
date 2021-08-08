@@ -1,0 +1,24 @@
+---
+title: "Prevendo a necessidade de internação por COVID-19"
+output: 
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: false
+    css: styles.css
+---
+
+```{r, include=FALSE}
+Sys.setenv(RETICULATE_PYTHON = "C:/Users/pedro/anaconda3_02/envs/bootcampfinal/python.exe")
+library(reticulate)
+use_condaenv("C:/Users/pedro/anaconda3_02/envs/bootcampfinal", required = TRUE)
+repl_python()
+```
+
+```{r, include=FALSE}
+#rmarkdown:::convert_ipynb("../../notebooks/Analise_exploratoria.ipynb", 
+ #            output = xfun::with_ext("Analise_exploratoria.ipynb", "Rmd"))
+#rmarkdown:::convert_ipynb("../../notebooks/Previsoes.ipynb", 
+  #            output = xfun::with_ext("Previsoes", "Rmd"))
+```
+
