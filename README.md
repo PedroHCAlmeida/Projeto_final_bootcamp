@@ -91,7 +91,7 @@ Por fim fiz pequenas mudanças em relação as leituras de dados e importações
 <a name="model"></a>
 # Modelos 
 
-Após realizar o pré-processamento dos dados e a análise exploratória, foram testados diferentes modelos de Machine Learning foram eles:
+Após realizar o pré-processamento dos dados e a análise exploratória, foram testados diferentes modelos de Machine Learning, foram eles:
 
 |Modelo                 |Pacote              |Método
 |:----------------------|:-------------------|-----------|
