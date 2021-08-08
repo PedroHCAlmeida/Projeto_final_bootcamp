@@ -62,10 +62,10 @@ Neste diretório experimentei testar diferentes funcionalidades que é possível
 Por fim fiz pequenas mudanças em relação as leituras de dados e importações de funções locais e utilizei o arquivo [SearchCV_salvo/random_searchcv](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/arquivos_modelo/SearchCV_salvo/random_searchcv) para não realizar o processo de otimização de hyperparâmetros novamente.
 
 * Comando utilizado para utilizar o python no Rstudio no mesmo ambiente que foi desenvolvido os notebooks pelo jupyter lab
-![](https://raw.githubusercontent.com/PedroHCAlmeida/Projeto_final_bootcamp/main/img/Screenshot%202021-08-07%20214512.png?token=ASNXTHQDPQRZBGBVPFVQVF3BB4VQM)
+![](https://raw.githubusercontent.com/PedroHCAlmeida/Projeto_final_bootcamp/main/img/Screenshot%202021-08-07%20214512.png?token=ASNXTHUWDLAGNV2LIYRY3BDBB7664)
 
 * Comando utilizado para gerar uma cópia dos notebooks no formato .Rmd
-![](https://raw.githubusercontent.com/PedroHCAlmeida/Projeto_final_bootcamp/main/img/Screenshot%202021-08-07%20214603.png?token=ASNXTHTRWBEYRIBZY4AOKYTBB4VRI)
+![](https://raw.githubusercontent.com/PedroHCAlmeida/Projeto_final_bootcamp/main/img/Screenshot%202021-08-07%20214603.png?token=ASNXTHWGF235V7HEU2OBBQLBB77AA)
  
 * Obs: esses comandos só foram realizados uma vez na hora de iniciar a sessão, depois foram retirados
 
