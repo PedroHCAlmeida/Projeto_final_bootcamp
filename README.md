@@ -84,7 +84,7 @@ Esse projeto foi realizado utilizando a linguagem Python versão 3.9.6, e os not
 
 # Agradecimentos
 
-Gostaria de deixar o meu agradecimento aos instrutores da Alura, Thiago Santos, Guilherme Silveira, Allan Spadini e Karoline Penteado, que nos acompanharam durante todo o bootcamp. Ao Paulo Vasconcellos, que sempre participou das lives nesse período e trouxe dicas valiosas para melhorar os projetos. Além disso, queria agradecer a todo pessoal do discord e do Scuba team que sempre ajudou quando foi preciso.
+Gostaria de deixar o meu agradecimento a Alura por essa oportunidade incrível de participar do bootcamp de Data Science Aplicada, aos instrutores Thiago Santos, Guilherme Silveira, Allan Spadini e Karoline Penteado, que nos acompanharam durante todo o bootcamp. Ao Paulo Vasconcellos, que sempre participou das lives nesse período e trouxe dicas valiosas para melhorar os projetos. Além disso, queria agradecer a todo pessoal do discord e do Scuba team que sempre ajudou quando foi preciso.
 
 # Referências
 
