@@ -3,7 +3,7 @@
 
 ![Alt](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/img/previsao_banner.png?raw=true)
 
-# **Sumário**
+# Sumário
 <!--ts-->
    * [Apresentação](#apre)
    * [Resumo](#res)
