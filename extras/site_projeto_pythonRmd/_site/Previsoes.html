@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Previsoes.knit</title>
+
+<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    background-color: #ffffff;
+    color: #a0a0a0;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
+div.sourceCode
+  { color: #1f1c1b; background-color: #ffffff; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span { color: #1f1c1b; } /* Normal */
+code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+code span.an { color: #ca60ca; } /* Annotation */
+code span.at { color: #0057ae; } /* Attribute */
+code span.bn { color: #b08000; } /* BaseN */
+code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #924c9d; } /* Char */
+code span.cn { color: #aa5500; } /* Constant */
+code span.co { color: #898887; } /* Comment */
+code span.cv { color: #0095ff; } /* CommentVar */
+code span.do { color: #607880; } /* Documentation */
+code span.dt { color: #0057ae; } /* DataType */
+code span.dv { color: #b08000; } /* DecVal */
+code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+code span.fl { color: #b08000; } /* Float */
+code span.fu { color: #644a9b; } /* Function */
+code span.im { color: #ff5500; } /* Import */
+code span.in { color: #b08000; } /* Information */
+code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+code span.op { color: #1f1c1b; } /* Operator */
+code span.ot { color: #006e28; } /* Other */
+code span.pp { color: #006e28; } /* Preprocessor */
+code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+code span.sc { color: #3daee9; } /* SpecialChar */
+code span.ss { color: #ff5500; } /* SpecialString */
+code span.st { color: #bf0303; } /* String */
+code span.va { color: #0057ae; } /* Variable */
+code span.vs { color: #bf0303; } /* VerbatimString */
+code span.wa { color: #bf0303; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Prevendo a necessidade de internação para pacientes com COVID-19</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="Analise_exploratoria.html">Análise Exploratória</a>
+</li>
+<li>
+  <a href="Previsoes.html">Previsões</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/PedroHCAlmeida">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://www.linkedin.com/in/pedro-henrique-corr%C3%AAa-de-almeida-15398b105/">
+    <span class="fa fa-linkedin"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+
+</div>
+
+
+<div id="previsões" class="section level1">
+<h1>Previsões</h1>
+<p><img src="https://raw.githubusercontent.com/PedroHCAlmeida/Projeto_final_bootcamp/main/img/share.png?token=ASNXTHRK252ELJWBWQKPYETBB3TCG" /></p>
+<div id="resumo" class="section level2">
+<h2>Resumo</h2>
+<p>Após realizar o pré-processamento e a análise exploratória dos dados disponibilizados pelo Hospital Sírio-Libanês no <a href="https://www.kaggle.com/S%C3%ADrio-Libanes/covid19">kaggle</a>, neste notebook o foco foi na solução do problema, ou seja, foram testados modelos de Machine Learning a fim de resolver o problema notificado pelo hospital com a melhor eficácia possível. Para isso foram testados 6 modelos diferentes de classificação, aplicando técnicas de reamostragem e de seleção de variáveis.</p>
+</div>
+<div id="contexto-do-problema" class="section level2">
+<h2>Contexto do problema</h2>
+<p>O ano de 2020 começou de uma maneira completamente inesperada, o mundo foi atingido por uma das maiores crises sanitárias da história contemporânea, e uma palavra tomou conta das notícias nos jornais e mídias sociais brasileiras, <strong>“Leito”</strong>, a superlotação dos hopitais e a falta de leitos se tornou normal em todo o Brasil, nos anos de 2020 e 2021. Nesse contexto, o <strong>objetivo</strong> foi, a partir dos dados referente aos pacientes que sofreram da doença, criar um modelo capaz de prever se um paciente precisará de UTI nas <strong>duas primeiras horas</strong> que esse paciente é admitido no hospital.</p>
+</div>
+</div>
+<div id="escopo-do-notebook" class="section level1">
+<h1>Escopo do notebook</h1>
+<ul>
+<li>Importação dos pacotes</li>
+<li>Importação das funções locais</li>
+<li>Leitura dos dados preprocessados</li>
+<li>Métricas de avaliação</li>
+<li>Primeiros modelos</li>
+<li>Reamostragem</li>
+<li>Otimização</li>
+<li>Modelo final</li>
+<li>Resultados finais</li>
+</ul>
+</div>
+<div id="importação-dos-pacotes" class="section level1">
+<h1>Importação dos pacotes</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.dummy <span class="im">import</span> DummyClassifier</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier,ExtraTreesClassifier</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> lightgbm <span class="im">import</span> LGBMClassifier</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> xgboost <span class="im">import</span> XGBClassifier</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.utils <span class="im">import</span> resample</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.feature_selection <span class="im">import</span> SelectFromModel</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> RepeatedStratifiedKFold, RandomizedSearchCV</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pipelinehelper <span class="im">import</span> PipelineHelper</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> joblib <span class="im">import</span> dump</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pickle</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Configurando o estilo dos gráficos</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>sns.set_style(<span class="st">&#39;darkgrid&#39;</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Filtrando os avisos</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">&#39;ignore&#39;</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Definindo a semente de números aleatórios</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>SEED <span class="op">=</span> <span class="dv">64541</span></span></code></pre></div>
+</div>
+<div id="importações-das-funções-locais" class="section level1">
+<h1>Importações das funções locais</h1>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>os.chdir(<span class="st">&quot;../../funcoes&quot;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> my_classifier <span class="im">import</span> Classifier</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>os.chdir(<span class="st">&quot;../extras/projeto_site_pythonRmd&quot;</span>)</span></code></pre></div>
+</div>
+<div id="leitura-dos-dados-pré-processados" class="section level1">
+<h1>Leitura dos dados pré-processados</h1>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">&#39;../../dados/dados_preprocessados/preprocessados.csv&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div>
+</div>
+<div id="métricas-de-avaliação" class="section level1">
+<h1>Métricas de avaliação</h1>
+<p>A escolha das métricas para escolher o melhor modelo é uma escolha crucial para selecionar o modelo que mais pode ajudar os problemas reais encontrados no hospital. No problema em questão, essas métricas devem ser muito bem escolhidas, uma vez que estamos tratando de <strong>dados reais relacionados a saúde</strong>, e cada erro pode significar uma <strong>vida</strong>. Por esta razão, vou utilizar as seguintes métricas em todos os testes:</p>
+<ul>
+<li>ROC AUC</li>
+<li>F1 score</li>
+<li>Recall</li>
+<li>Precisão</li>
+<li>Acurácia</li>
+</ul>
+<p>Todas as métricas serão utilizadas para acompanhar os resultados e não termos um modelo tendencioso, no entanto, as métricas que serão utilizadas para selecionar os modelos será, <strong>primeiramente</strong>, a <strong>ROC AUC</strong> para selecionar os <strong>dois melhores modelos sem nenhuma otimização</strong>, e, posteriormente, será realizada a <strong>otimização de hiperparâmetros com base na F1 score</strong>.</p>
+<div id="roc-auc" class="section level2">
+<h2>ROC AUC</h2>
+<p>A métrica ROC AUC é utilizada para problemas de classificação binárias e consiste na área abaixo da curva ROC do modelo. Essa curva é gerada através das taxas de valores verdadeiros positivos e falsos positivos previstos pelo modelo. Ela consegue mensurar o quão bem um modelo consegue separar os dados em relação a variável alvo, no nosso caso, a capacidade de um modelo em separar, através de <strong>probabilidades</strong>, os pacientes que precisaram de cuidados intensivos dos pacientes que não precisaram de cuidados intensivos. Por esta razão, essa métrica vai ser utilizada para selecionar os <strong>dois melhores modelos que possuem a maior capacidade de separar esses dois grupos</strong>.</p>
+<p><img src="https://raw.githubusercontent.com/PedroHCAlmeida/Projeto_final_bootcamp/main/img/roc_curve.jpg?token=ASNXTHRPZWZSIUSKA57LS2LBB3SVG" /></p>
+</div>
+<div id="f1-score" class="section level2">
+<h2>F1 score</h2>
+<p>A métrica F1 score combina a precisão, que mede, entre os valores classificados, quantos estavam corretos, e o recall, que mede entre, os valores corretos , quantos foram classificados corretamente. O principal fator que utilizarei essa métrica para <strong>realizar a otimização dos modelos</strong> é que ela sempre da um peso maior para o pior valor entre a precisão e o recall, ou seja, ela é mais sensível em modelos enviesados que possuem uma tendência maior de prever um determinado grupo. Com isso, tendo um maior valor dessa métrica, temos mais chances de um maior equilíbrio entre as demais.</p>
+<p><strong>OBS: FOI UTILIZADA A MÉDIA MACRO DA F1 SCORE PARA REALIZAR ESSA OTIMIZAÇÃO</strong></p>
+</div>
+<div id="validação-cruzada" class="section level2">
+<h2>Validação cruzada</h2>
+<p>Além de selecionar as métricas, devemos ter a maior certeza possível do resultado obtido pelo modelo, tentando excluir ao máximo a aleatoriedade na hora de testá-los. Para isso utilizarei uma <strong>validação cruzada</strong> em todos os testes.</p>
+<p>A validação cruzada é um método estatístico usado para estimar a habilidade dos modelos de aprendizado de máquina. Tem o objetivo de resumir a performance de um modelo de Machine Learning da maneira mais realista possível tentando generalizar ao máximo os testes. Essa técnica consiste em realizar divisões dentro do dataset inteiro gerando vários <strong>subconjuntos</strong> dos dados e, posteriormente, realizar treinamentos e testes alternando o subconjunto que será destinado aos testes (utilizando os demais para treino), e dessa forma calcular as métricas de diferentes combinações dos dados destinados para treino e teste.</p>
+<p><img src="https://raw.githubusercontent.com/PedroHCAlmeida/Projeto_final_bootcamp/main/img/dataml_cross_validation.png?token=ASNXTHSHEXSDXFKCCL6AFZ3BB3SXK" /></p>
+<p>Porém realizar essa divisão de qualquer maneira pode criar um viés dependendo das proporções das classes da variável alvo nos subconjuntos, para isso podemos estabelecer um critério na hora dessa divisão, e o critério utilizado será tentar <strong>manter a mesma proporção</strong>, ou muito próximas, das classes 0 e 1(foi ou não foi para UTI) em <strong>todos os subconjuntos</strong>.<br><br> Além disso, como foi visto na análise exploratória(<a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/notebooks/Analise_exploratoria.ipynb">notebooks/Analise_explotaroria</a>), o nosso dataset pré-processado possui informações de <strong>294</strong> pacientes, o que é um número pequeno de observações, e para tentar diminuir o efeito desse problema podemos realizar essa validação cruzada diversas vezes, e, a cada vez, dividir novamente o conjunto de dados em subconjuntos diferentes de forma aleatória. Para isso vou utilizar a classe RepeatedStratifiedKFold( ) do pacote sklearn.model_selection, e ,dessa forma, realizar a validação cruzada da seguinte maneira: <br></p>
+<ul>
+<li>1 - Os dados serão embaralhados</li>
+<li>2 - Os dados serão divididos em <strong>5 subconjuntos</strong> mantendo a mesma proporção da variável alvo(“ICU”)</li>
+<li>3 - O processo será realizado <strong>10 vezes</strong></li>
+</ul>
+<p>Para realizar esse processo criei uma classe que irá repetir esses passos da mesma forma e com a mesma semente de números aleatórios, essa classe recebe o modelo e o conjunto de dados inteiro, embaralha esses dados de forma aleatória e separa em X(variáveis preditoras) e y(variáviel resposta). Essa classe possui uma função cross_val( ) para realizar essa validação calculando as métricas da seguinte forma:</p>
+<ul>
+<li>As métricas ROC AUC e Acurácia serão calculadas a cada treinamento e seus resultados serão salvos como atributos, além disso será calculado a média e o desvio padrão amostral construindo um intervalo de 95% de confiança para a média</li>
+<li>As métricas F1, precisão e recall serão calculadas da mesma maneira acima, porém serão utilizadas a média MACRO dessas métricas</li>
+<li>Serão calculadas as matrizes de confusão a cada treinamento, somando as, e, por fim será calculada a média dos elementos dessas matrizes</li>
+<li>Além disso serão calculadas as médias das métricas F1, precisão e recall para cada classe da variável alvo através da média das matrizes de confusão &gt; Para calcular o intevalo de confiança da média foi usada a fórmula:<br> <span class="math display">\[\mu = \bar{x} \pm \frac{\sigma}{\sqrt{n}}\]</span><br> &gt; Considerando desvio padrão amostral das métricas e o tamanho igual a 50 pois o processo foi repetido 10 vezes e foram realizadas 5 divisões(5*10)</li>
+</ul>
+<p>Nessa classe foram definidas algumas funções para visualização dos resultados de forma mais fácil, abaixo segue o docstring inteiro da classe:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(Classifier.__doc__)</span></code></pre></div>
+</div>
+</div>
+<div id="primeiros-modelos" class="section level1">
+<h1>Primeiros modelos</h1>
+<p>Ao se escolher o melhor modelo de Machine Learning precisamos ter um modelo de comparação para se ter um ponto de partida nas análises e comparações. Para isso precisamos de um modelo <strong>“Baseline”</strong>, um modelo mais simples que nos da uma referência do que é um resultado bom e do que é um resultado ruim. Para isso vou utilizar o modelo <strong>DummyClassifier</strong>, este modelo irá sempre chutar para os dados de teste a classe mais frequente no dataset de treino.<br><br> Posteriormente serão testados os seguintes modelos de classificação:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Modelo</th>
+<th align="left">Pacote</th>
+<th align="left">Método</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">LogisticRegression</td>
+<td align="left">sklearn.linear_model</td>
+<td align="left">Regressão Logística</td>
+</tr>
+<tr class="even">
+<td align="left">DecisionTreeClassifier</td>
+<td align="left">sklearn.tree</td>
+<td align="left">Árvore de decisão</td>
+</tr>
+<tr class="odd">
+<td align="left">RandomForestClassifier</td>
+<td align="left">sklearn.ensemble</td>
+<td align="left">Ensemble</td>
+</tr>
+<tr class="even">
+<td align="left">ExtraTreesClassifier</td>
+<td align="left">sklearn.ensemble</td>
+<td align="left">Ensemble</td>
+</tr>
+<tr class="odd">
+<td align="left">XGBClassifier</td>
+<td align="left">pacote xgboost</td>
+<td align="left">Ensemble</td>
+</tr>
+<tr class="even">
+<td align="left">LGBMClassifier</td>
+<td align="left">pacote lightgbm</td>
+<td align="left">Ensemble</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Método Ensemble : esse método consiste em combinar diversos modelos mais simples afim de criar um modelo robusto que utiliza várias técnicas estatísticas. <br> Obs : Todos os modelos desse tipo testados no notebook são baseados em árvores de decisão.</p>
+</blockquote>
+<div id="baseline" class="section level2">
+<h2>Baseline</h2>
+<p>Vamos calcular agora as métricas que servirão de base de comparação. Como estarei utilizando o DummyClassifier( ) não precisaria de uma validação cruzada, já que ao dividir os subconjuntos usando o método “RepeatedStratifiedKFold” a proporção da classe de resposta será sempre a mesma, e, portanto, os valores previstos serão sempre os mesmos, no entanto utilizarei a classe Classifier( ) para tornar o processo automático e calcular todas as métricas de uma vez, além disso, como não é um modelo computacionalmente custoso, não vejo problema.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>dummy <span class="op">=</span> Classifier(DummyClassifier, df, strategy<span class="op">=</span><span class="st">&#39;most_frequent&#39;</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>dummy.cross_val()</span></code></pre></div>
+<p>Agora que calculamos as métricas do modelo base, qualquer modelo que tiver uma média da curva <strong>ROC menor do que 0.5 será desconsiderado</strong>.</p>
+<p>OBS : No resultado das métricas do baseline nota-se que os resultados das médias para classe 1 foram valores nulos ou zero, isso é porque como a classe 0 é a mais frequente, ele preveu que ninguém ia para UTI em todos os casos, e com isso na hora de calcular as métricas houveram divisões por zero para o F1 score e precisão, e valor zero no numerador para o recall.</p>
+</div>
+<div id="logisticregression" class="section level2">
+<h2>LogisticRegression</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>lr <span class="op">=</span> Classifier(LogisticRegression, df, max_iter<span class="op">=</span><span class="dv">1000</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>lr.cross_val()</span></code></pre></div>
+<p>Vemos que com uma regressão logística tivemos uma ROC AUC razoável, porém em relação às demais métricas parece que o modelo se deu bem melhor para prever dados da classe 0, correspondentes aos pacientes que não foram para UTI, do que da <strong>classe 1</strong>, onde tivemos um recall de apenas <strong>0,436</strong>, o que significa que o modelo está classificando muitas pessoas que <strong>precisaram de UTI como se não fossem precisar</strong>, o que é um erro <strong>perigosíssimo</strong>, uma vez que em uma situação real cada erro desses pode <strong>significar uma vida</strong>.</p>
+</div>
+<div id="decisiontreeclassifier" class="section level2">
+<h2>DecisionTreeClassifier</h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dt <span class="op">=</span> Classifier(DecisionTreeClassifier, df)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>dt.cross_val()</span></code></pre></div>
+<p>O modelo DescisionTreeClassifier se saiu pior ainda do que a regressão logística, e apresentou os mesmos padrões, em que teve muita dificuldade de prever dados da <strong>classe 1</strong>, e dessa vez obteve todas as métricas dessa classe <strong>abaixo de 0,5</strong>.</p>
+</div>
+<div id="randomforestclassifier" class="section level2">
+<h2>RandomForestClassifier</h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>rf <span class="op">=</span> Classifier(RandomForestClassifier, df)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>rf.cross_val()</span></code></pre></div>
+<p>No modelo RandomForestClassifier obteve uma pequena melhora na ROC AUC, porém ainda existe <strong>muita dificuldade ao prever se o paciente precisará ir para UTI</strong>, com um recall de 0,447 para esta classe.</p>
+</div>
+<div id="extratreesclassifier" class="section level2">
+<h2>ExtraTreesClassifier</h2>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>et <span class="op">=</span> Classifier(ExtraTreesClassifier, df)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>et.cross_val()</span></code></pre></div>
+<p>Com o modelo ExtraTreesClassifier mais uma vez o mesmo problema para prever a <strong>classe 1</strong>, dessa vez com o pior recall até agora de <strong>0,366</strong>.</p>
+</div>
+<div id="xgbclassifier" class="section level2">
+<h2>XGBClassifier</h2>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>xg <span class="op">=</span> Classifier(XGBClassifier, df, verbosity<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>xg.cross_val()</span></code></pre></div>
+<p>Agora com o modelo XGBClassifier() fica evidente, mais uma vez, que, independente do modelo testado, estamos tendo um problema enorme em previsões da <strong>classe 1</strong>.</p>
+</div>
+<div id="lgbmclassifier" class="section level2">
+<h2>LGBMClassifier</h2>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>lgbm <span class="op">=</span> Classifier(LGBMClassifier, df, verbosity<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>lgbm.cross_val()</span></code></pre></div>
+<p>Por fim o último modelo, LGBMClassifier, apresentou os mesmos problemas encontrados em todos os 6. Vamos observar a <strong>curva ROC</strong> para ver como que os modelos estão performando na hora de <strong>diferenciar as classes</strong>.</p>
+</div>
+<div id="curva-roc-dos-modelos" class="section level2">
+<h2>Curva ROC dos modelos</h2>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>sns.set_palette(sns.color_palette(<span class="st">&#39;Set1&#39;</span>), <span class="dv">6</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>ax8 <span class="op">=</span> dummy.plot_roc_curve(color<span class="op">=</span><span class="st">&#39;navy&#39;</span>, lw<span class="op">=</span><span class="dv">2</span>, linestyle<span class="op">=</span><span class="st">&#39;--&#39;</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>ax8 <span class="op">=</span> lr.plot_roc_curve(ax<span class="op">=</span>ax8)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>ax8 <span class="op">=</span> dt.plot_roc_curve(ax<span class="op">=</span>ax8)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>ax8 <span class="op">=</span> rf.plot_roc_curve(ax<span class="op">=</span>ax8)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>ax8 <span class="op">=</span> xg.plot_roc_curve(ax<span class="op">=</span>ax8, name_estimator<span class="op">=</span><span class="st">&#39;XGBoost(random_state=64541))&#39;</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>ax8 <span class="op">=</span> lgbm.plot_roc_curve(ax<span class="op">=</span>ax8)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>et.plot_roc_curve(ax<span class="op">=</span>ax8)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-1.png" width="1920" /></p>
+<p>A partir da curva ROC, fica claro que os modelos estão performando mal, mesmo com alguns com uma área abaixo da curva razoável, as curvas se apresentam muito achatadas, principalmente a DecisionTreeClassifier.<br><br> Para resolver esse problema precisamos entender como surge esse problema, sabemos que os modelos estão com uma <strong>facilidade maior</strong> em prever a <strong>classe 0</strong>, o que pode ser um forte indício de um viés por parte desses modelos, e como foi visto no gráfico 1 da <a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/notebooks/Analise_exploratoria.ipynb">Análise exploratória de dados</a>, o nosso dataset possui um <strong>desbalanceamento</strong> em relação as classes da variável alvo, <strong>será que isso pode estar causando um viés no modelo?</strong>.<br><br> Para responder essa pergunta vamos aplicar alguma técnica para balancear esses dados e descobrir se esse pode ser o motivo do desempenho ruim dos modelos.</p>
+</div>
+</div>
+<div id="reamostragem" class="section level1">
+<h1>Reamostragem</h1>
+<p>Como foi mencionado, no dataset pré-processado temos mais dados de pacientes que não preciram ir para UTI do que dados pacientes que precisaram desses cuidados intensivos. Esse pode ser um fator para os primeiros modelos não estarem conseguindo separar esses dois grupos tão bem.<br><br> Para resolver este problema temos algumas opções, a melhor delas seria coletar novos dados, no entanto essa opção não é viável nesse caso, uma vez que não temos acesso a essa coleta. Outras opções que poderíamos experimentar seria o <strong>“undersampling”</strong>, que seria eliminar dados da classe <strong>majoritária</strong> até termos uma dataset balanceado, e <strong>“oversampling”</strong>, que seria realizar uma reamostragem, de forma <strong>aleatória</strong>, utilizando <strong>dados existentes</strong> da classe <strong>minoritária</strong> e duplicando-os até as classes estiverem balanceadas.<br><br> Nesse caso, como nós temos em mãos poucas observações, apenas <strong>294</strong>, acredito que a técnica de <strong>“oversampling”</strong> pode ser melhor, uma vez que se eliminarmos dados existentes estaríamos diminuindo o dataset ainda mais.</p>
+<p><img src="../img/reamostragem.png" /></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">&#39;ICU&#39;</span>].value_counts()</span></code></pre></div>
+<p>Verificando o dataset novamente, temos que 189 pacientes pertencem a classe 0(não foi para UTI) e 105 pacientes pertencem a classe 1(foram para UTI).Para realizar este “oversampling”, primeiramente, vou dividir os dados de acordo com a classe(0 ou 1) em dois dataframes separados.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Dividindo os dados com base na variável &quot;ICU&quot;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>icu0 <span class="op">=</span> df.query(<span class="st">&#39;ICU == 0&#39;</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>icu1 <span class="op">=</span> df.query(<span class="st">&#39;ICU == 1&#39;</span>)</span></code></pre></div>
+<p>Como a nossa classe minoritária é a classe 1, vou utilizar a função resample do pacote sklearn.utils para realizar essa reamostragem utilizando apenas o dataframe correspondente aos pacientes que foram para UTI(icu1).</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Passando o dataframe com a classe minoritária, o tamanho da classe majoritária para o parâmetro n_samples, </span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co">#e o parâmetro random_state=SEED para definir a semente aleatória e garantir a reprodutibilidade</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>icu1_resample <span class="op">=</span> resample(icu1,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>                         n_samples<span class="op">=</span><span class="bu">len</span>(icu0),</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>                         random_state<span class="op">=</span>SEED)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(icu1_resample)</span></code></pre></div>
+<p>Verificando o tamanho dessa reamostragem temos os dataframes das duas classes com o mesmo tamanho, e vamos juntá-los em apenas um dataframe novamente.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Juntando as duas classes no df_resample</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>df_resample <span class="op">=</span> pd.concat([icu1_resample, icu0], axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>df_resample[<span class="st">&#39;ICU&#39;</span>].value_counts()</span></code></pre></div>
+<p>Agora que temos um dataframe balanceado em relação à variável alvo, vamos utilizar os mesmos modelos e realizar as validações cruzadas novamente.</p>
+<div id="logisticregression-1" class="section level2">
+<h2>LogisticRegression</h2>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>lr_resample <span class="op">=</span> Classifier(LogisticRegression, df_resample, max_iter<span class="op">=</span><span class="dv">1000</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>lr_resample.cross_val()</span></code></pre></div>
+<p>Testando com o dataframe balanceado fica claro a diferença, o equilíbrio das métricas entre as classes é muito maior e o desempenho muito mais relevante para o problema. Porém ainda temos valores razoáveis, vamos testar uma árvore de decisão para verificar se conseguimos melhores métricas.</p>
+</div>
+<div id="decisiontreeclassifier-1" class="section level2">
+<h2>DecisionTreeClassifier</h2>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>dt_resample <span class="op">=</span> Classifier(DecisionTreeClassifier, df_resample)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>dt_resample.cross_val()</span></code></pre></div>
+<p>Com uma árvore de decisão simples já temos valores mais interessantes perto de 80%, o que indica que os próximos modelos ensemble, baseados em árvores de decisão, podem ser uma solução interessante para o problema.</p>
+</div>
+<div id="randomforestclassifier-1" class="section level2">
+<h2>RandomForestClassifier</h2>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>rf_resample <span class="op">=</span> Classifier(RandomForestClassifier, df_resample)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>rf_resample.cross_val()</span></code></pre></div>
+<p>Com um modelo RandomForestClassifier já temos uma ROC AUC média de <strong>0,945</strong>, uma melhora considerável, e possivelmente, já temos um forte candidato para otimização de hiperparâmetros. E dessa vez nota-se um equilíbrio das métricas, independente da classe, e exatamente isso que queremos.</p>
+</div>
+<div id="extratreesclassifier-1" class="section level2">
+<h2>ExtraTreesClassifier</h2>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>et_resample <span class="op">=</span> Classifier(ExtraTreesClassifier, df_resample)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>et_resample.cross_val()</span></code></pre></div>
+<p>Com o modelo ExtraTreeClassifier temos métricas bem semelhantes ao RandomForestClassifier, e como vamos utilizar dois modelos na hora de otimizar os hyperparâmetros esse pode ser uma boa opção.</p>
+</div>
+<div id="xgbclassifier-1" class="section level2">
+<h2>XGBClassifier</h2>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>xg_resample <span class="op">=</span> Classifier(XGBClassifier, df_resample, verbosity<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>xg_resample.cross_val()</span></code></pre></div>
+<p>Com o XGBClassifier tivemos um resultado bom, mas um pouco atrás das duas anteriores, por esta razão esse modelo não será utilizado para otimização de hyperparâmetros.</p>
+</div>
+<div id="lgbmclassifier-1" class="section level2">
+<h2>LGBMClassifier</h2>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>lgbm_resample <span class="op">=</span> Classifier(LGBMClassifier, df_resample, verbosity<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>lgbm_resample.cross_val()</span></code></pre></div>
+<p>Com o modelo LGBMClassifier tivemos um resultado muito bom, porém ainda assim atrás da RandomForestClassifier e ExtraTreesClassifier em relação a ROC AUC, por isso este modelo também não será utilizado para otimização de hyperparâmetros.</p>
+</div>
+<div id="curva-roc-dos-modelos-1" class="section level2">
+<h2>Curva ROC dos modelos</h2>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>sns.set_palette(sns.color_palette(<span class="st">&#39;Set1&#39;</span>), <span class="dv">6</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>ax9 <span class="op">=</span> dummy.plot_roc_curve(color<span class="op">=</span><span class="st">&#39;navy&#39;</span>, lw<span class="op">=</span><span class="dv">2</span>, linestyle<span class="op">=</span><span class="st">&#39;--&#39;</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>ax9 <span class="op">=</span>lr_resample.plot_roc_curve(ax<span class="op">=</span>ax9)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>ax9 <span class="op">=</span>  dt_resample.plot_roc_curve(ax<span class="op">=</span>ax9)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>ax9 <span class="op">=</span> rf_resample.plot_roc_curve(ax<span class="op">=</span>ax9)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>ax9 <span class="op">=</span> xg_resample.plot_roc_curve(ax<span class="op">=</span>ax9, name_estimator<span class="op">=</span><span class="st">&#39;XGBoost(random_state=64541))&#39;</span>)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>ax9 <span class="op">=</span> lgbm_resample.plot_roc_curve(ax<span class="op">=</span>ax9)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>ax9 <span class="op">=</span> et_resample.plot_roc_curve(ax<span class="op">=</span>ax9)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-3.png" width="1920" /></p>
+<p>Com a curva ROC, fica claro o desempenho dos modelos do tipo ensemble, que conseguiram separar muito bem os dados em relações as classes, e apresentaram uma média muito boa da área abaixo dessa curva.</p>
+</div>
+</div>
+<div id="otimização" class="section level1">
+<h1>Otimização</h1>
+<p>Como foi proposto no <strong>início</strong> do notebook quando foram decididas as <strong>métricas</strong>, foi decidido que os modelos com as <strong>duas melhores ROC AUC</strong> seriam utilizados na otimização de hyperparâmetros. Logo, vamos testar os modelos RandomForestClassifier e o ExtraTreesClassifier.<br><br> Para realizar essa otimização decidi utilizar o pacote <strong>PipelineHelper</strong> que permite realizar essa otimização com <strong>vários modelos ao mesmo tempo</strong>, além de realizar <strong>técnicas de seleção de variáveis(feature selection)</strong> através de um Pipeline do pacote sklearn.pipeline.<br><br></p>
+<p>Além disso decidi utilizar a classe RandomizedSearchCV a fim de testar diversos parâmetros de forma aleatória, esse método recebe um grid de possíveis opções para cada hyperparâmetro e um máximo de iterações, e com isso realiza a otimização com base na métrica definida. Esse método calcula essas métricas a partir de uma validação cruzada, e por esta razão vou utilizar o mesmo tipo de validação cruzada utilizada em todos os modelos, com <strong>10 repetições</strong> e <strong>5 divisões</strong> no dataset.</p>
+<div id="seleção-de-variáveis" class="section level2">
+<h2>Seleção de variáveis</h2>
+<p>Para escolher as variáveis mais relevantes no contexto do problema vou utilizar a classe SelectFromModel() do pacote sklearn.feature_selection e utilizar o modelo RandomForestClassifier() como parâmetro para selecionar as melhores variávies. Com isso vou testar os seguintes hyperparâmetros dessa classe:</p>
+<ul>
+<li>threshold : [0, ‘median’, ‘mean’, ’1.25*mean’], esse parâmetro define o valor de corte para as importâncias das variávies calculadas pelo modelo RandomForestClassifier</li>
+</ul>
+<blockquote>
+<p>OBS : quando o threshold é igual a 0 é a mesma coisa que utilizar todas as variáveis originais</p>
+</blockquote>
+<p>Além disso, como essa classe utiliza o modelo RandomForestClassifier, e este realiza operações aleatórias, vou definir no pipeline a utilização, dentro da classe RandomForestClassifier, o seguinte parâmetro:</p>
+<ul>
+<li>random_state : [SEED], garante reprodutibilidade dos resultados utilizando a mesma semente aleatória do projeto todo</li>
+</ul>
+</div>
+<div id="hyperparâmetros" class="section level2">
+<h2>Hyperparâmetros</h2>
+<p>Como os dois modelos selecionados são baseados em árvores de decisão, temos muitos hyperparâmetros iguais, por esta razão, vou utilizar os mesmos hyperparâmetros na hora de otimizar o modelo, serão eles:</p>
+<ul>
+<li>bootstrap : [True, False]</li>
+<li>max_depth : [None, 5, 10, 15,20]</li>
+<li>max_features : [4, ‘auto’, 10]</li>
+<li>n_estimators: [100, 200, 400, 800]</li>
+<li>min_samples_split : [2, 3, 5]</li>
+<li>min_samples_leaf : [1, 2, 3]</li>
+</ul>
+<blockquote>
+<p>random_state : [SEED] garante reprodutibilidade dos resultados utilizando a mesma semente aleatória do projeto todo</p>
+</blockquote>
+</div>
+<div id="preparando-os-parâmetros" class="section level2">
+<h2>Preparando os parâmetros</h2>
+<p>Antes de realizar essa otimização, precisamos garantir que a validação cruzada seja realizada pela classe RandomizedSearchCV( ) e siga os mesmos passos das validações realizadas anteriormente na classe <strong>Classifier( )</strong>. Para isso vou realizar os seguintes passos, são eles:</p>
+<ul>
+<li>Os dados serão embaralhados através do mesmo método utilizado na classe Classifier(), com o <strong>mesmo seed</strong></li>
+<li>Os dados serão divididos em X e y da mesma forma</li>
+<li>O objeto de validação cruzada será o mesmo - RepeatedStratifiedKFold( ) com <strong>5 divisões</strong> no dataset, <strong>10 repetições</strong> e com o <strong>mesmo seed</strong></li>
+</ul>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Embaralhando o dataframe da mesma maneira que foi realizada a validação cruzada utilizando </span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co">#a classe Classifier() para reproduzir os resultados</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>df_resample_shuffle <span class="op">=</span> df_resample.sample(frac<span class="op">=</span><span class="dv">1</span>, random_state<span class="op">=</span>SEED).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Separando os dados em X e y para realizar a otimização dos parâmetros</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df_resample_shuffle.drop(<span class="st">&#39;ICU&#39;</span>, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df_resample_shuffle[<span class="st">&#39;ICU&#39;</span>]</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Utilizando o mesmo método com os mesmos valores que foi realizada a validação cruzada </span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="co">#na classe Classifier() para reproduzir os resultados</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>cv <span class="op">=</span> RepeatedStratifiedKFold(n_splits<span class="op">=</span><span class="dv">5</span>, n_repeats<span class="op">=</span><span class="dv">10</span>, random_state<span class="op">=</span>SEED)</span></code></pre></div>
+<p>Agora vamos criar o pipeline com os métodos e modelos que serão testados, e, posteriormente, o grid dos hyperparâmetros</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>pipe <span class="op">=</span> Pipeline([</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    (<span class="st">&#39;feature_selection&#39;</span>, PipelineHelper([</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>        (<span class="st">&#39;rf&#39;</span>,  SelectFromModel(RandomForestClassifier()))])),</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    (<span class="st">&#39;classifier&#39;</span>, PipelineHelper([</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>        (<span class="st">&#39;rf&#39;</span>, RandomForestClassifier()),</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>        (<span class="st">&#39;et&#39;</span>, ExtraTreesClassifier())</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    ])),</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;feature_selection__selected_model&#39;</span>: pipe.named_steps[<span class="st">&#39;feature_selection&#39;</span>].generate({</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;rf__threshold&#39;</span>: [<span class="dv">0</span>,  <span class="st">&#39;median&#39;</span>, <span class="st">&#39;mean&#39;</span>, <span class="st">&#39;1.25*mean&#39;</span>],</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;rf__estimator__random_state&#39;</span>:[SEED]</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>    }),</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;classifier__selected_model&#39;</span>: pipe.named_steps[<span class="st">&#39;classifier&#39;</span>].generate({</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;rf__bootstrap&#39;</span>:[<span class="va">True</span>, <span class="va">False</span>],</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;rf__max_depth&#39;</span>: [<span class="va">None</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">15</span>,<span class="dv">20</span>],</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;rf__max_features&#39;</span> : [<span class="dv">4</span>, <span class="st">&#39;auto&#39;</span>, <span class="dv">10</span>],</span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;rf__n_estimators&#39;</span>: [<span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">400</span>, <span class="dv">800</span>],</span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;rf__min_samples_split&#39;</span>: [<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>],</span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;rf__min_samples_leaf&#39;</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>],</span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;rf__random_state&#39;</span> : [SEED],</span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;et__bootstrap&#39;</span>:[<span class="va">True</span>, <span class="va">False</span>],</span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;et__max_depth&#39;</span>: [<span class="va">None</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>],</span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;et__n_estimators&#39;</span>: [<span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">400</span>, <span class="dv">800</span>],</span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;et__max_features&#39;</span> : [<span class="dv">4</span>, <span class="st">&#39;auto&#39;</span>, <span class="dv">10</span>],</span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;et__min_samples_split&#39;</span>: [<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>],</span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;et__min_samples_leaf&#39;</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>],</span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;et__random_state&#39;</span> : [SEED]</span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Agora vamos criar o objeto RandomizedSearchCV( ) com esse pipeline, esse grid de hyperparâmetros, definindo o máximo de iterações igual a 2000, a métrica de otimização como a <strong>média macro F1</strong>, como foi especificado no <strong>início</strong> do notebook, passando o objeto de validação criado também e definindo o random_state=SEED para a semente aleatória ser a mesma na hora de selecionar as combinações de hyperparâmetros que serão testadas.</p>
+<blockquote>
+<p>Decidi usar a média macro F1 para tentar achar o modelo com o menor viés possível, que consiga prever bem tanto os pacientes que não precisaram ir para UTI quanto os pacientes que precisaram</p>
+</blockquote>
+<p>Após definir o RandomizedSearchCV( ) vou aplicar o método fit( ) nas variáveis X e y.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#random_search = RandomizedSearchCV(pipe, params, n_jobs=-1, cv=cv, n_iter=2000, scoring=&#39;f1_macro&#39;, verbose=1, random_state=SEED)</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co">#random_search.fit(X,y)</span></span></code></pre></div>
+<p>Imprimindo os resultados:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&#39;Os parâmetros do modelo com o melhor resultado foram </span><span class="sc">{</span>random_search<span class="sc">.</span>best_params_<span class="sc">}</span><span class="ch">\n</span><span class="ss">&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&#39;O melhor resultado para a média macro do F1 score foi de </span><span class="sc">{</span>random_search<span class="sc">.</span>best_score_<span class="sc">}</span><span class="ch">\n</span><span class="ss">&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&#39;O melhor modelo foi </span><span class="sc">{</span>random_search<span class="sc">.</span>best_estimator_<span class="sc">}</span><span class="ss">&#39;</span>)</span></code></pre></div>
+<p>Agora que temos a otimização realizada decidi salvar esse objeto RandomizedSearchCV( ) para facilitar a reprodução em outros ambientes, uma vez que é um processo mais custoso e demorado.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#with open(&#39;../arquivos_modelo/SearchCV_salvo/random_searchcv&#39;, &#39;wb&#39;) as random_search_file:</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co">#    pickle.dump(random_search, random_search_file) </span></span></code></pre></div>
+</div>
+</div>
+<div id="modelo-final" class="section level1">
+<h1>Modelo Final</h1>
+<p>Por fim, como o modelo otimizado é um objeto PipelineHelper decidi extrair as informações dos passos selecionados com maior desempenho e criar um Pipeline simples com apenas os passos selecionados, com isso pretendo realizar a validação cruzada e observar todas as métricas novamente para ter uma certeza que o resultado não possui um viés e entender melhor na prática esse resultado.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Separando a melhor técnica de seleção de variáveis selecionada pelo PipelineHelper</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>best_selection <span class="op">=</span> random_search.best_estimator_[<span class="st">&#39;feature_selection&#39;</span>].selected_model </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>best_selection</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Separando o melhor modelo selecionado pelo PipelineHelper</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>best_classifier <span class="op">=</span> random_search.best_estimator_[<span class="st">&#39;classifier&#39;</span>].selected_model </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>best_classifier</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Construindo o pipeline final</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>best_pipeline <span class="op">=</span> Pipeline([(<span class="st">&#39;feature_selection&#39;</span>, best_selection),(<span class="st">&#39;classifier&#39;</span>, best_classifier)])</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>best_pipeline</span></code></pre></div>
+<p>Agora que o modelo, que teve o melhor resultado, está separado em apenas um pipeline vamos calcular as demais métricas com a mesma validação cruzada pela classe Classifier( ).</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>best <span class="op">=</span> Classifier(best_pipeline, df_resample)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>best.cross_val()</span></code></pre></div>
+<p>Nota se que o modelo escolhido pelo random_search foi um modelo com resultados muito consistentes, com valores de acurácia, precisão, recall e F1 muito semelhantes, com semelhança entre as classes também. Além disso, obteve a melhor média de ROC AUC de todos os modelos testados e as melhores médias macro de todas as métricas</p>
+<p>Para ficar mais claro os resultados vamos visualizar essas métricas por meio de histogramas de todos os 50 testes da validação cruzada.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>best.hist_metrics(kde<span class="op">=</span><span class="va">True</span>, color<span class="op">=</span>(<span class="fl">0.12156862745098039</span>, <span class="fl">0.4666666666666667</span>, <span class="fl">0.7058823529411765</span>, <span class="fl">0.5</span>), </span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>                  name_estimator<span class="op">=</span><span class="st">&#39;final&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-5.png" width="1920" /></p>
+<p>Nota se mais uma vez que o resultado foi muito consistente, com a média e a mediana dos resultados muito próximas e com pouquíssimos testes com métricas abaixo de 80%, além disso, uma <strong>ROC AUC acima de 85% em todos os testes</strong>. Fato esse que apoia a escolha desse modelo como um modelo confiável.</p>
+<p>Para entender essas métricas vamos plotar a matriz de confusão média, essa matriz mostra a frequência das classificações realizadas pelo modelo em relação aos valores reais.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>best.plot_confusion(name_estimator<span class="op">=</span><span class="st">&#39;final&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-7.png" width="1536" /></p>
+<p>A partir da matriz de confusão percebemos que, em média, o nosso modelo:</p>
+<ul>
+<li>Acerta <strong>34</strong> e erra 4 de <strong>38</strong> pacientes que não foram para UTI</li>
+<li>Acerta <strong>33</strong> e erra 5 de <strong>38</strong> pacientes que foram para UTI</li>
+</ul>
+<blockquote>
+<p>OBS : Essas médias foram aproximadas para os números inteiros mais próximos para facilitar o entendimento em relação ao problema mas vou imprimir a média com valores contínuos para deixar registrado aqui</p>
+</blockquote>
+<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Matriz de confusão média sem aproximação</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>best.confusion_matrix_mean</span></code></pre></div>
+</div>
+<div id="resultados-finais" class="section level1">
+<h1>Resultados Finais</h1>
+<p>Vamos listar todos os resultados do nosso modelo final:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Métrica</th>
+<th align="right">Média</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">ROC AUC</td>
+<td align="right"><strong>0.946</strong></td>
+</tr>
+<tr class="even">
+<td align="left">ACURÁCIA</td>
+<td align="right"><strong>0.882</strong></td>
+</tr>
+<tr class="odd">
+<td align="left">PRECISÃO</td>
+<td align="right"><strong>0.885</strong></td>
+</tr>
+<tr class="even">
+<td align="left">F1-SCORE</td>
+<td align="right"><strong>0.882</strong></td>
+</tr>
+</tbody>
+</table>
+<div id="salvamento-do-modelo" class="section level2">
+<h2>Salvamento do modelo</h2>
+<p>Por fim, devemos treinar o modelo final escolhido com todo o dataset, e, posteriormente, salvar o modelo,vou salvá-lo através da função dump do pacote joblib na pasta <a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/arquivos_modelo/Modelo_salvo">arquivos_modelo/Modelo_salvo</a>.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co">#best_pipeline.fit(X, y)</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="co">#dump(best_pipeline, &#39;../arquivos_modelo/Modelo_salvo/modelo_final_treinado.joblib&#39;)</span></span></code></pre></div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

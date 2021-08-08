@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Analise_exploratoria.knit</title>
+
+<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">My Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+
+</div>
+
+
+<div id="análise-exploratória-dos-dados" class="section level1">
+<h1>Análise Exploratória dos dados</h1>
+<p><img src="https://raw.githubusercontent.com/PedroHCAlmeida/img/main/charts1.png" /></p>
+<div id="resumo" class="section level2">
+<h2>Resumo</h2>
+<p>Este notebook foi destinado para análise exploratória do dataset disponibilizado pelo Hospital Sírio-Libanês no <a href="https://www.kaggle.com/S%C3%ADrio-Libanes/covid19">kaggle</a>. A análise teve como objetivo, primeiramente, entender o dataset, pré-processar os dados de forma que seja possível usá-los como valores entrada a um algoritmo de Machine Learning, e após isso estudar proporções, correlações e variâncias com o objetivo de encontrar os possíveis caminhos ao se selecionar apenas os dados mais úteis para o problema. Por fim, os dados pré-processados foram salvos na pasta <a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/dados/dados_preprocessados">dados/dados_preprocessados</a>, a fim de serem utilizados no notebook de <a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/notebooks/Previsoes.ipynb">notebooks/Previsoes</a>.</p>
+</div>
+<div id="importância-do-pré-processamento" class="section level2">
+<h2>Importância do pré-processamento</h2>
+<p>O pré-processamento dos dados em Machine Learning é um dos passos fundamentais em um projeto que se propõe a realizar previsões, a famosa frase <strong>“garbage in, garbage out”</strong> atribuída ao técnico da IBM George Fuechsel que significa, <strong>“entra lixo, sai lixo”</strong>, demonstra muito bem o porque essa fase é tão importante, se não prepararmos os nossos dados da maneira correta os resultados podem ser mentirosos, ou não ter utilidade alguma no final, e, muitas vezes podem passar despercebidos, por esta razão essas é uma das fases mais importantes na hora de manipular dados.<br></p>
+<p>Uma boa parte desse processo já foi realizado pela equipe do Hospital Sírio-Libanês, de acordo com o hospital esse conjunto de dados contém dados anonimizados coletados em São Paulo e em Brasília. Toda a anonimização desses dados seguiu as melhores práticas e recomendações internacionais, e os dados passaram por um processo de limpeza e normalização por coluna de acordo com os valores máximos e mínimos de forma que todos os valores estivessem no intervalo entre -1 e 1.<br></p>
+</div>
+<div id="estrutura-dos-dados" class="section level2">
+<h2>Estrutura dos dados</h2>
+<p><br> ### Chave identificadora<br> A coluna “PATIENT_VISIT_IDENTIFIER” é composta por números inteiros e é responsável por identificar cada paciente diferente.<br> <br> ### Variável a ser prevista<br> A variável a ser prevista é a coluna “ICU”, que, no conjunto de dados original, indica se o paciente correspondente estava ou não na UTI naquela janela de tempo correspondente.<br> <br> ### Janela de tempo<br> De acordo com o Hospital a variável “WINDOW” diz respeito à janela de tempo onde as medições foram realizadas, ela está organizada da seguinte maneira:<br></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Janela</th>
+<th align="center">Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">0-2</td>
+<td align="center">Entre 0 até 2 horas a partir da admissão do paciente</td>
+</tr>
+<tr class="even">
+<td align="left">2-4</td>
+<td align="center">Entre 2 até 4 horas a partir da admissão do paciente</td>
+</tr>
+<tr class="odd">
+<td align="left">4-6</td>
+<td align="center">Entre 4 até 6 horas a partir da admissão do paciente</td>
+</tr>
+<tr class="even">
+<td align="left">6-12</td>
+<td align="center">Entre 6 até 12 horas a partir da admissão do paciente</td>
+</tr>
+<tr class="odd">
+<td align="left">Above-12</td>
+<td align="center">Mais de 12 horas horas a partir da admissão do paciente</td>
+</tr>
+</tbody>
+</table>
+<div id="demais-variáveis" class="section level3">
+<h3>Demais variáveis</h3>
+<p><br> As demais colunas do conjunto conjunto de dados trazem informações sobre: * Informações demográficas do paciente (03) * Grupos de doenças previamente identificadas pelos pacientes (09) * Resultados de exames de sangue (36) * Sinais vitais (06)<br></p>
+<p>No total são 54 variáveis, correspondente às médias, medianas, máximos, mínimos, diferenças e diferenças relativas dos dados do paciente.<br></p>
+</div>
+<div id="dados-faltantes" class="section level3">
+<h3>Dados faltantes</h3>
+<p><br> Um dos maiores desafios ao se analisar dados médicos é a variação entre diferentes tipos de medições, por exemplo, os sinais vitais são coletados com mais frequência (geralmente de hora em hora) do que os laboratórios de sangue (geralmente diariamente).Fato esse acaba causando diversos dados faltantes uma vez que estamos analisando todos esses dados juntos em um mesmo conjunto.<br></p>
+<p>De acordo com o Hospital, para solucionar o problema dos dados faltantes, é razoável supor que um paciente que não tem uma medição registrada em uma janela de tempo esteja clinicamente estável, podendo apresentar sinais vitais e exames de sangue semelhantes às janelas vizinhas. Portanto, pode-se preencher os valores ausentes usando a entrada seguinte ou anterior.<br></p>
+</div>
+</div>
+</div>
+<div id="problema-a-ser-resolvido" class="section level1">
+<h1>Problema a ser resolvido</h1>
+<p>A identificação precoce dos pacientes que desenvolverão um curso adverso da doença (e precisam de cuidados intensivos) é a chave para um tratamento adequado (salvar vidas) e para gerenciar leitos e recursos. Um bom modelo usando apenas a <strong>primeira janela (0-2)</strong> provavelmente será mais <strong>clinicamente relevante</strong>, por esta razão os dados serão reorganizados a fim de agrupar os dados médicos por paciente e apenas as informações da primeira janela serão utilizadas para identificar se um paciente precisou de internação em <strong>qualquer uma das janelas</strong>.</p>
+</div>
+<div id="escopo-do-notebook" class="section level1">
+<h1>Escopo do notebook</h1>
+<ul>
+<li>Importação dos pacotes</li>
+<li>Importação das funções locais</li>
+<li>Leitura dos dados brutos</li>
+<li>Pré-processamento</li>
+<li>Análise da variável alvo</li>
+<li>Análise das informações demográficas</li>
+<li>Análise das demais variáveis categóricas</li>
+<li>Análise das variáveis numéricas</li>
+<li>Salvamento dos dados pré-processados</li>
+</ul>
+</div>
+<div id="importação-dos-pacotes" class="section level1">
+<h1>Importação dos pacotes</h1>
+<pre class="python"><code>import pandas as pd
+import numpy as np
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+import warnings</code></pre>
+<pre class="python"><code>#Configurando o estilo dos gráficos
+sns.set_style(&#39;darkgrid&#39;)
+
+#Filtrando os avisos
+warnings.filterwarnings(&#39;ignore&#39;)
+
+#Definindo a semente de números aleatórios
+SEED = 64541</code></pre>
+</div>
+<div id="importação-das-funções-locais" class="section level1">
+<h1>Importação das funções locais</h1>
+<pre class="python"><code>import os
+os.chdir(&quot;../../funcoes&quot;)
+from feature import compute_chi2, compute_high_corr, binary_features
+from my_plot import labs, annot_bar
+from preprocessing import fill_table, select_window
+os.chdir(&quot;../extras/site_projeto_pyRmd&quot;)</code></pre>
+<pre class="python"><code>print(binary_features.__doc__)</code></pre>
+<pre><code>## 
+##     Função que recebe um DataFrame do pandas e verifica quais as colunas binárias.
+##     Realiza essa verificação consultando quantos valores únicos a coluna possui,
+##     qual o valor máximo e mínimo.
+##     OBS : os valores únicos precisam ser 1 e 0.
+##     
+##     Parâmetros:
+##     -----------
+##     data : DataFrame do pandas que será conferida quais as colunas binárias, tipo : pd.DataFrame
+##     
+##     Retorno:
+##     --------
+##     features : colunas binárias do dataframe, tipo : list
+## </code></pre>
+<pre class="python"><code>print(compute_chi2.__doc__)</code></pre>
+<pre><code>## 
+##     Recebe um dataframe do pandas com as colunas variáveis preditoras e uma Series do pandas da variável de reposta,
+##     calcula, através da função sklearn.model_selection.chi2, os p valores para cada coluna da hipótese nula 
+##     de que as variáveis preditoras são independentes da variável de reposta
+##     
+##     Parâmetros:
+##     -----------
+##     X : dataframe com as variáveis preditoras,tipo : pd.DataFrame,
+##         OBS: pode conter apenas uma coluna mas precisa ser do tipo pd.DataFrame
+##     y : Series do pandas da variável de resposta, tipo : pd.Series
+##     
+##     Retorno:
+##     -------
+##     p_values : dicionário contendo os p valores de cada coluna analisada, tipo : dict
+## </code></pre>
+<pre class="python"><code>print(compute_high_corr.__doc__)</code></pre>
+<pre><code>## 
+##     Função que recebe um dataframe do pandas, calcula a matriz de correlação, seleciona o triângulo superior da matriz, 
+##     percorre as colunas verificando quais colunas apresentam uma correlação maior que o valor limite passado, em relação às linhas, 
+##     que nesse caso representam as colunas anteriores. 
+##     
+##     Parâmetros:
+##     -----------
+##     data : DataFrame do pandas com as variáveis a serem analisadas
+##     threshold : valor limite da correlação entre duas variáveis, ou seja, 
+##                 se duas colunas que possuem uma correlação absoluta maior que esse valor uma das duas será eliminada,
+##                 tipo : str, padrão : 0.95
+##     Retorno:
+##     --------
+##     cols_drop : colunas a serem eliminadas com base nas correlações, tipo : list
+##     
+## </code></pre>
+<pre class="python"><code>print(labs.__doc__)</code></pre>
+<pre><code>## 
+##     Função que plota as informações adicionais dos gráficos, título, subtítulo, rótulos
+##     
+##     Parâmetros:
+##     ----------
+##     ax : eixo a ser plotado o gráfico, se nenhum for passado será criado automaticamnete, tipo : matplotlib.axes
+##     title : título do gráfico, tipo : str, padrão : &#39;&#39;
+##     subtitle : subtítulo do gráfico, tipo : str, padrão : &#39;&#39;
+##     xlabel : rótulo do eixo x, tipo : str, padrão : &#39;&#39;
+##     ylabel : rótulo do eixo y, tipo : str, padrão : &#39;&#39;
+## </code></pre>
+<pre class="python"><code>print(annot_bar.__doc__)</code></pre>
+<pre><code>## 
+##     Realiza anotações em cima das barras em um gráfico de barras 
+##     
+##     Parâmetros:
+##     -----------
+##     ax : eixo do matplotlib onde estão as barras, tipo : matplotlib.axes
+##     prop : indica se os valores serão representados como porcentagens ou não, tipo : bool, padrão : True
+##     fontsize : tamanho da fonte do texto, tipo : int, padrão : 15
+##     
+##     OBS : precisa ser chamada após o gráfico de barras
+## </code></pre>
+<pre class="python"><code>print(fill_table.__doc__)</code></pre>
+<pre><code>## 
+##     Função que recebe as linhas correspondentes a apenas um paciente e preenche os 
+##     valores nulos das colunas contínuas com dados de outras janelas.
+##     Utiliza os métodos &quot;ffill&quot; e &quot;bfill&quot;
+##     
+##     Parâmetros:
+##     -----------
+##     rows : as linhas correspondentes ao mesmo paciente
+##     
+##     Retorno:
+##     --------
+##     Retorna as linhas preenchidas
+## </code></pre>
+<pre class="python"><code>print(select_window.__doc__)</code></pre>
+<pre><code>## 
+##     Função que seleciona a janela correspondente e verifica se em algum momento o paciente foi para UTI, 
+##     com isso modifica a coluna dependente para se em qualquer janela de tempo esse paciente foi para UTI
+##     
+##     Parâmetros:
+##     -----------
+##     rows : as linhas correspondentes ao mesmo paciente
+##     window : coluna correspondente à janela que será mantida, padrão : &#39;0-2&#39;
+##     target_variable : nome da variável dependente, padrão : &#39;ICU&#39;
+##     
+##     Retono:
+##     -------
+##     Retorna o conjunto de dados preenchido
+## </code></pre>
+</div>
+<div id="leitura-dos-dados-brutos" class="section level1">
+<h1>Leitura dos dados brutos</h1>
+<p>Primeiramente, vou usar a função read_excel( ) para ler o arquivo .xlsx disponibilizado pelo Hospital Sírio-Libanês no <a href="https://www.kaggle.com/S%C3%ADrio-Libanes/covid19">kaggle</a>, armazenando esses dados em um dataframe do pandas.</p>
+<pre class="python"><code># Lendo os dados brutos 
+df = pd.read_excel(&#39;../../dados/dados_brutos/Kaggle_Sirio_Libanes_ICU_Prediction.xlsx&#39;)</code></pre>
+</div>
+<div id="pré-processamento" class="section level1">
+<h1>Pré-Processamento</h1>
+<p>A fim de tratar os dados e usá-los da melhor forma para resolver o problema, temos que entender as variáveis e como está organizado o dataset, para isso vamos dar uma olhada nas primeiras linhas do mesmo.</p>
+<pre class="python"><code>df.head(10)</code></pre>
+<pre><code>##    PATIENT_VISIT_IDENTIFIER  AGE_ABOVE65  ...    WINDOW  ICU
+## 0                         0            1  ...       0-2    0
+## 1                         0            1  ...       2-4    0
+## 2                         0            1  ...       4-6    0
+## 3                         0            1  ...      6-12    0
+## 4                         0            1  ...  ABOVE_12    1
+## 5                         1            1  ...       0-2    1
+## 6                         1            1  ...       2-4    1
+## 7                         1            1  ...       4-6    1
+## 8                         1            1  ...      6-12    1
+## 9                         1            1  ...  ABOVE_12    1
+## 
+## [10 rows x 231 columns]</code></pre>
+<p>Olhando para as primeiras linhas conseguimos perceber que a coluna “PATIENT_VISIT_IDENTIFIER”, como o próprio nome sugere, é a coluna identificadora do paciente, portanto tal coluna deve ser usada de uma maneira que conseguimos agrupá-las por cada paciente e registrar se o paciente correspondente <strong>foi para UTI em qualquer uma das janelas de tempo</strong>.</p>
+<pre class="python"><code>df.shape</code></pre>
+<pre><code>## (1925, 231)</code></pre>
+<p>Observando o tamanho no dataset temos <strong>1925</strong> linhas, e <strong>231</strong> colunas, no entanto para o nosso problema precisamos que cada linha represente um paciente, porém antes de resolvermos esse problema, vamos olhar se existem dados faltantes no dataset.</p>
+<pre class="python"><code>df.isna().sum().sum()</code></pre>
+<pre><code>## 223863</code></pre>
+<p>Somando os dados nulos de todas as colunas temos <strong>223863</strong> valores faltantes. Como foi divulgado pelo Hospital Sirío-Libanês, a fonte dos dados, podemos resolver esse problema preenchendo valores de janelas anteriores e posteriores, assumindo que esses valores não sofrem mudanças bruscas, e desde que usemos apenas <strong>dados do mesmo paciente</strong>.</p>
+<p><br>Para isso vou agrupar os dados pela variável identificadora “PATIENT_VISIT_IDENTIFIER” e aplicar a função fill_table(), definida no arquivo <a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/funcoes/preprocessing.py">funcoes/preprocessing</a>, essa função selecionará as colunas contínuas e realizará o preenchimento de dados nulos utilizando as técnicas de “bfill”(utilizando valores posteriores), e “ffil” utilizando valores anteriores. <br><br></p>
+<p>Além disso, temos o problema de que, uma vez que o objetivo é prever se um paciente irá precisar de cuidados intensivos com base nos valores da primeira janela de tempo, <strong>não devemos utilizar dados de quando o paciente já estava na UTI para preencher dados anteriores(“bfill”)</strong>. Para resolver esse problema vou agrupar os dados por duas variáveis, a variável identificadora(“PATIENT_VISIT_IDENTIFIER”) e a variável que indica se o paciente estava na UTI(“ICU”), dessa forma apenas os dados que possuem o <strong>mesmo valor de “PATIENT_VISIT_IDENTIFIER” e de “ICU”</strong> serão utilizados para realizar o preenchimento de dados nulos.</p>
+<pre class="python"><code># Agrupando os dados por &quot;PATIENT_VISIT_IDENTIFIER&quot; e &quot;ICU&quot; e aplicando a função fill_table
+df = df.groupby([&#39;PATIENT_VISIT_IDENTIFIER&#39;, &#39;ICU&#39;]).apply(fill_table)</code></pre>
+<pre class="python"><code>df.isna().sum().sum()</code></pre>
+<pre><code>## 8781</code></pre>
+<p>Após aplicar o preenchimento temos <strong>8781</strong> dados nulos. Esses dados nulos agora são informações faltantes que não podemos aplicar o preenchimento, por esta razão vou remover todas as linhas que possuem esses dados nulos.</p>
+<pre class="python"><code># Eliminando dados nulos
+df = df.dropna()</code></pre>
+<pre class="python"><code>df.isna().sum().sum()</code></pre>
+<pre><code>## 0</code></pre>
+<p>Resolvido o problema dos dados nulos, agora vamos resolver o problema das janelas de tempo. Para isso vou realizar os seguintes passos:</p>
+<ul>
+<li>Casos de pacientes que foram para <strong>UTI nas duas primeiras horas </strong>serão <strong>desconsiderados</strong> e eliminados do dataset.</li>
+<li>O dataframe será agrupado pela variável identificadora de cada paciente.</li>
+<li>Através da função select_window(), apenas a <strong>linha referente a primeira janela de tempo(0-2)</strong> de cada paciente continuará no dataset, e a variável “ICU” não vai mais depender da janela de tempo e indicará <strong>se o paciente foi para UTI em qualquer momento</strong>.</li>
+<li>A variável “WINDOW” será eliminada pois todos os dados se referem a primeira janela, e tal informação não possui mais relação com a variável alvo “ICU”.</li>
+<li>A variável “PATIENT_VISIT_IDENTIFIER” será eliminada pois os dados foram agrupados e cada paciente será representado por apenas uma linha</li>
+<li>O index do dataframe será resetado por conta do agrupamento da variável “PATIENT_VISIT_IDENTIFIER”.</li>
+</ul>
+<pre class="python"><code>#Selecionando as linhas onde o paciente chegou na UTI
+rows_to_drop = df[(df[&#39;WINDOW&#39;] == &#39;0-2&#39;) &amp; (df[&#39;ICU&#39;] == 1)].index
+
+#Eliminando as linhas do dataframe original
+df.drop(index=rows_to_drop, inplace=True)
+
+# Agrupando por paciente e aplicando a função select_window
+df = df.groupby(&#39;PATIENT_VISIT_IDENTIFIER&#39;).apply(select_window)
+
+#Não são mais úteis as variáveis da janela de tempo e do identificador
+df.drop([&#39;WINDOW&#39;, &#39;PATIENT_VISIT_IDENTIFIER&#39;], axis=1, inplace=True)
+
+#Resetando o index e eliminando essa informação 
+df.reset_index(drop=True, inplace=True)</code></pre>
+<pre class="python"><code>df.shape</code></pre>
+<pre><code>## (294, 229)</code></pre>
+<p>Por fim podemos ver que agora o dataset possui 294 linhas, que representam <strong>294 pacientes</strong>, e 229 colunas pois duas colunas foram eliminadas(“WINDOW”, “PATIENT_VISIT_IDENTIFIER”).</p>
+<p>Agora vamos investigar se os tipos dos dados estão corretos, para isso utilizarei a função info( ) que retorna informações técnicas do dataframe.</p>
+<pre class="python"><code>df.info()</code></pre>
+<pre><code>## &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+## RangeIndex: 294 entries, 0 to 293
+## Columns: 229 entries, AGE_ABOVE65 to ICU
+## dtypes: float64(225), int64(3), object(1)
+## memory usage: 526.1+ KB</code></pre>
+<p>Percebe-se que temos 225 colunas do tipo numérico(float64), 3 colunas do tipo inteiro(int64) e 1 colunas de caracteres(object). Vamos investigar se era para ser dessa maneira mesmo.</p>
+<pre class="python"><code>df.head()</code></pre>
+<pre><code>##    AGE_ABOVE65 AGE_PERCENTIL  ...  OXYGEN_SATURATION_DIFF_REL  ICU
+## 0            1          60th  ...                   -1.000000    1
+## 1            0          10th  ...                   -0.961262    1
+## 2            0          40th  ...                   -1.000000    0
+## 3            0          10th  ...                   -0.980333    0
+## 4            0          10th  ...                   -0.980129    0
+## 
+## [5 rows x 229 columns]</code></pre>
+<p>Olhando o dataset parece haver diversas colunas que apresentam apenas valores 0 ou 1, variáveis categóricas binárias, como todas as variáveis indicando se o paciente pertence alguma doença dentro de algum grupo pré-definido, e portanto, devem ser classificadas como números inteiros.<br><br> No entanto, foram identificadas apenas 3 variáveis inteiras, para resolver esse problema vou utilizar a função binary_features( ), definida no arquivo <a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/funcoes/feature.py">funcoes/feature</a>, para definir quais as colunas binárias no dataframe e transformá-las em números inteiros.</p>
+<pre class="python"><code>binary = binary_features(df)
+binary</code></pre>
+<pre><code>## [&#39;AGE_ABOVE65&#39;, &#39;GENDER&#39;, &#39;DISEASE GROUPING 1&#39;, &#39;DISEASE GROUPING 2&#39;, &#39;DISEASE GROUPING 3&#39;, &#39;DISEASE GROUPING 4&#39;, &#39;DISEASE GROUPING 5&#39;, &#39;DISEASE GROUPING 6&#39;, &#39;HTN&#39;, &#39;IMMUNOCOMPROMISED&#39;, &#39;OTHER&#39;, &#39;ICU&#39;]</code></pre>
+<p>É possível perceber que realmente existem mais que 3 colunas binárias que deviam ser classificadas como tipo inteiro, por esta razão vou convertê-las para o tipo correto.</p>
+<pre class="python"><code>df[binary] = df[binary].astype(&#39;int64&#39;)
+df.info()</code></pre>
+<pre><code>## &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+## RangeIndex: 294 entries, 0 to 293
+## Columns: 229 entries, AGE_ABOVE65 to ICU
+## dtypes: float64(216), int64(12), object(1)
+## memory usage: 526.1+ KB</code></pre>
+<p>Agora percebemos que temos 13 variáveis do tipo inteiro, 216 do tipo numérico e 1 do tipo caractere. Por fim vamos checar qual a coluna ele está identificando como caractere, uma vez que para um modelo de Machine Learning precisamos fornecer valores numéricos como entrada.</p>
+<pre class="python"><code>df.select_dtypes(&#39;object&#39;).head()</code></pre>
+<pre><code>##   AGE_PERCENTIL
+## 0          60th
+## 1          10th
+## 2          40th
+## 3          10th
+## 4          10th</code></pre>
+<p>Podemos ver que a variável do tipo caractere é a “AGE_PERCENTIL”, e realmente está classificada corretamente, porém vamos transformar essa variável de forma que um modelo de Machine Learning consiga entender, no entanto vou realizar essa transformação quando analisar essa variável separadamente na parte de Análise de informações demográficas, para assim entender o melhor a se fazer.</p>
+</div>
+<div id="análise-da-variável-alvo" class="section level1">
+<h1>Análise da variável alvo</h1>
+<p>Um dos maiores problemas ao tentar resolver problemas com Machine Learning é o desbalanceamento em relação a variável alvo. Por exemplo, podemos ter muitos dados de pessoas que foram para UTI e poucos que não foram, ou vice-versa, e isso pode fazer o modelo criar um viés na hora de modelar as relações das variáveis. Por esta razão vou analisar a quantidade de pacientes que precisaram ir para UTI e pacientes que não precisaram ir para UTI.</p>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-1.png" width="1152" /><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-2.png" width="1152" /> Observando o gráfico 1 fica claro que a maioria dos pacientes presentes no dataset não precisaram de cuidados intensivos, fato este que apoia a realização de uma reamostragem a fim de balancear o dataframe em relação a variável “ICU”, porém essa reamostragem será realizada e testada apenas quando formos comparar os modelos de Machine Learning no notebook <a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/notebooks/Previsoes.ipynb">notebooks/Previsoes</a>.</p>
+</div>
+<div id="análise-das-informações-demográficas" class="section level1">
+<h1>Análise das informações demográficas</h1>
+<p>De acordo com o Sirío-Libanês o dataset possui 3 variáveis demográficas, para identificá-las vamos observar novamente as primeiras linhas.</p>
+<pre class="python"><code>df.head()</code></pre>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-5.png" width="1152" /></p>
+<p>Fica claro que essas informações são representadas pelas colunas “AGE_ABOVE65”, “AGE_PERCENTIL” e “GENDER”, e dizem respeito a idade e genêro dos pacientes.</p>
+<div id="coluna-age_percentil" class="section level3">
+<h3>Coluna “AGE_PERCENTIL”</h3>
+<p>A primeira coluna analisada será a coluna “AGE_PERCENTIL”, que traz informações sobre a idade dos pacientes. No entanto temos um problema nessa variável, como foi identificado anteriormente, ela foi representada através de caracteres representando o percentil da idade. <br><br> Pensando em modelos de Machine Learning precisamos transformá-la em uma variável inteira ou numérica, para decidir como realizar essa transformação vou analisar como a variável alvo “ICU” se comporta em relação a cada percentil de idade, para isso vou calcular qual a porcentagem de pacientes que foram para UTI para cada valor dessa coluna.</p>
+<pre class="python"><code># Agrupando o dataframe pela variável &quot;AGE_PERCENTIL&quot; e calculando a proporção de pessoas que foram para UTI 
+percentil_prop = df.groupby(&#39;AGE_PERCENTIL&#39;)[&#39;ICU&#39;].value_counts(normalize=True).reset_index(name=&#39;Prop&#39;)
+percentil_prop</code></pre>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-7.png" width="1152" /></p>
+<p>Com a tabela pronta podemos visualizar em um gráfico esse comportamento.</p>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-9.png" width="1920" /><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-10.png" width="1920" /></p>
+<p>Observando o gráfico 2 fica claro que dependendo da idade há uma proporção de pacientes diferentes que precisaram de cuidados intensivos. Além disso parece haver faixas etárias onde essa proporção sofre um aumento, por esta razão vou utilizar essa informação a fim de criar colunas categóricas binárias com base na faixa etária, a partir do gráfico decidi transformá-la nas seguintes colunas:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Coluna</th>
+<th align="center">Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">“AGE_UNDER_30th”</td>
+<td align="center">Pacientes com idade abaixo dos 30 anos</td>
+</tr>
+<tr class="even">
+<td align="left">“AGE_UNDER_50th”</td>
+<td align="center">Pacientes com idade abaixo dos 50 anos</td>
+</tr>
+<tr class="odd">
+<td align="left">“AGE_ABOVE_50th”</td>
+<td align="center">Pacientes com idade acima dos 50 anos</td>
+</tr>
+<tr class="even">
+<td align="left">“AGE_ABOVE_80th”</td>
+<td align="center">Pacientes com idade acima dos 80 anos</td>
+</tr>
+</tbody>
+</table>
+<pre class="python"><code>#Criando as colunas com base no percentil da idade
+df[&#39;AGE_UNDER_30th&#39;]=[1 if row[&#39;AGE_PERCENTIL&#39;] in [&#39;10th&#39;, &#39;20th&#39;] 
+                      else 0 for _,row in df.iterrows()] 
+
+df[&#39;AGE_UNDER_50th&#39;]=[1 if row[&#39;AGE_PERCENTIL&#39;] in [&#39;10th&#39;, &#39;20th&#39;,&#39;30th&#39;, &#39;40th&#39;] 
+                      else 0 for _,row in df.iterrows()] 
+
+df[&#39;AGE_ABOVE_50th&#39;]=[1 if row[&#39;AGE_PERCENTIL&#39;] in [&#39;50th&#39;,&#39;60th&#39;, &#39;70th&#39;,&#39;80th&#39;, &#39;90th&#39;, &#39;Above 90th&#39;] 
+                      else 0 for _,row in df.iterrows()]
+
+df[&#39;AGE_ABOVE_80th&#39;]=[1 if row[&#39;AGE_PERCENTIL&#39;] in [&#39;80th&#39;, &#39;90th&#39;, &#39;Above 90th&#39;] 
+                      else 0 for _,row in df.iterrows()] 
+
+# Eliminando a coluna &quot;AGE_PERCENTIL&quot; original
+df.drop(&#39;AGE_PERCENTIL&#39;, axis=1, inplace=True)
+df.head()</code></pre>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-13.png" width="1920" /></p>
+<p>Agora com o problema da coluna Percentil resolvido temos 6 colunas demográficas, todas elas do tipo inteiro e categóricas.</p>
+</div>
+<div id="teste-de-chi-quadrado" class="section level3">
+<h3>Teste de Chi Quadrado</h3>
+<p>Considerando que essas informações demográficas não possuem uma influência das demais variáveis, vou analisar cada uma individualmente, verificando se elas possuem alguma relação de dependência com a variável alvo, ou seja, a variável “ICU”. Para isso vou realizar um teste de Chi Quadrado de Pearson com significância de <strong>5%</strong> para decidir se alguma dessas variáveis deve ser retirada.<br> Este teste vai testar a seguinte hipótese:</p>
+<p><span class="math inline">\(H_0\)</span> : Colunas demográficas são independentes em relação a variável alvo(‘ICU’) <span class="math inline">\(H_a\)</span> : Colunas demográficas são dependentes em relação a variável alvo(‘ICU’)</p>
+<p><img src="https://raw.githubusercontent.com/PedroHCAlmeida/Projeto_final_bootcamp/main/img/img017.png?token=ASNXTHX6JMBD6FU7V53TOKDBB3TEC" /></p>
+</div>
+<div id="variáveis-de-idade" class="section level3">
+<h3>Variáveis de idade</h3>
+<p>Para visualizar melhor as relações dessa variáveis com a variável “ICU” vou calcular a proporção de pessoas que foram para UTI para cada valor 0 ou 1 dessas variáveis, ou seja, dado que um paciente pertence a um grupo ele tem mais chance de ir para UTI do quem não pertence.</p>
+<pre class="python"><code>#Selecionando as variáveis
+ages = [&#39;AGE_UNDER_30th&#39;,&#39;AGE_UNDER_50th&#39;,&#39;AGE_ABOVE_50th&#39;,&#39;AGE_ABOVE_80th&#39;,&#39;AGE_ABOVE65&#39;, &#39;ICU&#39;]
+
+#Transformando as colunas em uma coluna &quot;variable&quot; e os valores em uma coluna &quot;value&quot; e mantendo a variável &quot;ICU&quot; fixa
+ages_melt = pd.melt(df[ages], id_vars=&#39;ICU&#39;)
+
+#Calculando a proporção da variável &quot;ICU&quot; para cada combinação &quot;variable&quot;(coluna), &quot;value&quot;(valor)
+ages_prop = ages_melt.groupby([&#39;variable&#39;,&#39;value&#39;])[&#39;ICU&#39;].mean().reset_index(name=&#39;Prop&#39;)</code></pre>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-15.png" width="1920" /></p>
+<pre class="python"><code>ages_prop</code></pre>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-17.png" width="1920" /></p>
+<p>Com a tabela pronta indicando a proporção, para cada valor de cada variável de idade, podemos visualizar em um gráfico esse comportamento.</p>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-19.png" width="1920" /><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-20.png" width="1920" /></p>
+<p>A partir do gráfico 3 parece que as variáveis de idade influenciam se o paciente vai ou não para UTI, para confirmar tal afirmação vou realizar um teste de Chi-Quadrado através da função compute_chi2( ), definida no arquivo <a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/funcoes/feature.py">funcoes/feature</a>, essa função nos retorna os p valores para cada uma das variáveis, e se, algum deles for maior que <strong>5%</strong> não rejeitaremos a hipótese nula de que a variável é independente da variável alvo “ICU”.</p>
+<pre class="python"><code>#Calculando os p valores para colunas de idade
+p_values = compute_chi2(df[ages].drop(&#39;ICU&#39;, axis=1), df[&#39;ICU&#39;])
+for col, p_value in p_values.items():
+    print(f&#39;Considerando a hipótese nula de que a coluna {col} é independente da variável alvo &quot;ICU&quot;\n\
+    obteve-se um p valor igual a {np.round(p_value,4)}&#39;)</code></pre>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-23.png" width="1920" /></p>
+<p>Analisando o p valor das colunas relacionadas às idades dos pacientes no teste de Chi-Quadrado da hipótese nula das variáveis serem independentes do paciente ir para UTI, todos os p valores foram <strong>menores que 5%</strong>, por esta razão temos evidências para <strong>rejeitar a hipótese nula</strong> e, por isso, essas variávies serão mantidas no dataframe.</p>
+</div>
+<div id="variável-de-genêro" class="section level3">
+<h3>Variável de genêro</h3>
+<p>A outra variável demográfica é a variável de genêro, para identificar se o genêro influencia vamos repetir o mesmo processo.</p>
+<pre class="python"><code>#Construindo um dataframe com a coluna &quot;GENDER&quot; e &quot;ICU&quot;, mantendo o &quot;ICU&quot; fixo e tranformando a coluna &quot;GENDER&quot; em duas uma para o nome 
+#da variável(&quot;variable&quot;) e outra para os valores correspondentes(&quot;value&quot;)
+gender_melt  = pd.melt(df[[&#39;GENDER&#39;, &#39;ICU&#39;]], id_vars=&#39;ICU&#39;)
+
+#Calculando a proporção da variável &quot;ICU&quot; para cada combinação &quot;variable&quot;(coluna), &quot;value&quot;(valor)
+gender_prop = gender_melt.groupby([&#39;variable&#39;,&#39;value&#39;])[&#39;ICU&#39;].mean().reset_index(name=&#39;Prop&#39;)</code></pre>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-25.png" width="1920" /></p>
+<pre class="python"><code>gender_prop</code></pre>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-27.png" width="1920" /></p>
+<p>Com a tabela pronta indicando a proporção de pacientes que foram para UTI dependendo do genêro podemos visualizar em um gráfico esse comportamento.</p>
+<p><strong>OBS: POR CONTA DA ANONIMIZAÇÃO DOS DADOS NÃO FOI INFORMADO QUAL GENÊRO É REPRESENTADO POR QUAL NÚMERO, POR ISSO SERÁ REPRESENTADO COMO 0 e 1</strong></p>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-29.png" width="1152" /><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-30.png" width="1152" /></p>
+<p>A partir do gráfico 4 percebe-se que dependendo do genêro parece haver uma diferença na chance de ir para UTI, porém vamos realizar um teste de Chi-Quadrado para decidir se essa variável será mantida.</p>
+<pre class="python"><code>p_value_gender = compute_chi2(df[[&#39;GENDER&#39;]], df[&#39;ICU&#39;])
+print(f&#39;Considerando a hipótese nula de que a coluna GENDER é independente da variável alvo &quot;ICU&quot; obteve-se um p valor igual a \
+      {np.round(p_value_gender[&quot;GENDER&quot;],4)}&#39;)</code></pre>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-33.png" width="1152" /></p>
+<p>Analisando o p valor da coluna de genêro no teste de Chi-Quadrado da hipótese nula da variável ser <strong>independente</strong> do paciente ir para <strong>UTI</strong>, foi maior que <strong>5%</strong>, portanto <strong>não temos evidências para rejeitar a hipótese nula</strong> e por esta razão vou eliminar a coluna “GENDER” do dataframe.</p>
+<pre class="python"><code>#Eliminando a coluna &quot;GENDER&quot;
+df.drop(&#39;GENDER&#39;, axis=1, inplace=True)</code></pre>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-35.png" width="1152" /></p>
+</div>
+</div>
+<div id="análise-das-demais-variáveis-categóricas" class="section level1">
+<h1>Análise das demais variáveis categóricas</h1>
+<p>Além das colunas demográficas, as colunas que nos dizem se o paciente possui alguma doença ou alguma condição de saúde também são colunas categóricas binárias, portanto, podemos realizar o mesmo processo para visualizar as proporções e realizar um teste de Chi-Quadrado<br><br> No entanto, <strong>não realizarei este teste</strong>. Tomei esta decisão pois acredito que essas variáveis possuem uma relação direta com a saúde de um paciente e podem sofrer uma influência muito grande de outros fatores, como por exemplo, uma doença pode se agravar com a idade e, portanto, a proporção de pacientes que precisaram ir para UTI dado que esse paciente possui uma certa condição de saúde pode ser diferente dependendo da idade, o que não seria levado em conta em um teste realizado individualmente para cada variável.</p>
+<pre class="python"><code>#Selecionando as variáveis categóricas a respeito das doenças e condições médicas
+diseases = [&#39;DISEASE GROUPING 1&#39;,&#39;DISEASE GROUPING 2&#39;,&#39;DISEASE GROUPING 3&#39;,&#39;DISEASE GROUPING 4&#39;,\
+            &#39;DISEASE GROUPING 5&#39;,&#39;DISEASE GROUPING 6&#39;,&#39;HTN&#39;,&#39;IMMUNOCOMPROMISED&#39;,&#39;OTHER&#39;, &#39;ICU&#39;]</code></pre>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-37.png" width="1152" /></p>
+<pre class="python"><code>#Construindo um dataframe com as colunas relacionadas as doenças e &quot;ICU&quot;, mantendo o &quot;ICU&quot; fixo e tranformando as demais colunas 
+#em duas que representarão o nome da variável(&quot;variable&quot;) e outra os valores correspondentes(&quot;value&quot;)
+diseases_melt  = pd.melt(df[diseases], id_vars=&#39;ICU&#39;)
+
+#Calculando a proporção da variável &quot;ICU&quot; para cada combinação &quot;variable&quot;(coluna), &quot;value&quot;(valor)
+diseases_prop = diseases_melt.groupby([&#39;variable&#39;,&#39;value&#39;])[&#39;ICU&#39;].mean().reset_index(name=&#39;Prop&#39;)</code></pre>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-39.png" width="1152" /></p>
+<pre class="python"><code>diseases_prop</code></pre>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-41.png" width="1152" /></p>
+<p>Com a tabela pronta indicando a proporção de pacientes que foram para UTI, dado que possuia alguma condição de saúde, podemos visualizar em um gráfico esse comportamento.<br> <strong>OBS: POR CONTA DA ANONIMIZAÇÃO DOS DADOS NÃO FOI INFORMADO O QUE REPRESENTA CADA GRUPO DE DOENÇA</strong></p>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-43.png" width="1920" /><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-44.png" width="1920" /></p>
+<p>A partir do gráfico 5 parece que algumas condições não apresentam uma chance maior de ir para UTI dado que o paciente possuia tal condição, por exemplo as variáveis “DISEASE GROUPING 6” e “OTHER”, possuem proporções muito próximas, independente do valor. <br><br> No entanto, como foi mencionado anteriormente, não aplicarei nenhum teste para removê-las, e manterei no dataset por enquanto.</p>
+</div>
+<div id="análise-das-variáveis-numéricas" class="section level1">
+<h1>Análise das variáveis numéricas</h1>
+<p>Como foi visto no início deste notebook, o dataset que estamos analisando possuem muitas colunas e, a maior parte delas eram numéricas. A fim de estudar se todas essas variáveis são importantes na hora de criar um modelo de Machine Learning existem algumas técnicas que podem ser aplicadas, como por exemplo:<br></p>
+<ul>
+<li>Análise de correlação : se tivermos em nosso dataset muitas variáveis que estão altamente correlacionadas elas podem ser representados com apenas uma dessas colunas, por exemplo, em vez de ter 5 colunas que trazem a mesma informação, de modo de que quando uma aumente a outra possua um comportamento semelhante, aumentando ou descrescendo na mesma intensidade, podemos eliminar 4 delas e manter apenas 1 dessas colunas.<br><br></li>
+<li>Análise de variância : colunas com uma variância igual a 0, ou seja, possuem o mesmo valor em todo o dataset não trazem nenhuma informação em relação a variável alvo e podem ser todas eliminadas.</li>
+</ul>
+<div id="análise-de-correção-entre-as-variáveis" class="section level2">
+<h2>Análise de correção entre as variáveis</h2>
+<p>Para entender se existem colunas com uma correlação muito alta em nosso dataset, vamos observar um mapa de calor com as correlações calculadas para cada combinação de colunas.</p>
+<p><strong>OBS: A CORRELAÇÃO SERÁ CALCULADA EM FORMA DE MÓDULO, OU SEJA, MEDINDO A FORÇA DESSA CORRELAÇÃO INDEPENDENTE DO SINAL(positiva ou negativa)</strong></p>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-47.png" width="3360" /><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-48.png" width="3360" /></p>
+<p>A partir do gráfico 6 percebemos que muitas colunas possuem uma alta correlação absoluta, ou seja, temos uma motivação para eliminar colunas correlacionadas de forma que apenas uma delas continue no dataset.<br><br> Para isso, vou utilizar a função compute_high_corr( ), definida no arquivo <a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/funcoes/feature.py">funcoes/feature</a>, que irá calcular a matriz de correlação das colunas e percorrer essa matriz de tal forma que se uma coluna tiver uma correlação mais alta que o valor de corte em relação a alguma coluna que já foi percorrida ela será armazenada em uma lista e essa lista será retornada ao final, ou seja, em um grupo onde existem diversas colunas correlacionas apenas uma delas será mantida.</p>
+<pre class="python"><code>#Calculando as colunas para eliminar com um valor de corte de 0.95
+cols_drop_high_corr = compute_high_corr(df.select_dtypes(&#39;float64&#39;), 0.95)
+#Mostrando na tela essas colunas
+print(cols_drop_high_corr)
+#Mostrando na tela a quantidade de colunas</code></pre>
+<pre><code>## [&#39;ALBUMIN_MEAN&#39;, &#39;ALBUMIN_MIN&#39;, &#39;ALBUMIN_MAX&#39;, &#39;BE_ARTERIAL_MEAN&#39;, &#39;BE_ARTERIAL_MIN&#39;, &#39;BE_ARTERIAL_MAX&#39;, &#39;BE_VENOUS_MEAN&#39;, &#39;BE_VENOUS_MIN&#39;, &#39;BE_VENOUS_MAX&#39;, &#39;BIC_ARTERIAL_MEAN&#39;, &#39;BIC_ARTERIAL_MIN&#39;, &#39;BIC_ARTERIAL_MAX&#39;, &#39;BIC_VENOUS_MEAN&#39;, &#39;BIC_VENOUS_MIN&#39;, &#39;BIC_VENOUS_MAX&#39;, &#39;BILLIRUBIN_MEAN&#39;, &#39;BILLIRUBIN_MIN&#39;, &#39;BILLIRUBIN_MAX&#39;, &#39;BLAST_MEAN&#39;, &#39;BLAST_MIN&#39;, &#39;BLAST_MAX&#39;, &#39;CALCIUM_MEAN&#39;, &#39;CALCIUM_MIN&#39;, &#39;CALCIUM_MAX&#39;, &#39;CREATININ_MEAN&#39;, &#39;CREATININ_MIN&#39;, &#39;CREATININ_MAX&#39;, &#39;FFA_MEAN&#39;, &#39;FFA_MIN&#39;, &#39;FFA_MAX&#39;, &#39;GGT_MEAN&#39;, &#39;GGT_MIN&#39;, &#39;GGT_MAX&#39;, &#39;GLUCOSE_MEAN&#39;, &#39;GLUCOSE_MIN&#39;, &#39;GLUCOSE_MAX&#39;, &#39;HEMATOCRITE_MEAN&#39;, &#39;HEMATOCRITE_MIN&#39;, &#39;HEMATOCRITE_MAX&#39;, &#39;HEMOGLOBIN_MEDIAN&#39;, &#39;HEMOGLOBIN_MEAN&#39;, &#39;HEMOGLOBIN_MIN&#39;, &#39;HEMOGLOBIN_MAX&#39;, &#39;INR_MEAN&#39;, &#39;INR_MIN&#39;, &#39;INR_MAX&#39;, &#39;LACTATE_MEAN&#39;, &#39;LACTATE_MIN&#39;, &#39;LACTATE_MAX&#39;, &#39;LEUKOCYTES_MEAN&#39;, &#39;LEUKOCYTES_MIN&#39;, &#39;LEUKOCYTES_MAX&#39;, &#39;LINFOCITOS_MEAN&#39;, &#39;LINFOCITOS_MIN&#39;, &#39;LINFOCITOS_MAX&#39;, &#39;NEUTROPHILES_MEDIAN&#39;, &#39;NEUTROPHILES_MEAN&#39;, &#39;NEUTROPHILES_MIN&#39;, &#39;NEUTROPHILES_MAX&#39;, &#39;P02_ARTERIAL_MEDIAN&#39;, &#39;P02_ARTERIAL_MEAN&#39;, &#39;P02_ARTERIAL_MIN&#39;, &#39;P02_ARTERIAL_MAX&#39;, &#39;P02_VENOUS_MEAN&#39;, &#39;P02_VENOUS_MIN&#39;, &#39;P02_VENOUS_MAX&#39;, &#39;PC02_ARTERIAL_MEAN&#39;, &#39;PC02_ARTERIAL_MIN&#39;, &#39;PC02_ARTERIAL_MAX&#39;, &#39;PC02_VENOUS_MEAN&#39;, &#39;PC02_VENOUS_MIN&#39;, &#39;PC02_VENOUS_MAX&#39;, &#39;PCR_MEAN&#39;, &#39;PCR_MIN&#39;, &#39;PCR_MAX&#39;, &#39;PH_ARTERIAL_MEDIAN&#39;, &#39;PH_ARTERIAL_MEAN&#39;, &#39;PH_ARTERIAL_MIN&#39;, &#39;PH_ARTERIAL_MAX&#39;, &#39;PH_VENOUS_MEAN&#39;, &#39;PH_VENOUS_MIN&#39;, &#39;PH_VENOUS_MAX&#39;, &#39;PLATELETS_MEAN&#39;, &#39;PLATELETS_MIN&#39;, &#39;PLATELETS_MAX&#39;, &#39;POTASSIUM_MEAN&#39;, &#39;POTASSIUM_MIN&#39;, &#39;POTASSIUM_MAX&#39;, &#39;SAT02_ARTERIAL_MEDIAN&#39;, &#39;SAT02_ARTERIAL_MEAN&#39;, &#39;SAT02_ARTERIAL_MIN&#39;, &#39;SAT02_ARTERIAL_MAX&#39;, &#39;SAT02_VENOUS_MEAN&#39;, &#39;SAT02_VENOUS_MIN&#39;, &#39;SAT02_VENOUS_MAX&#39;, &#39;SODIUM_MEAN&#39;, &#39;SODIUM_MIN&#39;, &#39;SODIUM_MAX&#39;, &#39;TGO_MEAN&#39;, &#39;TGO_MIN&#39;, &#39;TGO_MAX&#39;, &#39;TGP_MEAN&#39;, &#39;TGP_MIN&#39;, &#39;TGP_MAX&#39;, &#39;TTPA_MEAN&#39;, &#39;TTPA_MIN&#39;, &#39;TTPA_MAX&#39;, &#39;UREA_MEAN&#39;, &#39;UREA_MIN&#39;, &#39;UREA_MAX&#39;, &#39;DIMER_MEAN&#39;, &#39;DIMER_MIN&#39;, &#39;DIMER_MAX&#39;, &#39;BLOODPRESSURE_DIASTOLIC_MEDIAN&#39;, &#39;BLOODPRESSURE_SISTOLIC_MEDIAN&#39;, &#39;HEART_RATE_MEDIAN&#39;, &#39;RESPIRATORY_RATE_MEDIAN&#39;, &#39;TEMPERATURE_MEDIAN&#39;, &#39;OXYGEN_SATURATION_MEDIAN&#39;, &#39;BLOODPRESSURE_DIASTOLIC_MIN&#39;, &#39;BLOODPRESSURE_SISTOLIC_MIN&#39;, &#39;HEART_RATE_MIN&#39;, &#39;RESPIRATORY_RATE_MIN&#39;, &#39;TEMPERATURE_MIN&#39;, &#39;BLOODPRESSURE_DIASTOLIC_MAX&#39;, &#39;BLOODPRESSURE_SISTOLIC_MAX&#39;, &#39;HEART_RATE_MAX&#39;, &#39;RESPIRATORY_RATE_MAX&#39;, &#39;TEMPERATURE_MAX&#39;, &#39;BLOODPRESSURE_DIASTOLIC_DIFF_REL&#39;, &#39;BLOODPRESSURE_SISTOLIC_DIFF_REL&#39;, &#39;RESPIRATORY_RATE_DIFF_REL&#39;, &#39;TEMPERATURE_DIFF_REL&#39;, &#39;OXYGEN_SATURATION_DIFF_REL&#39;]</code></pre>
+<pre class="python"><code>print(len(cols_drop_high_corr))</code></pre>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-51.png" width="3360" /></p>
+<p>Podemos perceber que, de acordo com a função compute_high_corr( ), podemos eliminar essas 134 colunas pois existem outras colunas no dataset que possuem uma alta correlação com estas.</p>
+<pre class="python"><code>df.drop(cols_drop_high_corr, axis=1, inplace=True)</code></pre>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-53.png" width="3360" /></p>
+</div>
+<div id="análise-da-variância" class="section level2">
+<h2>Análise da variância</h2>
+<p>Outro fator que podemos analisar de forma fácil e, já nos diz muito sobre determinada variável, é a variância. Esta é uma medida usada para mensurar a dispersão dos dados em um conjunto, ou seja, quanto menor essa variância mais agrupados estão os valores. <br></p>
+<p>Uma vez que nós estamos trabalhando com dados normalizados, como foi informado pelo Sírio-Libanês, fica difícil ter uma referência de qual o valor mínimo de uma variância para uma variável ser considerada importante, no entanto, temos uma certeza, se alguma das variáveis possui uma <strong>variância igual a zero</strong>, é porque ela é <strong>completamente desnecessária</strong> ao se resolver o nosso problema.</p>
+<p>Para analisar este fato, primeiramente vou olhar para o boxplot de 15 colunas aleatórias a fim de encontrar algo que possamos analisar, ou, conseguimos ver se alguma dessas colunas possui variância zero.</p>
+<pre class="python"><code>#Setando a semente aletória que foi definida no começo do notebook
+np.random.seed(SEED)
+
+#Selecionando o dataset com as colunas contínuas
+cont = df.select_dtypes(&#39;float64&#39;)
+
+#Escolhendo o dataset com 15 colunas aleatórias
+sample = cont[np.random.choice(cont.columns, size=15, replace=False)]
+
+#Juntando com a informação da variável alvo para analisar a diferença entre os grupos
+sample_cont = pd.concat([sample, df[&#39;ICU&#39;]],axis=1) 
+
+#Transformando as colunas em uma coluna &quot;variable&quot; e os valores em uma coluna &quot;value&quot; e mantendo a variável &quot;ICU&quot; fixa 
+cont_melt = pd.melt(sample_cont, id_vars=&#39;ICU&#39;)</code></pre>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-55.png" width="3360" /></p>
+<pre class="python"><code>cont_melt.head()</code></pre>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-57.png" width="3360" /></p>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-59.png" width="1920" /><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-60.png" width="1920" /></p>
+<p>A partir dos boxplots percebemos que algumas variáveis parecem realmente ter uma variância muito baixa, como a “SODIUM DIFF”, “CREATININ DIFF”, e as demais que representam diferenças. Por outro lado, percebe-se uma diferença muito grande dos valores de quem foi para UTI e de quem não foi na variável “LACTATE MEDIAN, podendo indicar que essa variável seja importante na hora de modelar os dados.<br><br> Por esta razão vou eliminar todas aquelas variáveis com um valor de variância igual a 0.</p>
+<pre class="python"><code>#Criando uma série com as variâncias para cada coluna numérica
+var = df.select_dtypes(&#39;float64&#39;).var()
+#Ordenando em ordem crescente e mostrando os primeiros valores
+var.sort_values().head()</code></pre>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-63.png" width="1920" /></p>
+<p>Observando os primeiros valores já percebe-se que temos algumas colunas com variância igual a 0.</p>
+<pre class="python"><code>#Selecionando as colunas com variância igual a 0
+cols_0_var = [col for col in var.index if var[col] == 0]
+#Imprimindo na tela as colunas com variância igual a 0
+print(cols_0_var)
+#Mostrando na tela a quantidade de colunas</code></pre>
+<pre><code>## [&#39;ALBUMIN_DIFF&#39;, &#39;BE_ARTERIAL_DIFF&#39;, &#39;BE_VENOUS_DIFF&#39;, &#39;BIC_ARTERIAL_DIFF&#39;, &#39;BIC_VENOUS_DIFF&#39;, &#39;BILLIRUBIN_DIFF&#39;, &#39;BLAST_DIFF&#39;, &#39;CALCIUM_DIFF&#39;, &#39;CREATININ_DIFF&#39;, &#39;FFA_DIFF&#39;, &#39;GGT_DIFF&#39;, &#39;GLUCOSE_DIFF&#39;, &#39;HEMATOCRITE_DIFF&#39;, &#39;HEMOGLOBIN_DIFF&#39;, &#39;INR_DIFF&#39;, &#39;LACTATE_DIFF&#39;, &#39;LEUKOCYTES_DIFF&#39;, &#39;LINFOCITOS_DIFF&#39;, &#39;NEUTROPHILES_DIFF&#39;, &#39;P02_ARTERIAL_DIFF&#39;, &#39;P02_VENOUS_DIFF&#39;, &#39;PC02_ARTERIAL_DIFF&#39;, &#39;PC02_VENOUS_DIFF&#39;, &#39;PCR_DIFF&#39;, &#39;PH_ARTERIAL_DIFF&#39;, &#39;PH_VENOUS_DIFF&#39;, &#39;PLATELETS_DIFF&#39;, &#39;POTASSIUM_DIFF&#39;, &#39;SAT02_ARTERIAL_DIFF&#39;, &#39;SAT02_VENOUS_DIFF&#39;, &#39;SODIUM_DIFF&#39;, &#39;TGO_DIFF&#39;, &#39;TGP_DIFF&#39;, &#39;TTPA_DIFF&#39;, &#39;UREA_DIFF&#39;, &#39;DIMER_DIFF&#39;]</code></pre>
+<pre class="python"><code>print(len(cols_0_var))</code></pre>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-65.png" width="1920" /></p>
+<p>Podemos perceber que temos 36 colunas com variância igual a 0 no dataset, e, por esta razão irei eliminá-las.</p>
+<pre class="python"><code>#Eliminando as colunas com variância igual a 0
+df.drop(cols_0_var,axis=1, inplace=True)</code></pre>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-67.png" width="1920" /></p>
+<pre class="python"><code>df.head()</code></pre>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-69.png" width="1920" /></p>
+<pre class="python"><code>df.shape</code></pre>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-71.png" width="1920" /></p>
+<p>Podemos ver que saímos de 231 para 62 colunas e agora chegou o momento de testar os modelos de Machine Learning a fim de solucionar o problema. Para isso vou salvar esses dados pré-processados na pasta <a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/dados/dados_preprocessados">dados/dados_preprocessados</a>. E continuar o trabalho no notebook, dedicado aos modelos, <a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/notebooks/Previsoes.ipynb">notebooks/Previsoes</a>.</p>
+</div>
+</div>
+<div id="salvando-dados-pré-processados" class="section level1">
+<h1>Salvando dados pré-processados</h1>
+<pre class="python"><code>#df.to_csv(&#39;../../dados/dados_preprocessados/preprocessados.csv&#39;, index=False)</code></pre>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

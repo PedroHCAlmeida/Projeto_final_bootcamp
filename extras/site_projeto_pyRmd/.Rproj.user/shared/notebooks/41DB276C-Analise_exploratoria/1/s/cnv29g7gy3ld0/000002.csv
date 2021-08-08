@@ -1,0 +1,8 @@
+"0","reticulate::repl_python()"
+"2","Python 3.9.6 (C:/Users/pedro/anaconda3_02/envs/bootcampfinal/python.exe)
+Reticulate 1.20 REPL -- A Python interpreter in R.
+"
+"0","binary = binary_features(df)"
+"0","binary"
+"1","['AGE_ABOVE65', 'GENDER', 'DISEASE GROUPING 1', 'DISEASE GROUPING 2', 'DISEASE GROUPING 3', 'DISEASE GROUPING 4', 'DISEASE GROUPING 5', 'DISEASE GROUPING 6', 'HTN', 'IMMUNOCOMPROMISED', 'OTHER', 'ICU']
+"

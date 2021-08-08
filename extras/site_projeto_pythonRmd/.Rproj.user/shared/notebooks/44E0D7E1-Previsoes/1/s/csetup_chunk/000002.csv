@@ -1,2 +1,6 @@
-"0","knitr::opts_chunk$set(echo = T,"
-"0","                      results = ""hide"")"
+"0","quit
+help(knitr::opts_chunk)
+"
+"2","Error in help(knitr::opts_chunk) : 
+  'topic' should be a name, length-one character vector or reserved word
+"
