@@ -12,6 +12,8 @@ Esse projeto teve como _**objetivo**_ criar um modelo capaz de prever se um paci
 
 Os _**impactos**_ esperados com a criação desse modelo são de um lado conseguir melhorar a logística de recursos do hospital, e o mais importante prever quais são aqueles pacientes que mais necessitam dessa internação, dando a prioridade para quem mais precisará, uma vez que _**cada leito vago pode significar uma vida salva**_.
 
+![]()
+
 # Contexto
 
 O ano de 2020 começou de uma maneira completamente inesperada, o mundo foi atingido por uma das maiores crises sanitárias da história contemporânea, e uma palavra tomou conta das notícias nos jornais e mídias sociais brasileiras, _**Leito**_, a superlotação dos hopitais e a falta de leitos se tornou normal em todo o Brasil, nos anos de 2020 e 2021. Diante de uma doença desconhecida, encontrar como identificar seus perigos e as alterações corporais se tornou um desafio para medicina moderna.
