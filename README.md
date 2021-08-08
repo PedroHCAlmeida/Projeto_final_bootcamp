@@ -12,7 +12,7 @@ Esse projeto teve como _**objetivo**_ criar um modelo capaz de prever se um paci
 
 Os _**impactos**_ esperados com a criação desse modelo são de um lado conseguir melhorar a logística de recursos do hospital, e o mais importante prever quais são aqueles pacientes que mais necessitam dessa internação, dando a prioridade para quem mais precisará, uma vez que _**cada leito vago pode significar uma vida salva**_.
 
-![]()
+![curva_covid](https://raw.githubusercontent.com/PedroHCAlmeida/Projeto_final_bootcamp/main/img/cdc_200313_flatten_the_curve_800x450.webp?token=ASNXTHVCABHY2EANWJYLQBTBB76EU)
 
 # Contexto
 
