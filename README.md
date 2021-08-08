@@ -16,7 +16,7 @@ Os _**impactos**_ esperados com a criação desse modelo são de um lado consegu
 
 # Contexto
 
-O ano de 2020 começou de uma maneira completamente inesperada, o mundo foi atingido por uma das maiores crises sanitárias da história contemporânea, e uma palavra tomou conta das notícias nos jornais e mídias sociais brasileiras, _**Leito**_, a superlotação dos hopitais e a falta de leitos se tornou normal em todo o Brasil, nos anos de 2020 e 2021. Diante de uma doença desconhecida, encontrar como identificar seus perigos e as alterações corporais se tornou um desafio para medicina moderna.
+O ano de 2020 começou de uma maneira completamente inesperada, o mundo foi atingido por uma das maiores crises sanitárias da história contemporânea, e uma palavra tomou conta das notícias nos jornais e mídias sociais brasileiras, _**"Leito"**_, a superlotação dos hopitais e a falta de leitos se tornou normal em todo o Brasil, nos anos de 2020 e 2021. Diante de uma doença desconhecida, encontrar como identificar seus perigos e as alterações corporais se tornou um desafio para medicina moderna.
 
 Partindo desse problema o projeto teve como ponto de partida analisar dados acerca de resultados de exames de sangue, sinais vitais, gases sanguíneos, grupos de doenças apresentadas pelo paciente, além de informações demográficas do mesmo. A partir disso foi procurado quais as relações de cada variável com a necessidade de um leito, para no final sermos capazes de prever com a maior certeza quem são aqueles que mais necessitam dessa internação.
 
