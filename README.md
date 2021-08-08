@@ -12,6 +12,8 @@ Esse projeto teve como _**objetivo**_ criar um modelo capaz de prever se um paci
 
 Os _**impactos**_ esperados com a criação desse modelo são de um lado conseguir melhorar a logística de recursos do hospital, e o mais importante prever quais são aqueles pacientes que mais necessitam dessa internação, dando a prioridade para quem mais precisará, uma vez que _**cada leito vago pode significar uma vida salva**_.
 
+![]()
+
 # Contexto
 
 O ano de 2020 começou de uma maneira completamente inesperada, o mundo foi atingido por uma das maiores crises sanitárias da história contemporânea, e uma palavra tomou conta das notícias nos jornais e mídias sociais brasileiras, _**Leito**_, a superlotação dos hopitais e a falta de leitos se tornou normal em todo o Brasil, nos anos de 2020 e 2021. Diante de uma doença desconhecida, encontrar como identificar seus perigos e as alterações corporais se tornou um desafio para medicina moderna.
@@ -69,21 +71,22 @@ Por fim fiz pequenas mudanças em relação as leituras de dados e importações
 
 * O resultado final do site pode ser conferido [aqui](https://prevendo-uti-bootcamp-alura.netlify.app/)
 
-# Fases do projeto
+# Modelo Final
 
-# Extras
 
 # Tecnologias utilizadas 💻
 
-Esse projeto foi realizado utilizando a linguagem Python versão 3.7.6 através do jupyter lab versão 1.2.6, as bibliotecas usadas foram:
-* Pandas versão 1.2.4 : biblioteca rápida e poderosa usada para manipulação de dados
+Esse projeto foi realizado utilizando a linguagem Python versão 3.9.6, e os notebooks foram desenvolvidos através da ferramenta jupyter lab dentro de um ambiente criado pela plataforma anaconda, as principais bibliotecas usadas foram:
+* Pandas versão 1.3.1 : biblioteca rápida e poderosa usada para manipulação de dados
 * Matplotlib versão 3.1.3 : biblioteca usada para visualização de dados
 * Seaborn versão 0.11.1 : biblioteca baseada no Matplotlib para visualização de gráficos estatísticos mais complexos
 * Numpy versão 1.20.2 : biblioteca utilizada para computação matemática
-* fbprophet 0.7.1 : biblioteca focada na previsão de séries temporais
-* Para mais informações de todas as versões utilizadas para replicação do projeto acesse o [requirements.txt](https://github.com/PedroHCAlmeida/)
+* Scikit-learn versão 0.24.2 : biblioteca utilizada na criação de modelos de Machine Learning
+* Todas as bibliotecas e versões podem ser encontradas no arquivo [requirements.txt](https://github.com/PedroHCAlmeida/)
 
 # Agradecimentos
+
+Gostaria de deixar o meu agradecimento a Alura por essa oportunidade incrível de participar do bootcamp de Data Science Aplicada, aos instrutores Thiago Santos, Guilherme Silveira, Allan Spadini e Karoline Penteado, que nos acompanharam durante todo o bootcamp. Ao Paulo Vasconcellos, que sempre participou das lives nesse período e trouxe dicas valiosas para melhorar os projetos. Além disso, queria agradecer a todo pessoal do discord e do Scuba team que sempre ajudou quando foi preciso.
 
 # Referências
 
@@ -106,5 +109,3 @@ https://seaborn.pydata.org/<br>
 
 [<img src="https://img.shields.io/badge/pedrocorrea-0A66C2?style=flat-square&logo=linkedin&logoColor=white" />](https://www.linkedin.com/in/pedro-henrique-corrêa-de-almeida/)<br>
 [<img src="https://img.shields.io/badge/GitHub-PedroHCAlmeida-DCDCDC?style=flat-square" />](https://github.com/PedroHCAlmeida)<br>
-
-# Referências
