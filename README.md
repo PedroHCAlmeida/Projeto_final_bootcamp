@@ -65,7 +65,9 @@ Por fim fiz pequenas mudanças em relação as leituras de dados e importações
 * Comando utilizado para gerar uma cópia dos notebooks no formato .Rmd
 ![](https://raw.githubusercontent.com/PedroHCAlmeida/Projeto_final_bootcamp/main/img/Screenshot%202021-08-07%20214603.png?token=ASNXTHTRWBEYRIBZY4AOKYTBB4VRI)
  
- * Obs: esses comandos só foram realizados uma vez na hora de iniciar a sessão, depois foram retirados
+* Obs: esses comandos só foram realizados uma vez na hora de iniciar a sessão, depois foram retirados
+
+* O resultado final do site pode ser conferido [aqui](https://prevendo-uti-bootcamp-alura.netlify.app/)
 
 # Fases do projeto
 
