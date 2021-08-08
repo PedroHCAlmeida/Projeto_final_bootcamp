@@ -5,7 +5,7 @@
 
 # Apresentação
 
-Olá, meu nome é Pedro Henrique, e esse é meu repositório referente ao projeto final do [Bootcamp De Data Science Aplicada](https://www.alura.com.br/bootcamp/data-science-aplicada/matriculas-abertas) promovido pela [Alura](https://www.alura.com.br/).
+Olá, meu nome é Pedro Henrique, e esse é meu repositório referente ao projeto final do [Bootcamp de Data Science Aplicada](https://www.alura.com.br/bootcamp/data-science-aplicada/matriculas-abertas) promovido pela [Alura](https://www.alura.com.br/).
 
 # Resumo
 Esse projeto teve como _**objetivo**_ criar um modelo capaz de prever se um paciente com suspeita de COVID-19 precisará ou não ser internado na UTI levando em consideração apenas os dados obtidos até as _**duas primeiras horas**_ que o mesmo chega ao local. Para isso foi utilizada uma base de dados disponibilizada pelo hospital Sírio Libanês, essa base de dados pode ser encontrada no [kaggle](https://www.kaggle.com/S%C3%ADrio-Libanes/covid19). 
