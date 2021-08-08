@@ -9,7 +9,7 @@
    * [Resumo](#res)
    * [Contexto](#cont)
    * [Estrutura do projeto](#estru)
-   * [Modelo Final](#model)
+   * [Modelos](#model)
    * [Bibliotecas utilizada](#bibli)
    * [Agradecimentos](#agrad)
    * [Referências](#ref)
