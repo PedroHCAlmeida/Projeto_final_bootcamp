@@ -10,10 +10,10 @@
    * [Contexto](#cont)
    * [Estrutura do projeto](#estru)
    * [Modelo Final](#model)
-   * [Tecnologias utilizadas](#tec)
+   * [Bibliotecas utilizada](#bibli)
    * [Agradecimentos](#agrad)
    * [Referências](#ref)
-   * [Contato](contato)
+   * [Contato](#contato)
    <!--te-->
    
 <a name="apre"></a>
@@ -91,8 +91,8 @@ Por fim fiz pequenas mudanças em relação as leituras de dados e importações
 <a name="model"></a>
 # Modelo Final
 
-<a name="tec"></a>
-# Tecnologias utilizadas 💻
+<a name="bibli"></a>
+# Bibliotecas utilizadas 💻
 
 Esse projeto foi realizado utilizando a linguagem Python versão 3.9.6, e os notebooks foram desenvolvidos através da ferramenta jupyter lab dentro de um ambiente criado pela plataforma anaconda, as principais bibliotecas usadas foram:
 * Pandas versão 1.3.1 : biblioteca rápida e poderosa usada para manipulação de dados
@@ -107,7 +107,7 @@ Esse projeto foi realizado utilizando a linguagem Python versão 3.9.6, e os not
 
 Gostaria de deixar o meu agradecimento a Alura por essa oportunidade incrível de participar do bootcamp de Data Science Aplicada, aos instrutores Thiago Santos, Guilherme Silveira, Allan Spadini e Karoline Penteado, que nos acompanharam durante todo o bootcamp. Ao Paulo Vasconcellos, que sempre participou das lives nesse período e trouxe dicas valiosas para melhorar os projetos. Além disso, queria agradecer a todo pessoal do discord e do Scuba team que sempre ajudou quando foi preciso.
 
-<a name="apre"></a>
+<a name="ref"></a>
 # Referências 📚
 
 https://medium.com/data-hackers/como-selecionar-as-melhores-features-para-seu-modelo-de-machine-learning-faf74e357913<br>
