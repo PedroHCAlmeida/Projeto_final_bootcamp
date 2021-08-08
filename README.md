@@ -8,7 +8,7 @@
 Olá, meu nome é Pedro Henrique, e esse é meu repositório referente ao projeto final do [Bootcamp de Data Science Aplicada](https://www.alura.com.br/bootcamp/data-science-aplicada/matriculas-abertas) promovido pela [Alura](https://www.alura.com.br/).
 
 # Resumo
-Esse projeto teve como _**objetivo**_ criar um modelo capaz de prever se um paciente com suspeita de COVID-19 precisará ou não ser internado na UTI levando em consideração apenas os dados obtidos até as _**duas primeiras horas**_ que o mesmo chega ao local. Para isso foi utilizada uma base de dados disponibilizada pelo hospital Sírio Libanês, essa base de dados pode ser encontrada no [kaggle](https://www.kaggle.com/S%C3%ADrio-Libanes/covid19). 
+Esse projeto teve como _**objetivo**_ criar um modelo capaz de prever se um paciente com suspeita de COVID-19 precisará ou não ser internado na UTI levando em consideração apenas os dados obtidos até as _**duas primeiras horas**_ que o mesmo chega ao local. Para isso foi utilizada uma base de dados disponibilizada pelo Hospital Sírio-Libanês, essa base de dados pode ser encontrada no [kaggle](https://www.kaggle.com/S%C3%ADrio-Libanes/covid19). 
 
 Os _**impactos**_ esperados com a criação desse modelo são de um lado conseguir melhorar a logística de recursos do hospital, e o mais importante prever quais são aqueles pacientes que mais necessitam dessa internação, dando a prioridade para quem mais precisará, uma vez que _**cada leito vago pode significar uma vida salva**_.
 
@@ -22,12 +22,41 @@ Partindo desse problema o projeto teve como ponto de partida analisar dados acer
 
 ## [dados](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/data):
 
+Neste diretório se encontram os dados utilizados no projeto, esses dados estão dividos em duas pastas:
 
-## [funcoes](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/functions))
+* [dados_brutos](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/dados/dados_brutos) : aqui está o arquivo .xlsx original que foi disponibilizado pelo Hospital Sírio-Libanês
+* [dados_preprocessados](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/dados/dados_preprocessados) : aqui está o aquivo .csv com os dados pré-processados na [Análise Exploratória]()
+
+## [funcoes](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/functions):
+
+Este diretório foi destinado as funções utilizadas no projeto, essas foram divididas em 4 arquivos .py dependendo do objetivo das mesmas, são eles:
+
+* [preprocessing](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/funcoes/preprocessing.py) : funções relacionadas ao pré-processamento dos dados
+* [feature](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/funcoes/feature.py) : funções relacionadas a seleção de variáveis(feature selection)
+* [my_plot](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/funcoes/my_plot.py) : funções relacionadas a geração de gráficos
+* [my_classifier](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/funcoes/my_classifier.py) : classe utilizada para criação dos modelos de machine learning
 
 ## [notebooks](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/notebooks):
 
+Aqui foram criados os notebooks onde foram realizadas as análises e criação dos modelos de Machine Learning, foram divididos em dois arquivos .ipynb, são eles:
+
+* [Analise_exploratoria](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/notebooks/Analise_exploratoria.ipynb): notebook desenvolvido no jupyter lab onde foi realizado o pré-processamento dos dados brutos e toda a parte de Análise exploratória.
+* [Previsoes](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/notebooks/Previsoes.ipynb) : notebook destinado aos modelos de Machine Learning a partir dos dados pré-processados
+
+## [arquivos_modelo](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/arquivos_modelo):
+
+Neste repositório estão os objetos criados dentro do notebook e salvos em arquivos para serem carregados em outros locais,estes foram organizados em duas pastas:
+
+* [SearchCV_salvo](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/arquivos_modelo/SearchCV_salvo) : possui o arquivo onde foi armazenado o objeto que foi utilizado na otimização dos hyperparâmetros. Optei por salvá-lo, uma vez que é um processo computacionalmente custoso e demorado, dessa forma é possível carregá-lo em outros ambientes.
+* [Modelo_Salvo](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/arquivos_modelo/Modelo_Salvo) : aqui está salvo o modelo final que obteve as melhores métricas de acordo com o previsto no início do projeto. Esse modelo foi treinado, no final, foi treinado com todos os dados e salvo em um aquivo .joblib nesta pasta 
+
 ## [img](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/img)
+Diretório com todas as imagens utilizadas no projeto.
+
+
+## [extras](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/extras):
+Neste diretório experimentei testar diferentes funcionalidades que é possível entre o Rstudio e python. Para isso criei um projeto de um website dentro do Rstudio, e transformei os arquivos .ipynb em .Rmd, após isso configurei o Rstudio para utilizar o mesmo ambiente do anaconda que foi desenvolvido os notebooks originais. Por fim fiz pequenas mudanças em relação leituras de dados e importações de funções locais e utilizei o arquivo [SearchCV_salvo/random_searchcv](https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/arquivos_modelo/SearchCV_salvo/random_searchcv) para não realizar o processo de otimização de hyperparâmetros novamente.
+
 
 # Fases do projeto
 
