@@ -207,6 +207,7 @@ class Classifier:
     
     def plot_confusion(self,
                       ax=None,
+                      labels_ticks = ['Não foi para UTI','Foi para UTI'],
                       name_estimator='',
                       **kwargs_heatmap):
         '''
@@ -216,8 +217,12 @@ class Classifier:
         
         Parâmetros:
         -----------
-        ax : eixo a ser plotado o gráfico, se nenhum for passado será criado automaticamnete, tipo : matplotlib.axes, padrão : None
-        name_estimator: Nome do modelo que aparece no título do gráfico, se nenhum for passado será imprimido como o modelo foi instanciado, tipo : str, padrão : None
+        ax : eixo a ser plotado o gráfico, se nenhum for passado será criado automaticamente, 
+            tipo : matplotlib.axes, padrão : None
+        labels_ticks : lista com os nomes das classificações 0 e 1, para serem plotadas nos eixos, 
+            tipo : list, padrão :['Não foi para UTI','Foi para UTI']
+        name_estimator: Nome do modelo que aparece no título do gráfico, 
+                        se nenhum for passado será imprimido como o modelo foi instanciado, tipo : str, padrão : None
         **kwargs_heatmap : argumentos adicionais a serem passados para função heatmap do seaborn
         
         Retorno:
@@ -236,11 +241,16 @@ class Classifier:
         plt.sca(ax)
         
         #Gerando o gráfico com os valores da matriz de confusão média
-        sns.heatmap(self.confusion_matrix_mean.round(), annot=True, cmap='Blues', annot_kws={"fontsize":30}, **kwargs_heatmap)
+        sns.heatmap(self.confusion_matrix_mean.round(), annot=True, 
+                    cmap='Blues', annot_kws={"fontsize":30}, **kwargs_heatmap)
         
         #Gerando as labels e títulos
-        labs(title=f'Matriz de confusão do modelo {name_estimator}', ax=ax, xlabel='VALORES PREVISTOS', ylabel='VALORES REAIS',
+        labs(title=f'Matriz de confusão do modelo {name_estimator}', 
+             ax=ax, xlabel='VALORES PREVISTOS', ylabel='VALORES REAIS',
              subtitle=f'VALORES CALCULADOS PELA APROXIMAÇÃO DA MÉDIA DA MATRIZ DE CONFUSÃO NA VALIDAÇÃO CRUZADA COM {self.n_repeats} REPETIÇÕES E COM {self.n_splits} DIVISÕES NO DATASET')
+        
+        plt.xticks(np.arange(0.5,2), labels_ticks)
+        plt.yticks(np.arange(0.5,2), labels_ticks)
         
         #Mudando o tamnho da fonte da barra de cor
         cbar = ax.collections[0].colorbar
@@ -253,16 +263,19 @@ class Classifier:
     def hist_metrics(self, 
                     central:bool=True, 
                     bins:int=5,
+                    name_estimator:str=None,
                     **kwargs_histplot):
         '''
         Plota os histogramas das métricas calculadas pela validação cruzada na função cross_val()
         
         Parâmetros:
         -----------
-        central : booleano indicando se é para plotar a média e a mediana das métricas no histograma, tipo : bool, padrão : True, 
+        central : booleano indicando se é para plotar a média e a mediana das métricas no histograma, 
+                tipo : bool, padrão : True, 
         bins : quantidade de barras do histograma, tipo : int, padrão : 5
         **kwargs_histplot : argumentos adicionais a serem passados para função lineplot do seaborn
-        
+        name_estimator: Nome do modelo que aparece no título do gráfico, 
+                        se nenhum for passado será imprimido como o modelo foi instanciado, tipo : str, padrão : None
         Retorno:
         --------
         ax : Retorna o eixo do matplotlib onde foi gerado o gráfico
@@ -309,10 +322,16 @@ class Classifier:
             pos1 = ax[-1][0].get_position() 
             ax[-1][0].set_position([pos1.x0 + 0.2, pos1.y0, pos1.width, pos1.height])
         
+        #Verificando se algum nome para o modelo foi passado
+        if name_estimator == None:
+            name_estimator = str(self.estimator)
+        
         #Define o título da figura inteira
-        ax[0,0].text(0,1.18,f'Distribuição dos desempenhos do modelo {self.estimator}', fontsize=25, transform=ax[0,0].transAxes)
+        ax[0,0].text(0,1.18,f'Distribuição dos desempenhos do modelo {name_estimator}', 
+                     fontsize=25, transform=ax[0,0].transAxes)
         #Define o subtítulo da figura inteira
-        ax[0,0].text(0,1.12,'MÉTRICAS OBTIDAS PELO MÉTODO REPEATEDSTRATIFIEDKFOLD', fontsize=15, transform=ax[0,0].transAxes, color='gray')
+        ax[0,0].text(0,1.12,'MÉTRICAS OBTIDAS PELO MÉTODO REPEATEDSTRATIFIEDKFOLD', 
+                     fontsize=15, transform=ax[0,0].transAxes, color='gray')
         
         #Retorna o eixo
         return ax

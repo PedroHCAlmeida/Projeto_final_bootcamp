@@ -70,8 +70,10 @@ def central_trend(data, ax, axis:str='x', colors=None):
         plt.axvline(median, alpha=0.7, linestyle='--', color=colors['Median'])
         
         #Plota as legendas
-        plt.text(mean, 0.90,'Média' + str(mean), fontsize=15, transform = transforms.blended_transform_factory(ax.transData, ax.transAxes), color=colors['Mean'])
-        plt.text(median, 0.85,'Mediana' + str(median), fontsize=15, transform = transforms.blended_transform_factory(ax.transData, ax.transAxes), color=colors['Median'])
+        plt.text(mean, 0.90,'Média' + str(mean.round(2)), fontsize=15, 
+                 transform = transforms.blended_transform_factory(ax.transData, ax.transAxes), color=colors['Mean'])
+        plt.text(median, 0.85,'Mediana' + str(median.round(2)), fontsize=15, 
+                 transform = transforms.blended_transform_factory(ax.transData, ax.transAxes), color=colors['Median'])
     
     #Checa a orientação
     elif axis == 'y':
@@ -81,8 +83,8 @@ def central_trend(data, ax, axis:str='x', colors=None):
         plt.axhline(median, alpha=0.7, linestyle='--', color=colors['Median'])
         
         #Plota as legendas
-        plt.text(0.9, mean, 'Média ' + str(mean) , fontsize=15, transform = transforms.blended_transform_factory(ax.transAxes, ax.transData), color=colors['Mean'])
-        plt.text(0.85, median,'Mediana ' + str(median), fontsize=15, transform = transforms.blended_transform_factory(ax.transAxes, ax.transData), color=colors['Median'])
+        plt.text(0.9, mean, 'Média ' + str(mean.round(2)) , fontsize=15, transform = transforms.blended_transform_factory(ax.transAxes, ax.transData), color=colors['Mean'])
+        plt.text(0.85, median,'Mediana ' + str(median.round(2)), fontsize=15, transform = transforms.blended_transform_factory(ax.transAxes, ax.transData), color=colors['Median'])
     
     #Retona o eixo
     return ax
