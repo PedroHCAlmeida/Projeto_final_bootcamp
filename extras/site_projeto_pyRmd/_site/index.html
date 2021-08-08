@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>index.knit</title>
+
+<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Prevendo a necessidade de internação para pacientes com COVID-19</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="Analise_exploratoria.html">Análise Exploratória</a>
+</li>
+<li>
+  <a href="Previsoes.html">Previsões</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/PedroHCAlmeida">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://www.linkedin.com/in/pedro-henrique-corr%C3%AAa-de-almeida-15398b105/">
+    <span class="fa fa-linkedin"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+
+</div>
+
+
+<div id="prevendo-a-necessidade-de-internação-para-pacientes-com-covid-19" class="section level1">
+<h1>Prevendo a necessidade de internação para pacientes com COVID-19</h1>
+<p><a href="https://jupyter.org/try"><img src="https://img.shields.io/badge/Made%20with-Jupyter-orange?style=flat-square&amp;logo=Jupyter" alt="Made withJupyter" /></a> <a href="https://github.com/PedroHCAlmeida/analise_temporal_COVID_Brasil/edit/main/LICENSE"><img src="https://img.shields.io/github/license/Naereen/StrapDown.js.svg?style=flat-square" alt="GitHub license" /></a></p>
+<p><img src="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/img/previsao_banner.png?raw=true" /></p>
+</div>
+<div id="apresentação" class="section level1">
+<h1>Apresentação</h1>
+<p>Olá, meu nome é Pedro Henrique, e esse é meu repositório referente ao projeto final do <a href="https://www.alura.com.br/bootcamp/data-science-aplicada/matriculas-abertas">Bootcamp de Data Science Aplicada</a> promovido pela <a href="https://www.alura.com.br/">Alura</a>.</p>
+</div>
+<div id="resumo" class="section level1">
+<h1>Resumo 📜</h1>
+<p>Esse projeto teve como <em><strong>objetivo</strong></em> criar um modelo capaz de prever se um paciente com suspeita de COVID-19 precisará ou não ser internado na UTI levando em consideração apenas os dados obtidos até as <em><strong>duas primeiras horas</strong></em> que o mesmo chega ao local. Para isso foi utilizada uma base de dados disponibilizada pelo Hospital Sírio-Libanês, essa base de dados pode ser encontrada no <a href="https://www.kaggle.com/S%C3%ADrio-Libanes/covid19">kaggle</a>.</p>
+<p>Os <em><strong>impactos</strong></em> esperados com a criação desse modelo são de um lado conseguir melhorar a logística de recursos do hospital, e o mais importante prever quais são aqueles pacientes que mais necessitam dessa internação, dando a prioridade para quem mais precisará, uma vez que <em><strong>cada leito vago pode significar uma vida salva</strong></em>.</p>
+<p><img src="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/img/curva_covid.gif?raw=true" /></p>
+</div>
+<div id="contexto" class="section level1">
+<h1>Contexto 🦠</h1>
+<p>O ano de 2020 começou de uma maneira completamente inesperada, o mundo foi atingido por uma das maiores crises sanitárias da história contemporânea, e uma palavra tomou conta das notícias nos jornais e mídias sociais brasileiras, <em><strong>“Leito”</strong></em>, a superlotação dos hopitais e a falta de leitos se tornou normal em todo o Brasil, nos anos de 2020 e 2021. Diante de uma doença desconhecida, encontrar como identificar seus perigos e as alterações corporais se tornou um desafio para medicina moderna.</p>
+<p>Partindo desse problema o projeto teve como ponto de partida analisar dados acerca de resultados de exames de sangue, sinais vitais, gases sanguíneos, grupos de doenças apresentadas pelo paciente, além de informações demográficas do mesmo. A partir disso foi procurado quais as relações de cada variável com a necessidade de um leito, para no final sermos capazes de prever com a maior certeza quem são aqueles que mais necessitam dessa internação.</p>
+</div>
+<div id="estrutura-do-projeto" class="section level1">
+<h1>Estrutura do projeto 🧱</h1>
+<div id="dados" class="section level2">
+<h2><a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/dados">dados</a>:</h2>
+<p>Neste diretório se encontram os dados utilizados no projeto, esses dados estão dividos em duas pastas:</p>
+<ul>
+<li><a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/dados/dados_brutos">dados_brutos</a> : aqui está o arquivo .xlsx original que foi disponibilizado pelo Hospital Sírio-Libanês</li>
+<li><a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/dados/dados_preprocessados">dados_preprocessados</a> : aqui está o aquivo .csv com os dados pré-processados na <a href="">Análise Exploratória</a></li>
+</ul>
+</div>
+<div id="funcoes" class="section level2">
+<h2><a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/funcoes">funcoes</a>:</h2>
+<p>Este diretório foi destinado as funções utilizadas no projeto, essas foram divididas em 4 arquivos .py dependendo do objetivo das mesmas, são eles:</p>
+<ul>
+<li><a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/funcoes/preprocessing.py">preprocessing</a> : funções relacionadas ao pré-processamento dos dados</li>
+<li><a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/funcoes/feature.py">feature</a> : funções relacionadas a seleção de variáveis(feature selection)</li>
+<li><a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/funcoes/my_plot.py">my_plot</a> : funções relacionadas a geração de gráficos</li>
+<li><a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/funcoes/my_classifier.py">my_classifier</a> : classe utilizada para criação dos modelos de machine learning</li>
+</ul>
+</div>
+<div id="notebooks" class="section level2">
+<h2><a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/notebooks">notebooks</a>:</h2>
+<p>Aqui foram criados os notebooks onde foram realizadas as análises e criação dos modelos de Machine Learning, foram divididos em dois arquivos .ipynb, são eles:</p>
+<ul>
+<li><a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/notebooks/Analise_exploratoria.ipynb">Analise_exploratoria</a>: notebook desenvolvido no jupyter lab onde foi realizado o pré-processamento dos dados brutos e toda a parte de Análise exploratória.</li>
+<li><a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/notebooks/Previsoes.ipynb">Previsoes</a> : notebook destinado aos modelos de Machine Learning a partir dos dados pré-processados</li>
+</ul>
+</div>
+<div id="arquivos_modelo" class="section level2">
+<h2><a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/arquivos_modelo">arquivos_modelo</a>:</h2>
+<p>Neste repositório estão os objetos criados dentro do notebook e salvos em arquivos para serem carregados em outros locais,estes foram organizados em duas pastas:</p>
+<ul>
+<li><a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/arquivos_modelo/SearchCV_salvo">SearchCV_salvo</a> : possui o arquivo onde salvo do objeto que foi utilizado na otimização dos hyperparâmetros. Optei por salvá-lo, uma vez que é um processo computacionalmente custoso e demorado, dessa forma é possível carregá-lo em outros ambientes.</li>
+<li><a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/arquivos_modelo/Modelo_salvo">Modelo_Salvo</a> : aqui está salvo o modelo final que obteve as melhores métricas de acordo com o previsto no início do projeto. Esse modelo, no final, foi treinado com todos os dados e salvo em um aquivo .joblib nesta pasta .</li>
+</ul>
+</div>
+<div id="img" class="section level2">
+<h2><a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/img">img</a></h2>
+<p>Diretório com todas as imagens utilizadas no projeto.</p>
+</div>
+<div id="extras" class="section level2">
+<h2><a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/extras">extras</a>:</h2>
+<p>Neste diretório experimentei testar diferentes funcionalidades que é possível entre o Rstudio e python. Para isso criei um projeto de um website dentro do Rstudio, e transformei os arquivos .ipynb em .Rmd, após isso configurei o Rstudio para utilizar o mesmo ambiente do anaconda que foi desenvolvido os notebooks originais. <br></p>
+<p>Por fim fiz pequenas mudanças em relação as leituras de dados e importações de funções locais e utilizei o arquivo <a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/arquivos_modelo/SearchCV_salvo/random_searchcv">SearchCV_salvo/random_searchcv</a> para não realizar o processo de otimização de hyperparâmetros novamente.</p>
+<ul>
+<li><p>Comando utilizado para utilizar o python no Rstudio no mesmo ambiente que foi desenvolvido os notebooks pelo jupyter lab <img src="https://raw.githubusercontent.com/PedroHCAlmeida/Projeto_final_bootcamp/main/img/Screenshot%202021-08-07%20214512.png?token=ASNXTHUWDLAGNV2LIYRY3BDBB7664" /></p></li>
+<li><p>Comando utilizado para gerar uma cópia dos notebooks no formato .Rmd <img src="https://raw.githubusercontent.com/PedroHCAlmeida/Projeto_final_bootcamp/main/img/Screenshot%202021-08-07%20214603.png?token=ASNXTHWGF235V7HEU2OBBQLBB77AA" /></p></li>
+<li><p>Obs: esses comandos só foram realizados uma vez na hora de iniciar a sessão, depois foram retirados</p></li>
+<li><p>O resultado final do site pode ser conferido <a href="https://prevendo-uti-bootcamp-alura.netlify.app/">aqui</a></p></li>
+</ul>
+</div>
+</div>
+<div id="modelos" class="section level1">
+<h1>Modelos</h1>
+<p>Após realizar o pré-processamento dos dados e a análise exploratória, foram testados diferentes modelos de Machine Learning, foram eles:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Modelo</th>
+<th align="left">Pacote</th>
+<th>Método</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">LogisticRegression</td>
+<td align="left">sklearn.linear_model</td>
+<td>Regressão Logística</td>
+</tr>
+<tr class="even">
+<td align="left">DecisionTreeClassifier</td>
+<td align="left">sklearn.tree</td>
+<td>Árvore de decisão</td>
+</tr>
+<tr class="odd">
+<td align="left">RandomForestClassifier</td>
+<td align="left">sklearn.ensemble</td>
+<td>Ensemble</td>
+</tr>
+<tr class="even">
+<td align="left">ExtraTreesClassifier</td>
+<td align="left">sklearn.ensemble</td>
+<td>Ensemble</td>
+</tr>
+<tr class="odd">
+<td align="left">XGBClassifier</td>
+<td align="left">pacote xgboost</td>
+<td>Ensemble</td>
+</tr>
+<tr class="even">
+<td align="left">LGBMClassifier</td>
+<td align="left">pacote lightgbm</td>
+<td>Ensemble</td>
+</tr>
+</tbody>
+</table>
+<p>Entre os modelos testados, os dois com as melhores métricas de ROC AUC foram escolhidos para realizar uma otimização dos hyperparâmetros. Foi levado em conta a média das métricas obtidas em uma validação cruzada pelo método RepeatedStratifiedKFold, realizando 10 validações cruzadas diferentes com 5 divisões no dataset.</p>
+<p>Além disso, foram realizadas técnicas de reamostragem e de seleção de variáveis a partir de outro modelo. Os resultados obtidos do modelo final foram:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Métrica</th>
+<th align="right">Média</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">ROC AUC</td>
+<td align="right"><strong>0.946</strong></td>
+</tr>
+<tr class="even">
+<td align="left">ACURÁCIA</td>
+<td align="right"><strong>0.882</strong></td>
+</tr>
+<tr class="odd">
+<td align="left">PRECISÃO</td>
+<td align="right"><strong>0.885</strong></td>
+</tr>
+<tr class="even">
+<td align="left">F1-SCORE</td>
+<td align="right"><strong>0.882</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="bibliotecas-utilizadas" class="section level1">
+<h1>Bibliotecas utilizadas 💻</h1>
+<p>Esse projeto foi realizado utilizando a linguagem Python versão 3.9.6, e os notebooks foram desenvolvidos através da ferramenta jupyter lab dentro de um ambiente criado pela plataforma anaconda, as principais bibliotecas usadas foram: * Pandas versão 1.3.1 : biblioteca rápida e poderosa usada para manipulação de dados * Matplotlib versão 3.1.3 : biblioteca usada para visualização de dados * Seaborn versão 0.11.1 : biblioteca baseada no Matplotlib para visualização de gráficos estatísticos mais complexos * Numpy versão 1.20.2 : biblioteca utilizada para computação matemática * Scikit-learn versão 0.24.2 : biblioteca utilizada na criação de modelos de Machine Learning * Todas as bibliotecas e versões podem ser encontradas no arquivo <a href="https://github.com/PedroHCAlmeida/">requirements.txt</a></p>
+</div>
+<div id="agradecimentos" class="section level1">
+<h1>Agradecimentos 😀</h1>
+<p>Gostaria de deixar o meu agradecimento a Alura por essa oportunidade incrível de participar do bootcamp de Data Science Aplicada, aos instrutores Thiago Santos, Guilherme Silveira, Allan Spadini e Karoline Penteado, que nos acompanharam durante todo o bootcamp. Ao Paulo Vasconcellos, que sempre participou das lives nesse período e trouxe dicas valiosas para melhorar os projetos. Além disso, queria agradecer a todo pessoal do discord e do Scuba team que sempre ajudou quando foi preciso.</p>
+</div>
+<div id="referências" class="section level1">
+<h1>Referências 📚</h1>
+<p><a href="https://medium.com/data-hackers/como-selecionar-as-melhores-features-para-seu-modelo-de-machine-learning-faf74e357913" class="uri">https://medium.com/data-hackers/como-selecionar-as-melhores-features-para-seu-modelo-de-machine-learning-faf74e357913</a><br> <a href="https://scikit-learn.org/stable/auto_examples/model_selection/plot_roc_crossval.html" class="uri">https://scikit-learn.org/stable/auto_examples/model_selection/plot_roc_crossval.html</a><br> <a href="https://machinelearningmastery.com/k-fold-cross-validation/" class="uri">https://machinelearningmastery.com/k-fold-cross-validation/</a><br> <a href="https://machinelearningmastery.com/repeated-k-fold-cross-validation-with-python/" class="uri">https://machinelearningmastery.com/repeated-k-fold-cross-validation-with-python/</a><br> <a href="https://towardsdatascience.com/5-reasons-why-you-should-use-cross-validation-in-your-data-science-project-8163311a1e79" class="uri">https://towardsdatascience.com/5-reasons-why-you-should-use-cross-validation-in-your-data-science-project-8163311a1e79</a><br> <a href="https://g1.globo.com/sp/sao-paulo/noticia/2020/11/18/pacientes-e-medicos-relatam-falta-de-leitos-de-uti-em-ao-menos-tres-grandes-hospitais-particulares-da-cidade-de-sp.ghtml" class="uri">https://g1.globo.com/sp/sao-paulo/noticia/2020/11/18/pacientes-e-medicos-relatam-falta-de-leitos-de-uti-em-ao-menos-tres-grandes-hospitais-particulares-da-cidade-de-sp.ghtml</a><br> <a href="https://caiquecoelho.medium.com/um-guia-completo-para-o-pr%C3%A9-processamento-de-dados-em-machine-learning-f860fbadabe1" class="uri">https://caiquecoelho.medium.com/um-guia-completo-para-o-pr%C3%A9-processamento-de-dados-em-machine-learning-f860fbadabe1</a><br> <a href="https://numpy.org/doc/stable/index.html" class="uri">https://numpy.org/doc/stable/index.html</a><br> <a href="https://pandas.pydata.org/docs/index.html" class="uri">https://pandas.pydata.org/docs/index.html</a><br> <a href="https://scikit-learn.org/stable/index.html" class="uri">https://scikit-learn.org/stable/index.html</a><br> <a href="https://matplotlib.org/" class="uri">https://matplotlib.org/</a><br> <a href="https://seaborn.pydata.org/" class="uri">https://seaborn.pydata.org/</a><br></p>
+</div>
+<div id="contato" class="section level1">
+<h1>Contato ☎️</h1>
+<p><a href="https://www.linkedin.com/in/pedro-henrique-corr%C3%AAa-de-almeida-15398b105/"><img src="https://img.shields.io/badge/pedrocorrea-0A66C2?style=flat-square&logo=linkedin&logoColor=white" /></a><br> <a href="https://github.com/PedroHCAlmeida"><img src="https://img.shields.io/badge/GitHub-PedroHCAlmeida-DCDCDC?style=flat-square" /></a><br></p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

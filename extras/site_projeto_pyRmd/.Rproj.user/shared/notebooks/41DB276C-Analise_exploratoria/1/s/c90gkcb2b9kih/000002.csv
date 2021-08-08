@@ -1,0 +1,5 @@
+"0","reticulate::repl_python()"
+"0","binary = binary_features(df)"
+"0","binary"
+"1","['AGE_ABOVE65', 'GENDER', 'DISEASE GROUPING 1', 'DISEASE GROUPING 2', 'DISEASE GROUPING 3', 'DISEASE GROUPING 4', 'DISEASE GROUPING 5', 'DISEASE GROUPING 6', 'HTN', 'IMMUNOCOMPROMISED', 'OTHER', 'ICU']
+"

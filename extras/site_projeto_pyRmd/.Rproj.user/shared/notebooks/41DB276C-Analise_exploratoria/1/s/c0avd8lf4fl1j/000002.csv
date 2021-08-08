@@ -1,0 +1,19 @@
+"0","reticulate::repl_python()"
+"0","print(compute_chi2.__doc__)"
+"1","
+    Recebe um dataframe do pandas com as colunas variáveis preditoras e uma Series do pandas da variável de reposta,
+    calcula, através da função sklearn.model_selection.chi2, os p valores para cada coluna da hipótese nula 
+    de que as variáveis preditoras são independentes da variável de reposta
+    
+    Parâmetros:
+    -----------
+    X : dataframe com as variáveis preditoras,tipo : pd.DataFrame,
+        OBS: pode conter apenas uma coluna mas precisa ser do tipo pd.DataFrame
+    y : Series d"
+"1","o pandas da variável de resposta, tipo : pd.Series
+    
+    Retorno:
+    -------
+    p_values : dicionário contendo os p valores de cada coluna analisada, tipo : dict
+    
+"

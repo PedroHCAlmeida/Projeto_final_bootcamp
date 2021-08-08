@@ -16,7 +16,7 @@
 <script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -29,9 +29,12 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -42,17 +45,105 @@
   ul.task-list{list-style: none;}
     </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
-  }
-}
-</script>
 
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    background-color: #ffffff;
+    color: #a0a0a0;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
+div.sourceCode
+  { color: #1f1c1b; background-color: #ffffff; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span { color: #1f1c1b; } /* Normal */
+code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+code span.an { color: #ca60ca; } /* Annotation */
+code span.at { color: #0057ae; } /* Attribute */
+code span.bn { color: #b08000; } /* BaseN */
+code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #924c9d; } /* Char */
+code span.cn { color: #aa5500; } /* Constant */
+code span.co { color: #898887; } /* Comment */
+code span.cv { color: #0095ff; } /* CommentVar */
+code span.do { color: #607880; } /* Documentation */
+code span.dt { color: #0057ae; } /* DataType */
+code span.dv { color: #b08000; } /* DecVal */
+code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+code span.fl { color: #b08000; } /* Float */
+code span.fu { color: #644a9b; } /* Function */
+code span.im { color: #ff5500; } /* Import */
+code span.in { color: #b08000; } /* Information */
+code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+code span.op { color: #1f1c1b; } /* Operator */
+code span.ot { color: #006e28; } /* Other */
+code span.pp { color: #006e28; } /* Preprocessor */
+code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+code span.sc { color: #3daee9; } /* SpecialChar */
+code span.ss { color: #ff5500; } /* SpecialString */
+code span.st { color: #bf0303; } /* String */
+code span.va { color: #0057ae; } /* Variable */
+code span.vs { color: #bf0303; } /* VerbatimString */
+code span.wa { color: #bf0303; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
 
 
 
@@ -218,6 +309,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -225,6 +379,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -237,19 +401,30 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">My Website</a>
+      <a class="navbar-brand" href="index.html">Prevendo a necessidade de internação para pacientes com COVID-19</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">Home</a>
+  <a href="Analise_exploratoria.html">Análise Exploratória</a>
 </li>
 <li>
-  <a href="about.html">About</a>
+  <a href="Previsoes.html">Previsões</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/PedroHCAlmeida">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://www.linkedin.com/in/pedro-henrique-corr%C3%AAa-de-almeida-15398b105/">
+    <span class="fa fa-linkedin"></span>
+     
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -277,7 +452,18 @@ $(document).ready(function () {
 </div>
 <div id="estrutura-dos-dados" class="section level2">
 <h2>Estrutura dos dados</h2>
-<p><br> ### Chave identificadora<br> A coluna “PATIENT_VISIT_IDENTIFIER” é composta por números inteiros e é responsável por identificar cada paciente diferente.<br> <br> ### Variável a ser prevista<br> A variável a ser prevista é a coluna “ICU”, que, no conjunto de dados original, indica se o paciente correspondente estava ou não na UTI naquela janela de tempo correspondente.<br> <br> ### Janela de tempo<br> De acordo com o Hospital a variável “WINDOW” diz respeito à janela de tempo onde as medições foram realizadas, ela está organizada da seguinte maneira:<br></p>
+<p><br></p>
+<div id="chave-identificadora" class="section level3">
+<h3>Chave identificadora<br></h3>
+<p>A coluna “PATIENT_VISIT_IDENTIFIER” é composta por números inteiros e é responsável por identificar cada paciente diferente.<br> <br></p>
+</div>
+<div id="variável-a-ser-prevista" class="section level3">
+<h3>Variável a ser prevista<br></h3>
+<p>A variável a ser prevista é a coluna “ICU”, que, no conjunto de dados original, indica se o paciente correspondente estava ou não na UTI naquela janela de tempo correspondente.<br> <br></p>
+</div>
+<div id="janela-de-tempo" class="section level3">
+<h3>Janela de tempo<br></h3>
+<p>De acordo com o Hospital a variável “WINDOW” diz respeito à janela de tempo onde as medições foram realizadas, ela está organizada da seguinte maneira:<br></p>
 <table>
 <thead>
 <tr class="header">
@@ -308,6 +494,7 @@ $(document).ready(function () {
 </tr>
 </tbody>
 </table>
+</div>
 <div id="demais-variáveis" class="section level3">
 <h3>Demais variáveis</h3>
 <p><br> As demais colunas do conjunto conjunto de dados trazem informações sobre: * Informações demográficas do paciente (03) * Grupos de doenças previamente identificadas pelos pacientes (09) * Resultados de exames de sangue (36) * Sinais vitais (06)<br></p>
@@ -340,31 +527,9 @@ $(document).ready(function () {
 </div>
 <div id="importação-dos-pacotes" class="section level1">
 <h1>Importação dos pacotes</h1>
-<pre class="python"><code>import pandas as pd
-import numpy as np
-
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-import warnings</code></pre>
-<pre class="python"><code>#Configurando o estilo dos gráficos
-sns.set_style(&#39;darkgrid&#39;)
-
-#Filtrando os avisos
-warnings.filterwarnings(&#39;ignore&#39;)
-
-#Definindo a semente de números aleatórios
-SEED = 64541</code></pre>
 </div>
 <div id="importação-das-funções-locais" class="section level1">
 <h1>Importação das funções locais</h1>
-<pre class="python"><code>import os
-os.chdir(&quot;../../funcoes&quot;)
-from feature import compute_chi2, compute_high_corr, binary_features
-from my_plot import labs, annot_bar
-from preprocessing import fill_table, select_window
-os.chdir(&quot;../extras/site_projeto_pyRmd&quot;)</code></pre>
-<pre class="python"><code>print(binary_features.__doc__)</code></pre>
 <pre><code>## 
 ##     Função que recebe um DataFrame do pandas e verifica quais as colunas binárias.
 ##     Realiza essa verificação consultando quantos valores únicos a coluna possui,
@@ -379,7 +544,6 @@ os.chdir(&quot;../extras/site_projeto_pyRmd&quot;)</code></pre>
 ##     --------
 ##     features : colunas binárias do dataframe, tipo : list
 ## </code></pre>
-<pre class="python"><code>print(compute_chi2.__doc__)</code></pre>
 <pre><code>## 
 ##     Recebe um dataframe do pandas com as colunas variáveis preditoras e uma Series do pandas da variável de reposta,
 ##     calcula, através da função sklearn.model_selection.chi2, os p valores para cada coluna da hipótese nula 
@@ -395,7 +559,6 @@ os.chdir(&quot;../extras/site_projeto_pyRmd&quot;)</code></pre>
 ##     -------
 ##     p_values : dicionário contendo os p valores de cada coluna analisada, tipo : dict
 ## </code></pre>
-<pre class="python"><code>print(compute_high_corr.__doc__)</code></pre>
 <pre><code>## 
 ##     Função que recebe um dataframe do pandas, calcula a matriz de correlação, seleciona o triângulo superior da matriz, 
 ##     percorre as colunas verificando quais colunas apresentam uma correlação maior que o valor limite passado, em relação às linhas, 
@@ -412,7 +575,6 @@ os.chdir(&quot;../extras/site_projeto_pyRmd&quot;)</code></pre>
 ##     cols_drop : colunas a serem eliminadas com base nas correlações, tipo : list
 ##     
 ## </code></pre>
-<pre class="python"><code>print(labs.__doc__)</code></pre>
 <pre><code>## 
 ##     Função que plota as informações adicionais dos gráficos, título, subtítulo, rótulos
 ##     
@@ -424,7 +586,6 @@ os.chdir(&quot;../extras/site_projeto_pyRmd&quot;)</code></pre>
 ##     xlabel : rótulo do eixo x, tipo : str, padrão : &#39;&#39;
 ##     ylabel : rótulo do eixo y, tipo : str, padrão : &#39;&#39;
 ## </code></pre>
-<pre class="python"><code>print(annot_bar.__doc__)</code></pre>
 <pre><code>## 
 ##     Realiza anotações em cima das barras em um gráfico de barras 
 ##     
@@ -436,7 +597,6 @@ os.chdir(&quot;../extras/site_projeto_pyRmd&quot;)</code></pre>
 ##     
 ##     OBS : precisa ser chamada após o gráfico de barras
 ## </code></pre>
-<pre class="python"><code>print(fill_table.__doc__)</code></pre>
 <pre><code>## 
 ##     Função que recebe as linhas correspondentes a apenas um paciente e preenche os 
 ##     valores nulos das colunas contínuas com dados de outras janelas.
@@ -450,7 +610,6 @@ os.chdir(&quot;../extras/site_projeto_pyRmd&quot;)</code></pre>
 ##     --------
 ##     Retorna as linhas preenchidas
 ## </code></pre>
-<pre class="python"><code>print(select_window.__doc__)</code></pre>
 <pre><code>## 
 ##     Função que seleciona a janela correspondente e verifica se em algum momento o paciente foi para UTI, 
 ##     com isso modifica a coluna dependente para se em qualquer janela de tempo esse paciente foi para UTI
@@ -469,13 +628,10 @@ os.chdir(&quot;../extras/site_projeto_pyRmd&quot;)</code></pre>
 <div id="leitura-dos-dados-brutos" class="section level1">
 <h1>Leitura dos dados brutos</h1>
 <p>Primeiramente, vou usar a função read_excel( ) para ler o arquivo .xlsx disponibilizado pelo Hospital Sírio-Libanês no <a href="https://www.kaggle.com/S%C3%ADrio-Libanes/covid19">kaggle</a>, armazenando esses dados em um dataframe do pandas.</p>
-<pre class="python"><code># Lendo os dados brutos 
-df = pd.read_excel(&#39;../../dados/dados_brutos/Kaggle_Sirio_Libanes_ICU_Prediction.xlsx&#39;)</code></pre>
 </div>
 <div id="pré-processamento" class="section level1">
 <h1>Pré-Processamento</h1>
 <p>A fim de tratar os dados e usá-los da melhor forma para resolver o problema, temos que entender as variáveis e como está organizado o dataset, para isso vamos dar uma olhada nas primeiras linhas do mesmo.</p>
-<pre class="python"><code>df.head(10)</code></pre>
 <pre><code>##    PATIENT_VISIT_IDENTIFIER  AGE_ABOVE65  ...    WINDOW  ICU
 ## 0                         0            1  ...       0-2    0
 ## 1                         0            1  ...       2-4    0
@@ -490,22 +646,14 @@ df = pd.read_excel(&#39;../../dados/dados_brutos/Kaggle_Sirio_Libanes_ICU_Predic
 ## 
 ## [10 rows x 231 columns]</code></pre>
 <p>Olhando para as primeiras linhas conseguimos perceber que a coluna “PATIENT_VISIT_IDENTIFIER”, como o próprio nome sugere, é a coluna identificadora do paciente, portanto tal coluna deve ser usada de uma maneira que conseguimos agrupá-las por cada paciente e registrar se o paciente correspondente <strong>foi para UTI em qualquer uma das janelas de tempo</strong>.</p>
-<pre class="python"><code>df.shape</code></pre>
 <pre><code>## (1925, 231)</code></pre>
 <p>Observando o tamanho no dataset temos <strong>1925</strong> linhas, e <strong>231</strong> colunas, no entanto para o nosso problema precisamos que cada linha represente um paciente, porém antes de resolvermos esse problema, vamos olhar se existem dados faltantes no dataset.</p>
-<pre class="python"><code>df.isna().sum().sum()</code></pre>
 <pre><code>## 223863</code></pre>
 <p>Somando os dados nulos de todas as colunas temos <strong>223863</strong> valores faltantes. Como foi divulgado pelo Hospital Sirío-Libanês, a fonte dos dados, podemos resolver esse problema preenchendo valores de janelas anteriores e posteriores, assumindo que esses valores não sofrem mudanças bruscas, e desde que usemos apenas <strong>dados do mesmo paciente</strong>.</p>
 <p><br>Para isso vou agrupar os dados pela variável identificadora “PATIENT_VISIT_IDENTIFIER” e aplicar a função fill_table(), definida no arquivo <a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/funcoes/preprocessing.py">funcoes/preprocessing</a>, essa função selecionará as colunas contínuas e realizará o preenchimento de dados nulos utilizando as técnicas de “bfill”(utilizando valores posteriores), e “ffil” utilizando valores anteriores. <br><br></p>
 <p>Além disso, temos o problema de que, uma vez que o objetivo é prever se um paciente irá precisar de cuidados intensivos com base nos valores da primeira janela de tempo, <strong>não devemos utilizar dados de quando o paciente já estava na UTI para preencher dados anteriores(“bfill”)</strong>. Para resolver esse problema vou agrupar os dados por duas variáveis, a variável identificadora(“PATIENT_VISIT_IDENTIFIER”) e a variável que indica se o paciente estava na UTI(“ICU”), dessa forma apenas os dados que possuem o <strong>mesmo valor de “PATIENT_VISIT_IDENTIFIER” e de “ICU”</strong> serão utilizados para realizar o preenchimento de dados nulos.</p>
-<pre class="python"><code># Agrupando os dados por &quot;PATIENT_VISIT_IDENTIFIER&quot; e &quot;ICU&quot; e aplicando a função fill_table
-df = df.groupby([&#39;PATIENT_VISIT_IDENTIFIER&#39;, &#39;ICU&#39;]).apply(fill_table)</code></pre>
-<pre class="python"><code>df.isna().sum().sum()</code></pre>
 <pre><code>## 8781</code></pre>
 <p>Após aplicar o preenchimento temos <strong>8781</strong> dados nulos. Esses dados nulos agora são informações faltantes que não podemos aplicar o preenchimento, por esta razão vou remover todas as linhas que possuem esses dados nulos.</p>
-<pre class="python"><code># Eliminando dados nulos
-df = df.dropna()</code></pre>
-<pre class="python"><code>df.isna().sum().sum()</code></pre>
 <pre><code>## 0</code></pre>
 <p>Resolvido o problema dos dados nulos, agora vamos resolver o problema das janelas de tempo. Para isso vou realizar os seguintes passos:</p>
 <ul>
@@ -516,32 +664,15 @@ df = df.dropna()</code></pre>
 <li>A variável “PATIENT_VISIT_IDENTIFIER” será eliminada pois os dados foram agrupados e cada paciente será representado por apenas uma linha</li>
 <li>O index do dataframe será resetado por conta do agrupamento da variável “PATIENT_VISIT_IDENTIFIER”.</li>
 </ul>
-<pre class="python"><code>#Selecionando as linhas onde o paciente chegou na UTI
-rows_to_drop = df[(df[&#39;WINDOW&#39;] == &#39;0-2&#39;) &amp; (df[&#39;ICU&#39;] == 1)].index
-
-#Eliminando as linhas do dataframe original
-df.drop(index=rows_to_drop, inplace=True)
-
-# Agrupando por paciente e aplicando a função select_window
-df = df.groupby(&#39;PATIENT_VISIT_IDENTIFIER&#39;).apply(select_window)
-
-#Não são mais úteis as variáveis da janela de tempo e do identificador
-df.drop([&#39;WINDOW&#39;, &#39;PATIENT_VISIT_IDENTIFIER&#39;], axis=1, inplace=True)
-
-#Resetando o index e eliminando essa informação 
-df.reset_index(drop=True, inplace=True)</code></pre>
-<pre class="python"><code>df.shape</code></pre>
 <pre><code>## (294, 229)</code></pre>
 <p>Por fim podemos ver que agora o dataset possui 294 linhas, que representam <strong>294 pacientes</strong>, e 229 colunas pois duas colunas foram eliminadas(“WINDOW”, “PATIENT_VISIT_IDENTIFIER”).</p>
 <p>Agora vamos investigar se os tipos dos dados estão corretos, para isso utilizarei a função info( ) que retorna informações técnicas do dataframe.</p>
-<pre class="python"><code>df.info()</code></pre>
 <pre><code>## &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
 ## RangeIndex: 294 entries, 0 to 293
 ## Columns: 229 entries, AGE_ABOVE65 to ICU
 ## dtypes: float64(225), int64(3), object(1)
 ## memory usage: 526.1+ KB</code></pre>
 <p>Percebe-se que temos 225 colunas do tipo numérico(float64), 3 colunas do tipo inteiro(int64) e 1 colunas de caracteres(object). Vamos investigar se era para ser dessa maneira mesmo.</p>
-<pre class="python"><code>df.head()</code></pre>
 <pre><code>##    AGE_ABOVE65 AGE_PERCENTIL  ...  OXYGEN_SATURATION_DIFF_REL  ICU
 ## 0            1          60th  ...                   -1.000000    1
 ## 1            0          10th  ...                   -0.961262    1
@@ -551,19 +682,14 @@ df.reset_index(drop=True, inplace=True)</code></pre>
 ## 
 ## [5 rows x 229 columns]</code></pre>
 <p>Olhando o dataset parece haver diversas colunas que apresentam apenas valores 0 ou 1, variáveis categóricas binárias, como todas as variáveis indicando se o paciente pertence alguma doença dentro de algum grupo pré-definido, e portanto, devem ser classificadas como números inteiros.<br><br> No entanto, foram identificadas apenas 3 variáveis inteiras, para resolver esse problema vou utilizar a função binary_features( ), definida no arquivo <a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/funcoes/feature.py">funcoes/feature</a>, para definir quais as colunas binárias no dataframe e transformá-las em números inteiros.</p>
-<pre class="python"><code>binary = binary_features(df)
-binary</code></pre>
 <pre><code>## [&#39;AGE_ABOVE65&#39;, &#39;GENDER&#39;, &#39;DISEASE GROUPING 1&#39;, &#39;DISEASE GROUPING 2&#39;, &#39;DISEASE GROUPING 3&#39;, &#39;DISEASE GROUPING 4&#39;, &#39;DISEASE GROUPING 5&#39;, &#39;DISEASE GROUPING 6&#39;, &#39;HTN&#39;, &#39;IMMUNOCOMPROMISED&#39;, &#39;OTHER&#39;, &#39;ICU&#39;]</code></pre>
 <p>É possível perceber que realmente existem mais que 3 colunas binárias que deviam ser classificadas como tipo inteiro, por esta razão vou convertê-las para o tipo correto.</p>
-<pre class="python"><code>df[binary] = df[binary].astype(&#39;int64&#39;)
-df.info()</code></pre>
 <pre><code>## &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
 ## RangeIndex: 294 entries, 0 to 293
 ## Columns: 229 entries, AGE_ABOVE65 to ICU
 ## dtypes: float64(216), int64(12), object(1)
 ## memory usage: 526.1+ KB</code></pre>
 <p>Agora percebemos que temos 13 variáveis do tipo inteiro, 216 do tipo numérico e 1 do tipo caractere. Por fim vamos checar qual a coluna ele está identificando como caractere, uma vez que para um modelo de Machine Learning precisamos fornecer valores numéricos como entrada.</p>
-<pre class="python"><code>df.select_dtypes(&#39;object&#39;).head()</code></pre>
 <pre><code>##   AGE_PERCENTIL
 ## 0          60th
 ## 1          10th
@@ -575,23 +701,93 @@ df.info()</code></pre>
 <div id="análise-da-variável-alvo" class="section level1">
 <h1>Análise da variável alvo</h1>
 <p>Um dos maiores problemas ao tentar resolver problemas com Machine Learning é o desbalanceamento em relação a variável alvo. Por exemplo, podemos ter muitos dados de pessoas que foram para UTI e poucos que não foram, ou vice-versa, e isso pode fazer o modelo criar um viés na hora de modelar as relações das variáveis. Por esta razão vou analisar a quantidade de pacientes que precisaram ir para UTI e pacientes que não precisaram ir para UTI.</p>
-<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-1.png" width="1152" /><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-2.png" width="1152" /> Observando o gráfico 1 fica claro que a maioria dos pacientes presentes no dataset não precisaram de cuidados intensivos, fato este que apoia a realização de uma reamostragem a fim de balancear o dataframe em relação a variável “ICU”, porém essa reamostragem será realizada e testada apenas quando formos comparar os modelos de Machine Learning no notebook <a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/notebooks/Previsoes.ipynb">notebooks/Previsoes</a>.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando a figura</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>fig, ax1 <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">20</span>,<span class="dv">10</span>)) </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando o gráfico</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>sns.countplot(df[<span class="st">&#39;ICU&#39;</span>], ax<span class="op">=</span>ax1, palette<span class="op">=</span>[<span class="st">&#39;#3366ff&#39;</span>, <span class="st">&#39;#993300&#39;</span>])</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotando rótulos e títulos</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>labs(title<span class="op">=</span><span class="st">&#39;Quantidades de pacientes que necessitaram de cuidados intensivos&#39;</span>,</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>     subtitle<span class="op">=</span><span class="st">&#39;QUANTIDADE TOTAL SOMADA DE OBSERVAÇÕES EM RELAÇÃO A VARIÁVEL ALVO&#39;</span>,</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>     xlabel<span class="op">=</span><span class="st">&#39;ICU&#39;</span>, ylabel<span class="op">=</span><span class="st">&#39;Pacientes&#39;</span>,ax<span class="op">=</span>ax1)</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Anotando em cima das barras</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>annot_bar(prop<span class="op">=</span><span class="va">False</span>, ax<span class="op">=</span>ax1, fontsize<span class="op">=</span><span class="dv">25</span>)</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="co">#Definindo eixo y</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>plt.ylim([<span class="dv">0</span>,<span class="dv">220</span>])</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="co">#Adicionando uma referência para o gráfico</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>plt.text(<span class="dv">0</span>,<span class="op">-</span><span class="fl">0.1</span>, <span class="st">&#39;GRÁFICO 1&#39;</span>, color<span class="op">=</span><span class="st">&#39;black&#39;</span>, transform<span class="op">=</span>ax1.transAxes, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<pre><code>## &lt;AxesSubplot:xlabel=&#39;ICU&#39;, ylabel=&#39;count&#39;&gt;</code></pre>
+<pre><code>## (0.0, 220.0)</code></pre>
+<pre><code>## Text(0, -0.1, &#39;GRÁFICO 1&#39;)</code></pre>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-1.png" width="1920" /></p>
+<p>Observando o gráfico 1 fica claro que a maioria dos pacientes presentes no dataset não precisaram de cuidados intensivos, fato este que apoia a realização de uma reamostragem a fim de balancear o dataframe em relação a variável “ICU”, porém essa reamostragem será realizada e testada apenas quando formos comparar os modelos de Machine Learning no notebook <a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/notebooks/Previsoes.ipynb">notebooks/Previsoes</a>.</p>
 </div>
 <div id="análise-das-informações-demográficas" class="section level1">
 <h1>Análise das informações demográficas</h1>
 <p>De acordo com o Sirío-Libanês o dataset possui 3 variáveis demográficas, para identificá-las vamos observar novamente as primeiras linhas.</p>
-<pre class="python"><code>df.head()</code></pre>
-<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-5.png" width="1152" /></p>
+<pre><code>##    AGE_ABOVE65 AGE_PERCENTIL  ...  OXYGEN_SATURATION_DIFF_REL  ICU
+## 0            1          60th  ...                   -1.000000    1
+## 1            0          10th  ...                   -0.961262    1
+## 2            0          40th  ...                   -1.000000    0
+## 3            0          10th  ...                   -0.980333    0
+## 4            0          10th  ...                   -0.980129    0
+## 
+## [5 rows x 229 columns]</code></pre>
 <p>Fica claro que essas informações são representadas pelas colunas “AGE_ABOVE65”, “AGE_PERCENTIL” e “GENDER”, e dizem respeito a idade e genêro dos pacientes.</p>
 <div id="coluna-age_percentil" class="section level3">
 <h3>Coluna “AGE_PERCENTIL”</h3>
 <p>A primeira coluna analisada será a coluna “AGE_PERCENTIL”, que traz informações sobre a idade dos pacientes. No entanto temos um problema nessa variável, como foi identificado anteriormente, ela foi representada através de caracteres representando o percentil da idade. <br><br> Pensando em modelos de Machine Learning precisamos transformá-la em uma variável inteira ou numérica, para decidir como realizar essa transformação vou analisar como a variável alvo “ICU” se comporta em relação a cada percentil de idade, para isso vou calcular qual a porcentagem de pacientes que foram para UTI para cada valor dessa coluna.</p>
-<pre class="python"><code># Agrupando o dataframe pela variável &quot;AGE_PERCENTIL&quot; e calculando a proporção de pessoas que foram para UTI 
-percentil_prop = df.groupby(&#39;AGE_PERCENTIL&#39;)[&#39;ICU&#39;].value_counts(normalize=True).reset_index(name=&#39;Prop&#39;)
-percentil_prop</code></pre>
-<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-7.png" width="1152" /></p>
+<pre><code>##    AGE_PERCENTIL  ICU      Prop
+## 0           10th    0  0.833333
+## 1           10th    1  0.166667
+## 2           20th    0  0.815789
+## 3           20th    1  0.184211
+## 4           30th    0  0.676471
+## 5           30th    1  0.323529
+## 6           40th    0  0.757576
+## 7           40th    1  0.242424
+## 8           50th    0  0.580645
+## 9           50th    1  0.419355
+## 10          60th    0  0.607143
+## 11          60th    1  0.392857
+## 12          70th    0  0.566667
+## 13          70th    1  0.433333
+## 14          80th    1  0.538462
+## 15          80th    0  0.461538
+## 16          90th    1  0.600000
+## 17          90th    0  0.400000
+## 18    Above 90th    1  0.555556
+## 19    Above 90th    0  0.444444</code></pre>
 <p>Com a tabela pronta podemos visualizar em um gráfico esse comportamento.</p>
-<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-9.png" width="1920" /><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-10.png" width="1920" /></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando a figura</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>fig, ax2 <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">20</span>,<span class="dv">10</span>)) </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando o gráfico</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>sns.barplot(data<span class="op">=</span>percentil_prop, y<span class="op">=</span><span class="st">&#39;Prop&#39;</span>, x<span class="op">=</span><span class="st">&#39;AGE_PERCENTIL&#39;</span>, hue<span class="op">=</span><span class="st">&#39;ICU&#39;</span>, ax<span class="op">=</span>ax2, palette<span class="op">=</span>[<span class="st">&#39;#3366ff&#39;</span>, <span class="st">&#39;#993300&#39;</span>])</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotando rótulos e títulos</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>labs(title<span class="op">=</span><span class="st">&#39;Proporção de pacientes que foram para UTI por idade&#39;</span>, subtitle<span class="op">=</span><span class="st">&#39;IDADE REPRESENTADA PELO PERCENTIL DA IDADE DO PACIENTE&#39;</span>,</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>     xlabel<span class="op">=</span><span class="st">&#39;Percentil da idade&#39;</span>, ylabel<span class="op">=</span><span class="st">&#39;Proporção&#39;</span>,ax<span class="op">=</span>ax2)</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Configurando a legenda</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>handles, labels <span class="op">=</span> ax2.get_legend_handles_labels()</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>plt.legend(handles[<span class="dv">0</span>:<span class="dv">2</span>], [<span class="st">&#39;Não foi para UTI&#39;</span>, <span class="st">&#39;Foi para UTI&#39;</span>], bbox_to_anchor<span class="op">=</span>(<span class="fl">0.85</span>, <span class="dv">1</span>), loc<span class="op">=</span><span class="dv">2</span>, borderaxespad<span class="op">=</span><span class="fl">0.</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="co">#Definindo o eixo y</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>plt.ylim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a><span class="co">#Adicionando uma referência para o gráfico</span></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>plt.text(<span class="dv">0</span>,<span class="op">-</span><span class="fl">0.1</span>, <span class="st">&#39;GRÁFICO 2&#39;</span>, color<span class="op">=</span><span class="st">&#39;black&#39;</span>, transform<span class="op">=</span>ax2.transAxes, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<pre><code>## &lt;AxesSubplot:xlabel=&#39;AGE_PERCENTIL&#39;, ylabel=&#39;Prop&#39;&gt;</code></pre>
+<pre><code>## &lt;matplotlib.legend.Legend object at 0x0000000063E34190&gt;</code></pre>
+<pre><code>## (0.0, 1.0)</code></pre>
+<pre><code>## Text(0, -0.1, &#39;GRÁFICO 2&#39;)</code></pre>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-3.png" width="1920" /></p>
 <p>Observando o gráfico 2 fica claro que dependendo da idade há uma proporção de pacientes diferentes que precisaram de cuidados intensivos. Além disso parece haver faixas etárias onde essa proporção sofre um aumento, por esta razão vou utilizar essa informação a fim de criar colunas categóricas binárias com base na faixa etária, a partir do gráfico decidi transformá-la nas seguintes colunas:</p>
 <table>
 <thead>
@@ -619,100 +815,181 @@ percentil_prop</code></pre>
 </tr>
 </tbody>
 </table>
-<pre class="python"><code>#Criando as colunas com base no percentil da idade
-df[&#39;AGE_UNDER_30th&#39;]=[1 if row[&#39;AGE_PERCENTIL&#39;] in [&#39;10th&#39;, &#39;20th&#39;] 
-                      else 0 for _,row in df.iterrows()] 
-
-df[&#39;AGE_UNDER_50th&#39;]=[1 if row[&#39;AGE_PERCENTIL&#39;] in [&#39;10th&#39;, &#39;20th&#39;,&#39;30th&#39;, &#39;40th&#39;] 
-                      else 0 for _,row in df.iterrows()] 
-
-df[&#39;AGE_ABOVE_50th&#39;]=[1 if row[&#39;AGE_PERCENTIL&#39;] in [&#39;50th&#39;,&#39;60th&#39;, &#39;70th&#39;,&#39;80th&#39;, &#39;90th&#39;, &#39;Above 90th&#39;] 
-                      else 0 for _,row in df.iterrows()]
-
-df[&#39;AGE_ABOVE_80th&#39;]=[1 if row[&#39;AGE_PERCENTIL&#39;] in [&#39;80th&#39;, &#39;90th&#39;, &#39;Above 90th&#39;] 
-                      else 0 for _,row in df.iterrows()] 
-
-# Eliminando a coluna &quot;AGE_PERCENTIL&quot; original
-df.drop(&#39;AGE_PERCENTIL&#39;, axis=1, inplace=True)
-df.head()</code></pre>
-<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-13.png" width="1920" /></p>
+<pre><code>##    AGE_ABOVE65  GENDER  ...  AGE_ABOVE_50th  AGE_ABOVE_80th
+## 0            1       0  ...               1               0
+## 1            0       0  ...               0               0
+## 2            0       1  ...               0               0
+## 3            0       0  ...               0               0
+## 4            0       0  ...               0               0
+## 
+## [5 rows x 232 columns]</code></pre>
 <p>Agora com o problema da coluna Percentil resolvido temos 6 colunas demográficas, todas elas do tipo inteiro e categóricas.</p>
 </div>
 <div id="teste-de-chi-quadrado" class="section level3">
 <h3>Teste de Chi Quadrado</h3>
 <p>Considerando que essas informações demográficas não possuem uma influência das demais variáveis, vou analisar cada uma individualmente, verificando se elas possuem alguma relação de dependência com a variável alvo, ou seja, a variável “ICU”. Para isso vou realizar um teste de Chi Quadrado de Pearson com significância de <strong>5%</strong> para decidir se alguma dessas variáveis deve ser retirada.<br> Este teste vai testar a seguinte hipótese:</p>
-<p><span class="math inline">\(H_0\)</span> : Colunas demográficas são independentes em relação a variável alvo(‘ICU’) <span class="math inline">\(H_a\)</span> : Colunas demográficas são dependentes em relação a variável alvo(‘ICU’)</p>
-<p><img src="https://raw.githubusercontent.com/PedroHCAlmeida/Projeto_final_bootcamp/main/img/img017.png?token=ASNXTHX6JMBD6FU7V53TOKDBB3TEC" /></p>
+<p><span class="math inline">\(H_0\)</span> : Colunas demográficas são independentes em relação a variável alvo(‘ICU’)<br> <span class="math inline">\(H_a\)</span> : Colunas demográficas são dependentes em relação a variável alvo(‘ICU’) <br></p>
+<p><img src="https://raw.githubusercontent.com/PedroHCAlmeida/Projeto_final_bootcamp/main/img/img017.png" /></p>
 </div>
 <div id="variáveis-de-idade" class="section level3">
 <h3>Variáveis de idade</h3>
 <p>Para visualizar melhor as relações dessa variáveis com a variável “ICU” vou calcular a proporção de pessoas que foram para UTI para cada valor 0 ou 1 dessas variáveis, ou seja, dado que um paciente pertence a um grupo ele tem mais chance de ir para UTI do quem não pertence.</p>
-<pre class="python"><code>#Selecionando as variáveis
-ages = [&#39;AGE_UNDER_30th&#39;,&#39;AGE_UNDER_50th&#39;,&#39;AGE_ABOVE_50th&#39;,&#39;AGE_ABOVE_80th&#39;,&#39;AGE_ABOVE65&#39;, &#39;ICU&#39;]
-
-#Transformando as colunas em uma coluna &quot;variable&quot; e os valores em uma coluna &quot;value&quot; e mantendo a variável &quot;ICU&quot; fixa
-ages_melt = pd.melt(df[ages], id_vars=&#39;ICU&#39;)
-
-#Calculando a proporção da variável &quot;ICU&quot; para cada combinação &quot;variable&quot;(coluna), &quot;value&quot;(valor)
-ages_prop = ages_melt.groupby([&#39;variable&#39;,&#39;value&#39;])[&#39;ICU&#39;].mean().reset_index(name=&#39;Prop&#39;)</code></pre>
-<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-15.png" width="1920" /></p>
-<pre class="python"><code>ages_prop</code></pre>
-<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-17.png" width="1920" /></p>
+<pre><code>##          variable  value      Prop
+## 0     AGE_ABOVE65      0  0.260116
+## 1     AGE_ABOVE65      1  0.495868
+## 2  AGE_ABOVE_50th      0  0.226950
+## 3  AGE_ABOVE_50th      1  0.477124
+## 4  AGE_ABOVE_80th      0  0.300000
+## 5  AGE_ABOVE_80th      1  0.562500
+## 6  AGE_UNDER_30th      0  0.418182
+## 7  AGE_UNDER_30th      1  0.175676
+## 8  AGE_UNDER_50th      0  0.477124
+## 9  AGE_UNDER_50th      1  0.226950</code></pre>
 <p>Com a tabela pronta indicando a proporção, para cada valor de cada variável de idade, podemos visualizar em um gráfico esse comportamento.</p>
-<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-19.png" width="1920" /><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-20.png" width="1920" /></p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando a figura</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>fig, ax3 <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">20</span>,<span class="dv">10</span>)) </span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando o gráfico</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>sns.barplot(data<span class="op">=</span>ages_prop, y<span class="op">=</span><span class="st">&#39;Prop&#39;</span>, x<span class="op">=</span><span class="st">&#39;variable&#39;</span>, hue<span class="op">=</span><span class="st">&#39;value&#39;</span>, ax<span class="op">=</span>ax3, palette<span class="op">=</span><span class="st">&#39;muted&#39;</span>)</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotando rótulos e títulos</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>labs(title<span class="op">=</span><span class="st">&#39;Proporção de pacientes que foram para UTI dado que pertence a uma faixa etária&#39;</span>, </span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>     subtitle<span class="op">=</span><span class="st">&#39;PROPORÇÃO CALCULADA DE PACIENTES QUE FORAM PARA UTI DADO QUE PERTENCIA  A UM GRUPO DAS COLUNAS DE IDADE&#39;</span>,</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>     xlabel<span class="op">=</span><span class="st">&#39;Variável&#39;</span>, ylabel<span class="op">=</span><span class="st">&#39;Proporção&#39;</span>,ax<span class="op">=</span>ax3)</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Configurando a legenda</span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>handles, labels <span class="op">=</span> ax3.get_legend_handles_labels()</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>plt.legend(handles[<span class="dv">0</span>:<span class="dv">2</span>], [<span class="st">&#39;0&#39;</span>,<span class="st">&#39;1&#39;</span>], bbox_to_anchor<span class="op">=</span>(<span class="fl">0.94</span>, <span class="dv">1</span>), loc<span class="op">=</span><span class="dv">2</span>, borderaxespad<span class="op">=</span><span class="fl">0.</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a><span class="co">#Configurando o eixo x</span></span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>plt.xticks(<span class="bu">range</span>(<span class="dv">5</span>),labels<span class="op">=</span>ages_prop[<span class="st">&#39;variable&#39;</span>].<span class="bu">str</span>.split(<span class="vs">r&#39;_| &#39;</span>).<span class="bu">str</span>.join(<span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span>).unique())</span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a><span class="co">#Anotando em cima das barras</span></span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a>annot_bar(ax3)</span>
+<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a><span class="co">#Definindo o eixo y</span></span>
+<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a>plt.ylim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
+<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a><span class="co">#Adicionando uma referência para o gráfico</span></span>
+<span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a>plt.text(<span class="dv">0</span>,<span class="op">-</span><span class="fl">0.1</span>, <span class="st">&#39;GRÁFICO 3&#39;</span>, color<span class="op">=</span><span class="st">&#39;black&#39;</span>, transform<span class="op">=</span>ax3.transAxes, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<pre><code>## &lt;AxesSubplot:xlabel=&#39;variable&#39;, ylabel=&#39;Prop&#39;&gt;</code></pre>
+<pre><code>## &lt;matplotlib.legend.Legend object at 0x000000006403D850&gt;</code></pre>
+<pre><code>## ([&lt;matplotlib.axis.XTick object at 0x0000000063EAF190&gt;, &lt;matplotlib.axis.XTick object at 0x0000000063EAF160&gt;, &lt;matplotlib.axis.XTick object at 0x0000000063EA17F0&gt;, &lt;matplotlib.axis.XTick object at 0x000000006403B310&gt;, &lt;matplotlib.axis.XTick object at 0x000000006403BA60&gt;], [Text(0, 0, &#39;AGE\nABOVE65&#39;), Text(1, 0, &#39;AGE\nABOVE\n50th&#39;), Text(2, 0, &#39;AGE\nABOVE\n80th&#39;), Text(3, 0, &#39;AGE\nUNDER\n30th&#39;), Text(4, 0, &#39;AGE\nUNDER\n50th&#39;)])</code></pre>
+<pre><code>## (0.0, 1.0)</code></pre>
+<pre><code>## Text(0, -0.1, &#39;GRÁFICO 3&#39;)</code></pre>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-5.png" width="1920" /></p>
 <p>A partir do gráfico 3 parece que as variáveis de idade influenciam se o paciente vai ou não para UTI, para confirmar tal afirmação vou realizar um teste de Chi-Quadrado através da função compute_chi2( ), definida no arquivo <a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/funcoes/feature.py">funcoes/feature</a>, essa função nos retorna os p valores para cada uma das variáveis, e se, algum deles for maior que <strong>5%</strong> não rejeitaremos a hipótese nula de que a variável é independente da variável alvo “ICU”.</p>
-<pre class="python"><code>#Calculando os p valores para colunas de idade
-p_values = compute_chi2(df[ages].drop(&#39;ICU&#39;, axis=1), df[&#39;ICU&#39;])
-for col, p_value in p_values.items():
-    print(f&#39;Considerando a hipótese nula de que a coluna {col} é independente da variável alvo &quot;ICU&quot;\n\
-    obteve-se um p valor igual a {np.round(p_value,4)}&#39;)</code></pre>
-<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-23.png" width="1920" /></p>
+<pre><code>## Considerando a hipótese nula de que a coluna AGE_UNDER_30th é independente da variável alvo &quot;ICU&quot;
+##     obteve-se um p valor igual a 0.0011
+## Considerando a hipótese nula de que a coluna AGE_UNDER_50th é independente da variável alvo &quot;ICU&quot;
+##     obteve-se um p valor igual a 0.0013
+## Considerando a hipótese nula de que a coluna AGE_ABOVE_50th é independente da variável alvo &quot;ICU&quot;
+##     obteve-se um p valor igual a 0.002
+## Considerando a hipótese nula de que a coluna AGE_ABOVE_80th é independente da variável alvo &quot;ICU&quot;
+##     obteve-se um p valor igual a 0.0006
+## Considerando a hipótese nula de que a coluna AGE_ABOVE65 é independente da variável alvo &quot;ICU&quot;
+##     obteve-se um p valor igual a 0.0014</code></pre>
 <p>Analisando o p valor das colunas relacionadas às idades dos pacientes no teste de Chi-Quadrado da hipótese nula das variáveis serem independentes do paciente ir para UTI, todos os p valores foram <strong>menores que 5%</strong>, por esta razão temos evidências para <strong>rejeitar a hipótese nula</strong> e, por isso, essas variávies serão mantidas no dataframe.</p>
 </div>
 <div id="variável-de-genêro" class="section level3">
 <h3>Variável de genêro</h3>
 <p>A outra variável demográfica é a variável de genêro, para identificar se o genêro influencia vamos repetir o mesmo processo.</p>
-<pre class="python"><code>#Construindo um dataframe com a coluna &quot;GENDER&quot; e &quot;ICU&quot;, mantendo o &quot;ICU&quot; fixo e tranformando a coluna &quot;GENDER&quot; em duas uma para o nome 
-#da variável(&quot;variable&quot;) e outra para os valores correspondentes(&quot;value&quot;)
-gender_melt  = pd.melt(df[[&#39;GENDER&#39;, &#39;ICU&#39;]], id_vars=&#39;ICU&#39;)
-
-#Calculando a proporção da variável &quot;ICU&quot; para cada combinação &quot;variable&quot;(coluna), &quot;value&quot;(valor)
-gender_prop = gender_melt.groupby([&#39;variable&#39;,&#39;value&#39;])[&#39;ICU&#39;].mean().reset_index(name=&#39;Prop&#39;)</code></pre>
-<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-25.png" width="1920" /></p>
-<pre class="python"><code>gender_prop</code></pre>
-<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-27.png" width="1920" /></p>
+<pre><code>##   variable  value      Prop
+## 0   GENDER      0  0.408840
+## 1   GENDER      1  0.274336</code></pre>
 <p>Com a tabela pronta indicando a proporção de pacientes que foram para UTI dependendo do genêro podemos visualizar em um gráfico esse comportamento.</p>
 <p><strong>OBS: POR CONTA DA ANONIMIZAÇÃO DOS DADOS NÃO FOI INFORMADO QUAL GENÊRO É REPRESENTADO POR QUAL NÚMERO, POR ISSO SERÁ REPRESENTADO COMO 0 e 1</strong></p>
-<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-29.png" width="1152" /><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-30.png" width="1152" /></p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando a figura</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>fig, ax4 <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">8</span>)) </span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando o gráfico</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>sns.barplot(data<span class="op">=</span>gender_prop, y<span class="op">=</span><span class="st">&#39;Prop&#39;</span>, x<span class="op">=</span><span class="st">&#39;variable&#39;</span>, hue<span class="op">=</span><span class="st">&#39;value&#39;</span>, ax<span class="op">=</span>ax4, palette<span class="op">=</span>[<span class="st">&#39;#ffcc00&#39;</span>,<span class="st">&#39;#0066ff&#39;</span>])</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotando rótulos e títulos</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>labs(title<span class="op">=</span><span class="st">&#39;Proporção de pacientes que foram para UTI de acordo com o gênero&#39;</span>, </span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>     subtitle<span class="op">=</span><span class="st">&#39;PROPORÇÃO CALCULADA DE PACIENTES QUE FORAM PARA UTI DADO O GENÊRO&#39;</span>,</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>     xlabel<span class="op">=</span><span class="st">&#39;Variável&#39;</span>, ylabel<span class="op">=</span><span class="st">&#39;Proporção&#39;</span>,ax<span class="op">=</span>ax4)</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Configurando a legenda</span></span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>handles, labels <span class="op">=</span> ax4.get_legend_handles_labels()</span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>plt.legend(handles[<span class="dv">0</span>:<span class="dv">2</span>], [<span class="st">&#39;0&#39;</span>,<span class="st">&#39;1&#39;</span>], bbox_to_anchor<span class="op">=</span>(<span class="fl">0.94</span>, <span class="dv">1</span>), loc<span class="op">=</span><span class="dv">2</span>, borderaxespad<span class="op">=</span><span class="fl">0.</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a><span class="co">#Anotando em cima das barras</span></span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>annot_bar(ax4)</span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a><span class="co">#Definindo o eixo y</span></span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a>plt.ylim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a><span class="co">#Adicionando uma referência para o gráfico</span></span>
+<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a>plt.text(<span class="dv">0</span>,<span class="op">-</span><span class="fl">0.1</span>, <span class="st">&#39;GRÁFICO 4&#39;</span>, color<span class="op">=</span><span class="st">&#39;black&#39;</span>, transform<span class="op">=</span>ax4.transAxes, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<pre><code>## &lt;AxesSubplot:xlabel=&#39;variable&#39;, ylabel=&#39;Prop&#39;&gt;</code></pre>
+<pre><code>## &lt;matplotlib.legend.Legend object at 0x0000000004519F40&gt;</code></pre>
+<pre><code>## (0.0, 1.0)</code></pre>
+<pre><code>## Text(0, -0.1, &#39;GRÁFICO 4&#39;)</code></pre>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-7.png" width="1152" /></p>
 <p>A partir do gráfico 4 percebe-se que dependendo do genêro parece haver uma diferença na chance de ir para UTI, porém vamos realizar um teste de Chi-Quadrado para decidir se essa variável será mantida.</p>
-<pre class="python"><code>p_value_gender = compute_chi2(df[[&#39;GENDER&#39;]], df[&#39;ICU&#39;])
-print(f&#39;Considerando a hipótese nula de que a coluna GENDER é independente da variável alvo &quot;ICU&quot; obteve-se um p valor igual a \
-      {np.round(p_value_gender[&quot;GENDER&quot;],4)}&#39;)</code></pre>
-<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-33.png" width="1152" /></p>
+<pre><code>## Considerando a hipótese nula de que a coluna GENDER é independente da variável alvo &quot;ICU&quot; obteve-se um p valor igual a       0.0662</code></pre>
 <p>Analisando o p valor da coluna de genêro no teste de Chi-Quadrado da hipótese nula da variável ser <strong>independente</strong> do paciente ir para <strong>UTI</strong>, foi maior que <strong>5%</strong>, portanto <strong>não temos evidências para rejeitar a hipótese nula</strong> e por esta razão vou eliminar a coluna “GENDER” do dataframe.</p>
-<pre class="python"><code>#Eliminando a coluna &quot;GENDER&quot;
-df.drop(&#39;GENDER&#39;, axis=1, inplace=True)</code></pre>
-<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-35.png" width="1152" /></p>
 </div>
 </div>
 <div id="análise-das-demais-variáveis-categóricas" class="section level1">
 <h1>Análise das demais variáveis categóricas</h1>
 <p>Além das colunas demográficas, as colunas que nos dizem se o paciente possui alguma doença ou alguma condição de saúde também são colunas categóricas binárias, portanto, podemos realizar o mesmo processo para visualizar as proporções e realizar um teste de Chi-Quadrado<br><br> No entanto, <strong>não realizarei este teste</strong>. Tomei esta decisão pois acredito que essas variáveis possuem uma relação direta com a saúde de um paciente e podem sofrer uma influência muito grande de outros fatores, como por exemplo, uma doença pode se agravar com a idade e, portanto, a proporção de pacientes que precisaram ir para UTI dado que esse paciente possui uma certa condição de saúde pode ser diferente dependendo da idade, o que não seria levado em conta em um teste realizado individualmente para cada variável.</p>
-<pre class="python"><code>#Selecionando as variáveis categóricas a respeito das doenças e condições médicas
-diseases = [&#39;DISEASE GROUPING 1&#39;,&#39;DISEASE GROUPING 2&#39;,&#39;DISEASE GROUPING 3&#39;,&#39;DISEASE GROUPING 4&#39;,\
-            &#39;DISEASE GROUPING 5&#39;,&#39;DISEASE GROUPING 6&#39;,&#39;HTN&#39;,&#39;IMMUNOCOMPROMISED&#39;,&#39;OTHER&#39;, &#39;ICU&#39;]</code></pre>
-<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-37.png" width="1152" /></p>
-<pre class="python"><code>#Construindo um dataframe com as colunas relacionadas as doenças e &quot;ICU&quot;, mantendo o &quot;ICU&quot; fixo e tranformando as demais colunas 
-#em duas que representarão o nome da variável(&quot;variable&quot;) e outra os valores correspondentes(&quot;value&quot;)
-diseases_melt  = pd.melt(df[diseases], id_vars=&#39;ICU&#39;)
-
-#Calculando a proporção da variável &quot;ICU&quot; para cada combinação &quot;variable&quot;(coluna), &quot;value&quot;(valor)
-diseases_prop = diseases_melt.groupby([&#39;variable&#39;,&#39;value&#39;])[&#39;ICU&#39;].mean().reset_index(name=&#39;Prop&#39;)</code></pre>
-<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-39.png" width="1152" /></p>
-<pre class="python"><code>diseases_prop</code></pre>
-<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-41.png" width="1152" /></p>
+<pre><code>##               variable  value      Prop
+## 0   DISEASE GROUPING 1      0  0.349624
+## 1   DISEASE GROUPING 1      1  0.428571
+## 2   DISEASE GROUPING 2      0  0.348432
+## 3   DISEASE GROUPING 2      1  0.714286
+## 4   DISEASE GROUPING 3      0  0.338290
+## 5   DISEASE GROUPING 3      1  0.560000
+## 6   DISEASE GROUPING 4      0  0.347222
+## 7   DISEASE GROUPING 4      1  0.833333
+## 8   DISEASE GROUPING 5      0  0.338462
+## 9   DISEASE GROUPING 5      1  0.500000
+## 10  DISEASE GROUPING 6      0  0.357143
+## 11  DISEASE GROUPING 6      1  0.357143
+## 12                 HTN      0  0.323770
+## 13                 HTN      1  0.520000
+## 14   IMMUNOCOMPROMISED      0  0.337398
+## 15   IMMUNOCOMPROMISED      1  0.458333
+## 16               OTHER      0  0.375000
+## 17               OTHER      1  0.352941</code></pre>
 <p>Com a tabela pronta indicando a proporção de pacientes que foram para UTI, dado que possuia alguma condição de saúde, podemos visualizar em um gráfico esse comportamento.<br> <strong>OBS: POR CONTA DA ANONIMIZAÇÃO DOS DADOS NÃO FOI INFORMADO O QUE REPRESENTA CADA GRUPO DE DOENÇA</strong></p>
-<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-43.png" width="1920" /><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-44.png" width="1920" /></p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando a figura</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>fig, ax5 <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">20</span>,<span class="dv">10</span>)) </span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando o gráfico</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>sns.barplot(data<span class="op">=</span>diseases_prop, y<span class="op">=</span><span class="st">&#39;Prop&#39;</span>, x<span class="op">=</span><span class="st">&#39;variable&#39;</span>, hue<span class="op">=</span><span class="st">&#39;value&#39;</span>, ax<span class="op">=</span>ax5, palette<span class="op">=</span><span class="st">&#39;muted&#39;</span>)</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotando rótulos e títulos</span></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>labs(title<span class="op">=</span><span class="st">&#39;Proporção de pacientes que foram para UTI dentre os grupos de doenças&#39;</span>, </span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>     subtitle<span class="op">=</span><span class="st">&#39;PROPORÇÃO CALCULADA DE PACIENTES QUE FORAM PARA UTI DADO QUE APRESENTOU DETERMINADO GRUPO DE DOENÇA&#39;</span>,</span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>     xlabel<span class="op">=</span><span class="st">&#39;Variável&#39;</span>, ylabel<span class="op">=</span><span class="st">&#39;Proporção&#39;</span>,ax<span class="op">=</span>ax5)</span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Configurando a legenda</span></span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>handles, labels <span class="op">=</span> ax5.get_legend_handles_labels()</span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>plt.legend(handles[<span class="dv">0</span>:<span class="dv">2</span>], [<span class="st">&#39;0&#39;</span>,<span class="st">&#39;1&#39;</span>], bbox_to_anchor<span class="op">=</span>(<span class="fl">0.94</span>, <span class="dv">1</span>), loc<span class="op">=</span><span class="dv">2</span>, borderaxespad<span class="op">=</span><span class="fl">0.</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a><span class="co">#Configurando o eixo x</span></span>
+<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a>plt.xticks(<span class="bu">range</span>(<span class="dv">9</span>),labels<span class="op">=</span>diseases_prop[<span class="st">&#39;variable&#39;</span>].<span class="bu">str</span>.split(<span class="vs">r&#39;_| &#39;</span>).<span class="bu">str</span>.join(<span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span>).unique())</span>
+<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a><span class="co">#Anotando em cima das barras</span></span>
+<span id="cb47-20"><a href="#cb47-20" aria-hidden="true" tabindex="-1"></a>annot_bar(ax5)</span>
+<span id="cb47-21"><a href="#cb47-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-22"><a href="#cb47-22" aria-hidden="true" tabindex="-1"></a><span class="co">#Definindo o eixo y</span></span>
+<span id="cb47-23"><a href="#cb47-23" aria-hidden="true" tabindex="-1"></a>plt.ylim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
+<span id="cb47-24"><a href="#cb47-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-25"><a href="#cb47-25" aria-hidden="true" tabindex="-1"></a><span class="co">#Adicionando uma referência para o gráfico</span></span>
+<span id="cb47-26"><a href="#cb47-26" aria-hidden="true" tabindex="-1"></a>plt.text(<span class="dv">0</span>,<span class="op">-</span><span class="fl">0.12</span>, <span class="st">&#39;GRÁFICO 5&#39;</span>, color<span class="op">=</span><span class="st">&#39;black&#39;</span>, transform<span class="op">=</span>ax5.transAxes, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb47-27"><a href="#cb47-27" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<pre><code>## &lt;AxesSubplot:xlabel=&#39;variable&#39;, ylabel=&#39;Prop&#39;&gt;</code></pre>
+<pre><code>## &lt;matplotlib.legend.Legend object at 0x0000000064232E50&gt;</code></pre>
+<pre><code>## ([&lt;matplotlib.axis.XTick object at 0x0000000064167A60&gt;, &lt;matplotlib.axis.XTick object at 0x0000000064167A30&gt;, &lt;matplotlib.axis.XTick object at 0x000000006415CDC0&gt;, &lt;matplotlib.axis.XTick object at 0x00000000048D8190&gt;, &lt;matplotlib.axis.XTick object at 0x00000000048D88E0&gt;, &lt;matplotlib.axis.XTick object at 0x00000000048D4160&gt;, &lt;matplotlib.axis.XTick object at 0x00000000048D47F0&gt;, &lt;matplotlib.axis.XTick object at 0x00000000048D8AF0&gt;, &lt;matplotlib.axis.XTick object at 0x00000000048D4850&gt;], [Text(0, 0, &#39;DISEASE\nGROUPING\n1&#39;), Text(1, 0, &#39;DISEASE\nGROUPING\n2&#39;), Text(2, 0, &#39;DISEASE\nGROUPING\n3&#39;), Text(3, 0, &#39;DISEASE\nGROUPING\n4&#39;), Text(4, 0, &#39;DISEASE\nGROUPING\n5&#39;), Text(5, 0, &#39;DISEASE\nGROUPING\n6&#39;), Text(6, 0, &#39;HTN&#39;), Text(7, 0, &#39;IMMUNOCOMPROMISED&#39;), Text(8, 0, &#39;OTHER&#39;)])</code></pre>
+<pre><code>## (0.0, 1.0)</code></pre>
+<pre><code>## Text(0, -0.12, &#39;GRÁFICO 5&#39;)</code></pre>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-9.png" width="1920" /></p>
 <p>A partir do gráfico 5 parece que algumas condições não apresentam uma chance maior de ir para UTI dado que o paciente possuia tal condição, por exemplo as variáveis “DISEASE GROUPING 6” e “OTHER”, possuem proporções muito próximas, independente do valor. <br><br> No entanto, como foi mencionado anteriormente, não aplicarei nenhum teste para removê-las, e manterei no dataset por enquanto.</p>
 </div>
 <div id="análise-das-variáveis-numéricas" class="section level1">
@@ -726,76 +1003,113 @@ diseases_prop = diseases_melt.groupby([&#39;variable&#39;,&#39;value&#39;])[&#39
 <h2>Análise de correção entre as variáveis</h2>
 <p>Para entender se existem colunas com uma correlação muito alta em nosso dataset, vamos observar um mapa de calor com as correlações calculadas para cada combinação de colunas.</p>
 <p><strong>OBS: A CORRELAÇÃO SERÁ CALCULADA EM FORMA DE MÓDULO, OU SEJA, MEDINDO A FORÇA DESSA CORRELAÇÃO INDEPENDENTE DO SINAL(positiva ou negativa)</strong></p>
-<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-47.png" width="3360" /><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-48.png" width="3360" /></p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando a figura</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>fig,ax6 <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">35</span>, <span class="dv">30</span>))</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando a matriz de correlação absoluta usando apenas colunas contínuas</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>cor <span class="op">=</span> df.select_dtypes(<span class="st">&#39;float64&#39;</span>).corr().<span class="bu">abs</span>()</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando uma máscara para ocultar a diagonal e a parte triangular superior da matriz</span></span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>mask <span class="op">=</span> np.triu(np.ones_like(cor, dtype<span class="op">=</span><span class="bu">bool</span>))</span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando o gráfico</span></span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>sns.heatmap(cor,</span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>            cmap<span class="op">=</span><span class="st">&#39;Reds&#39;</span>,</span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>            mask<span class="op">=</span>mask,</span>
+<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a>            ax<span class="op">=</span>ax6)</span>
+<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotando rótulos e títulos</span></span>
+<span id="cb53-17"><a href="#cb53-17" aria-hidden="true" tabindex="-1"></a>labs(title<span class="op">=</span><span class="st">&#39;Correlação entre variáveis contínuas do conjunto de dados&#39;</span>, ax<span class="op">=</span>ax6)</span>
+<span id="cb53-18"><a href="#cb53-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-19"><a href="#cb53-19" aria-hidden="true" tabindex="-1"></a><span class="co">#Mudando o tamnho da fonte da barra de cor</span></span>
+<span id="cb53-20"><a href="#cb53-20" aria-hidden="true" tabindex="-1"></a>cbar <span class="op">=</span> ax6.collections[<span class="dv">0</span>].colorbar</span>
+<span id="cb53-21"><a href="#cb53-21" aria-hidden="true" tabindex="-1"></a>cbar.ax.tick_params(labelsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb53-22"><a href="#cb53-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-23"><a href="#cb53-23" aria-hidden="true" tabindex="-1"></a><span class="co">#Adicionando uma referência para o gráfico</span></span>
+<span id="cb53-24"><a href="#cb53-24" aria-hidden="true" tabindex="-1"></a>plt.text(<span class="dv">0</span>,<span class="op">-</span><span class="fl">0.15</span>, <span class="st">&#39;GRÁFICO 6&#39;</span>, color<span class="op">=</span><span class="st">&#39;black&#39;</span>, transform<span class="op">=</span>ax6.transAxes, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb53-25"><a href="#cb53-25" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<pre><code>## &lt;AxesSubplot:&gt;</code></pre>
+<pre><code>## Text(0, -0.15, &#39;GRÁFICO 6&#39;)</code></pre>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-11.png" width="3360" /></p>
 <p>A partir do gráfico 6 percebemos que muitas colunas possuem uma alta correlação absoluta, ou seja, temos uma motivação para eliminar colunas correlacionadas de forma que apenas uma delas continue no dataset.<br><br> Para isso, vou utilizar a função compute_high_corr( ), definida no arquivo <a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/funcoes/feature.py">funcoes/feature</a>, que irá calcular a matriz de correlação das colunas e percorrer essa matriz de tal forma que se uma coluna tiver uma correlação mais alta que o valor de corte em relação a alguma coluna que já foi percorrida ela será armazenada em uma lista e essa lista será retornada ao final, ou seja, em um grupo onde existem diversas colunas correlacionas apenas uma delas será mantida.</p>
-<pre class="python"><code>#Calculando as colunas para eliminar com um valor de corte de 0.95
-cols_drop_high_corr = compute_high_corr(df.select_dtypes(&#39;float64&#39;), 0.95)
-#Mostrando na tela essas colunas
-print(cols_drop_high_corr)
-#Mostrando na tela a quantidade de colunas</code></pre>
 <pre><code>## [&#39;ALBUMIN_MEAN&#39;, &#39;ALBUMIN_MIN&#39;, &#39;ALBUMIN_MAX&#39;, &#39;BE_ARTERIAL_MEAN&#39;, &#39;BE_ARTERIAL_MIN&#39;, &#39;BE_ARTERIAL_MAX&#39;, &#39;BE_VENOUS_MEAN&#39;, &#39;BE_VENOUS_MIN&#39;, &#39;BE_VENOUS_MAX&#39;, &#39;BIC_ARTERIAL_MEAN&#39;, &#39;BIC_ARTERIAL_MIN&#39;, &#39;BIC_ARTERIAL_MAX&#39;, &#39;BIC_VENOUS_MEAN&#39;, &#39;BIC_VENOUS_MIN&#39;, &#39;BIC_VENOUS_MAX&#39;, &#39;BILLIRUBIN_MEAN&#39;, &#39;BILLIRUBIN_MIN&#39;, &#39;BILLIRUBIN_MAX&#39;, &#39;BLAST_MEAN&#39;, &#39;BLAST_MIN&#39;, &#39;BLAST_MAX&#39;, &#39;CALCIUM_MEAN&#39;, &#39;CALCIUM_MIN&#39;, &#39;CALCIUM_MAX&#39;, &#39;CREATININ_MEAN&#39;, &#39;CREATININ_MIN&#39;, &#39;CREATININ_MAX&#39;, &#39;FFA_MEAN&#39;, &#39;FFA_MIN&#39;, &#39;FFA_MAX&#39;, &#39;GGT_MEAN&#39;, &#39;GGT_MIN&#39;, &#39;GGT_MAX&#39;, &#39;GLUCOSE_MEAN&#39;, &#39;GLUCOSE_MIN&#39;, &#39;GLUCOSE_MAX&#39;, &#39;HEMATOCRITE_MEAN&#39;, &#39;HEMATOCRITE_MIN&#39;, &#39;HEMATOCRITE_MAX&#39;, &#39;HEMOGLOBIN_MEDIAN&#39;, &#39;HEMOGLOBIN_MEAN&#39;, &#39;HEMOGLOBIN_MIN&#39;, &#39;HEMOGLOBIN_MAX&#39;, &#39;INR_MEAN&#39;, &#39;INR_MIN&#39;, &#39;INR_MAX&#39;, &#39;LACTATE_MEAN&#39;, &#39;LACTATE_MIN&#39;, &#39;LACTATE_MAX&#39;, &#39;LEUKOCYTES_MEAN&#39;, &#39;LEUKOCYTES_MIN&#39;, &#39;LEUKOCYTES_MAX&#39;, &#39;LINFOCITOS_MEAN&#39;, &#39;LINFOCITOS_MIN&#39;, &#39;LINFOCITOS_MAX&#39;, &#39;NEUTROPHILES_MEDIAN&#39;, &#39;NEUTROPHILES_MEAN&#39;, &#39;NEUTROPHILES_MIN&#39;, &#39;NEUTROPHILES_MAX&#39;, &#39;P02_ARTERIAL_MEDIAN&#39;, &#39;P02_ARTERIAL_MEAN&#39;, &#39;P02_ARTERIAL_MIN&#39;, &#39;P02_ARTERIAL_MAX&#39;, &#39;P02_VENOUS_MEAN&#39;, &#39;P02_VENOUS_MIN&#39;, &#39;P02_VENOUS_MAX&#39;, &#39;PC02_ARTERIAL_MEAN&#39;, &#39;PC02_ARTERIAL_MIN&#39;, &#39;PC02_ARTERIAL_MAX&#39;, &#39;PC02_VENOUS_MEAN&#39;, &#39;PC02_VENOUS_MIN&#39;, &#39;PC02_VENOUS_MAX&#39;, &#39;PCR_MEAN&#39;, &#39;PCR_MIN&#39;, &#39;PCR_MAX&#39;, &#39;PH_ARTERIAL_MEDIAN&#39;, &#39;PH_ARTERIAL_MEAN&#39;, &#39;PH_ARTERIAL_MIN&#39;, &#39;PH_ARTERIAL_MAX&#39;, &#39;PH_VENOUS_MEAN&#39;, &#39;PH_VENOUS_MIN&#39;, &#39;PH_VENOUS_MAX&#39;, &#39;PLATELETS_MEAN&#39;, &#39;PLATELETS_MIN&#39;, &#39;PLATELETS_MAX&#39;, &#39;POTASSIUM_MEAN&#39;, &#39;POTASSIUM_MIN&#39;, &#39;POTASSIUM_MAX&#39;, &#39;SAT02_ARTERIAL_MEDIAN&#39;, &#39;SAT02_ARTERIAL_MEAN&#39;, &#39;SAT02_ARTERIAL_MIN&#39;, &#39;SAT02_ARTERIAL_MAX&#39;, &#39;SAT02_VENOUS_MEAN&#39;, &#39;SAT02_VENOUS_MIN&#39;, &#39;SAT02_VENOUS_MAX&#39;, &#39;SODIUM_MEAN&#39;, &#39;SODIUM_MIN&#39;, &#39;SODIUM_MAX&#39;, &#39;TGO_MEAN&#39;, &#39;TGO_MIN&#39;, &#39;TGO_MAX&#39;, &#39;TGP_MEAN&#39;, &#39;TGP_MIN&#39;, &#39;TGP_MAX&#39;, &#39;TTPA_MEAN&#39;, &#39;TTPA_MIN&#39;, &#39;TTPA_MAX&#39;, &#39;UREA_MEAN&#39;, &#39;UREA_MIN&#39;, &#39;UREA_MAX&#39;, &#39;DIMER_MEAN&#39;, &#39;DIMER_MIN&#39;, &#39;DIMER_MAX&#39;, &#39;BLOODPRESSURE_DIASTOLIC_MEDIAN&#39;, &#39;BLOODPRESSURE_SISTOLIC_MEDIAN&#39;, &#39;HEART_RATE_MEDIAN&#39;, &#39;RESPIRATORY_RATE_MEDIAN&#39;, &#39;TEMPERATURE_MEDIAN&#39;, &#39;OXYGEN_SATURATION_MEDIAN&#39;, &#39;BLOODPRESSURE_DIASTOLIC_MIN&#39;, &#39;BLOODPRESSURE_SISTOLIC_MIN&#39;, &#39;HEART_RATE_MIN&#39;, &#39;RESPIRATORY_RATE_MIN&#39;, &#39;TEMPERATURE_MIN&#39;, &#39;BLOODPRESSURE_DIASTOLIC_MAX&#39;, &#39;BLOODPRESSURE_SISTOLIC_MAX&#39;, &#39;HEART_RATE_MAX&#39;, &#39;RESPIRATORY_RATE_MAX&#39;, &#39;TEMPERATURE_MAX&#39;, &#39;BLOODPRESSURE_DIASTOLIC_DIFF_REL&#39;, &#39;BLOODPRESSURE_SISTOLIC_DIFF_REL&#39;, &#39;RESPIRATORY_RATE_DIFF_REL&#39;, &#39;TEMPERATURE_DIFF_REL&#39;, &#39;OXYGEN_SATURATION_DIFF_REL&#39;]</code></pre>
-<pre class="python"><code>print(len(cols_drop_high_corr))</code></pre>
-<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-51.png" width="3360" /></p>
+<pre><code>## 134</code></pre>
 <p>Podemos perceber que, de acordo com a função compute_high_corr( ), podemos eliminar essas 134 colunas pois existem outras colunas no dataset que possuem uma alta correlação com estas.</p>
-<pre class="python"><code>df.drop(cols_drop_high_corr, axis=1, inplace=True)</code></pre>
-<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-53.png" width="3360" /></p>
 </div>
 <div id="análise-da-variância" class="section level2">
 <h2>Análise da variância</h2>
 <p>Outro fator que podemos analisar de forma fácil e, já nos diz muito sobre determinada variável, é a variância. Esta é uma medida usada para mensurar a dispersão dos dados em um conjunto, ou seja, quanto menor essa variância mais agrupados estão os valores. <br></p>
 <p>Uma vez que nós estamos trabalhando com dados normalizados, como foi informado pelo Sírio-Libanês, fica difícil ter uma referência de qual o valor mínimo de uma variância para uma variável ser considerada importante, no entanto, temos uma certeza, se alguma das variáveis possui uma <strong>variância igual a zero</strong>, é porque ela é <strong>completamente desnecessária</strong> ao se resolver o nosso problema.</p>
 <p>Para analisar este fato, primeiramente vou olhar para o boxplot de 15 colunas aleatórias a fim de encontrar algo que possamos analisar, ou, conseguimos ver se alguma dessas colunas possui variância zero.</p>
-<pre class="python"><code>#Setando a semente aletória que foi definida no começo do notebook
-np.random.seed(SEED)
-
-#Selecionando o dataset com as colunas contínuas
-cont = df.select_dtypes(&#39;float64&#39;)
-
-#Escolhendo o dataset com 15 colunas aleatórias
-sample = cont[np.random.choice(cont.columns, size=15, replace=False)]
-
-#Juntando com a informação da variável alvo para analisar a diferença entre os grupos
-sample_cont = pd.concat([sample, df[&#39;ICU&#39;]],axis=1) 
-
-#Transformando as colunas em uma coluna &quot;variable&quot; e os valores em uma coluna &quot;value&quot; e mantendo a variável &quot;ICU&quot; fixa 
-cont_melt = pd.melt(sample_cont, id_vars=&#39;ICU&#39;)</code></pre>
-<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-55.png" width="3360" /></p>
-<pre class="python"><code>cont_melt.head()</code></pre>
-<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-57.png" width="3360" /></p>
-<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-59.png" width="1920" /><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-60.png" width="1920" /></p>
+<pre><code>##    ICU     variable  value
+## 0    1  SODIUM_DIFF   -1.0
+## 1    1  SODIUM_DIFF   -1.0
+## 2    0  SODIUM_DIFF   -1.0
+## 3    0  SODIUM_DIFF   -1.0
+## 4    0  SODIUM_DIFF   -1.0</code></pre>
+<div class="sourceCode" id="cb59"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando a figura</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>fig, ax7 <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">20</span>,<span class="dv">15</span>))</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando os boxplots</span></span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>ax7 <span class="op">=</span> sns.boxplot(x<span class="op">=</span><span class="st">&#39;variable&#39;</span>, y<span class="op">=</span><span class="st">&#39;value&#39;</span>, hue<span class="op">=</span><span class="st">&#39;ICU&#39;</span>,</span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>            data<span class="op">=</span>cont_melt, palette<span class="op">=</span>[<span class="st">&#39;#3366ff&#39;</span>, <span class="st">&#39;#993300&#39;</span>], </span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>            ax<span class="op">=</span>ax7, showfliers<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando os stripsplots</span></span>
+<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a>ax7 <span class="op">=</span> sns.stripplot(x<span class="op">=</span><span class="st">&#39;variable&#39;</span>, y<span class="op">=</span><span class="st">&#39;value&#39;</span>, hue<span class="op">=</span><span class="st">&#39;ICU&#39;</span>,</span>
+<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a>              data<span class="op">=</span>cont_melt, palette<span class="op">=</span>[<span class="st">&#39;#3366ff&#39;</span>, <span class="st">&#39;#993300&#39;</span>],</span>
+<span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a>              ax<span class="op">=</span>ax7, dodge<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb59-13"><a href="#cb59-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-14"><a href="#cb59-14" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotando rótulos e títulos</span></span>
+<span id="cb59-15"><a href="#cb59-15" aria-hidden="true" tabindex="-1"></a>labs(title<span class="op">=</span><span class="st">&#39;Boxplots de 15 colunas contínuas aleatórias&#39;</span>, </span>
+<span id="cb59-16"><a href="#cb59-16" aria-hidden="true" tabindex="-1"></a>     xlabel<span class="op">=</span><span class="st">&#39;Variável&#39;</span>, </span>
+<span id="cb59-17"><a href="#cb59-17" aria-hidden="true" tabindex="-1"></a>     ylabel<span class="op">=</span><span class="st">&#39;Valor&#39;</span>, </span>
+<span id="cb59-18"><a href="#cb59-18" aria-hidden="true" tabindex="-1"></a>     subtitle<span class="op">=</span><span class="st">&#39;COLUNAS REFERENTES AOS DADOS MÉDICOS DE EXAMES E SINAIS VITAIS&#39;</span>, ax<span class="op">=</span>ax7)</span>
+<span id="cb59-19"><a href="#cb59-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-20"><a href="#cb59-20" aria-hidden="true" tabindex="-1"></a><span class="co">#Configurando o eixo x</span></span>
+<span id="cb59-21"><a href="#cb59-21" aria-hidden="true" tabindex="-1"></a>plt.xticks(<span class="bu">range</span>(<span class="dv">15</span>),labels<span class="op">=</span>cont_melt[<span class="st">&#39;variable&#39;</span>].<span class="bu">str</span>.split(<span class="st">&#39;_&#39;</span>).<span class="bu">str</span>.join(<span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span>).unique(), rotation<span class="op">=</span><span class="dv">35</span>)</span>
+<span id="cb59-22"><a href="#cb59-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-23"><a href="#cb59-23" aria-hidden="true" tabindex="-1"></a><span class="co">#Configurando a legenda</span></span>
+<span id="cb59-24"><a href="#cb59-24" aria-hidden="true" tabindex="-1"></a>handles, labels <span class="op">=</span> ax7.get_legend_handles_labels()</span>
+<span id="cb59-25"><a href="#cb59-25" aria-hidden="true" tabindex="-1"></a>plt.legend(handles[<span class="dv">0</span>:<span class="dv">2</span>], [<span class="st">&#39;Não foi para UTI&#39;</span>, <span class="st">&#39;Foi para UTI&#39;</span>], bbox_to_anchor<span class="op">=</span>(<span class="fl">1.05</span>, <span class="dv">1</span>), loc<span class="op">=</span><span class="dv">2</span>, borderaxespad<span class="op">=</span><span class="fl">0.</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb59-26"><a href="#cb59-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-27"><a href="#cb59-27" aria-hidden="true" tabindex="-1"></a><span class="co">#Adicionando uma referência para o gráfico</span></span>
+<span id="cb59-28"><a href="#cb59-28" aria-hidden="true" tabindex="-1"></a>plt.text(<span class="dv">0</span>,<span class="op">-</span><span class="fl">0.15</span>, <span class="st">&#39;GRÁFICO 7&#39;</span>, color<span class="op">=</span><span class="st">&#39;black&#39;</span>, transform<span class="op">=</span>ax7.transAxes, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb59-29"><a href="#cb59-29" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<pre><code>## &lt;AxesSubplot:xlabel=&#39;variable&#39;, ylabel=&#39;value&#39;&gt;</code></pre>
+<pre><code>## &lt;AxesSubplot:xlabel=&#39;variable&#39;, ylabel=&#39;value&#39;&gt;</code></pre>
+<pre><code>## ([&lt;matplotlib.axis.XTick object at 0x0000000063E8D070&gt;, &lt;matplotlib.axis.XTick object at 0x0000000063E8D730&gt;, &lt;matplotlib.axis.XTick object at 0x0000000063D7EA90&gt;, &lt;matplotlib.axis.XTick object at 0x000000000510D790&gt;, &lt;matplotlib.axis.XTick object at 0x000000000510DEE0&gt;, &lt;matplotlib.axis.XTick object at 0x000000000C462670&gt;, &lt;matplotlib.axis.XTick object at 0x000000000C462DF0&gt;, &lt;matplotlib.axis.XTick object at 0x000000000C462340&gt;, &lt;matplotlib.axis.XTick object at 0x000000000C465250&gt;, &lt;matplotlib.axis.XTick object at 0x000000000C4658E0&gt;, &lt;matplotlib.axis.XTick object at 0x000000000C467130&gt;, &lt;matplotlib.axis.XTick object at 0x000000000C4677C0&gt;, &lt;matplotlib.axis.XTick object at 0x000000000C467F10&gt;, &lt;matplotlib.axis.XTick object at 0x000000000C467C10&gt;, &lt;matplotlib.axis.XTick object at 0x000000000C465AC0&gt;], [Text(0, 0, &#39;SODIUM\nDIFF&#39;), Text(1, 0, &#39;CREATININ\nDIFF&#39;), Text(2, 0, &#39;BLOODPRESSURE\nSISTOLIC\nMEAN&#39;), Text(3, 0, &#39;LACTATE\nMEDIAN&#39;), Text(4, 0, &#39;PH\nVENOUS\nMEDIAN&#39;), Text(5, 0, &#39;GLUCOSE\nDIFF&#39;), Text(6, 0, &#39;TGO\nDIFF&#39;), Text(7, 0, &#39;P02\nVENOUS\nMEDIAN&#39;), Text(8, 0, &#39;BLOODPRESSURE\nSISTOLIC\nDIFF&#39;), Text(9, 0, &#39;PC02\nVENOUS\nDIFF&#39;), Text(10, 0, &#39;PC02\nVENOUS\nMEDIAN&#39;), Text(11, 0, &#39;OXYGEN\nSATURATION\nDIFF&#39;), Text(12, 0, &#39;BE\nVENOUS\nMEDIAN&#39;), Text(13, 0, &#39;HEART\nRATE\nMEAN&#39;), Text(14, 0, &#39;LEUKOCYTES\nDIFF&#39;)])</code></pre>
+<pre><code>## &lt;matplotlib.legend.Legend object at 0x00000000048DE100&gt;</code></pre>
+<pre><code>## Text(0, -0.15, &#39;GRÁFICO 7&#39;)</code></pre>
+<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-13.png" width="1920" /></p>
 <p>A partir dos boxplots percebemos que algumas variáveis parecem realmente ter uma variância muito baixa, como a “SODIUM DIFF”, “CREATININ DIFF”, e as demais que representam diferenças. Por outro lado, percebe-se uma diferença muito grande dos valores de quem foi para UTI e de quem não foi na variável “LACTATE MEDIAN, podendo indicar que essa variável seja importante na hora de modelar os dados.<br><br> Por esta razão vou eliminar todas aquelas variáveis com um valor de variância igual a 0.</p>
-<pre class="python"><code>#Criando uma série com as variâncias para cada coluna numérica
-var = df.select_dtypes(&#39;float64&#39;).var()
-#Ordenando em ordem crescente e mostrando os primeiros valores
-var.sort_values().head()</code></pre>
-<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-63.png" width="1920" /></p>
+<pre><code>## PC02_ARTERIAL_DIFF    0.0
+## PH_ARTERIAL_DIFF      0.0
+## HEMATOCRITE_DIFF      0.0
+## HEMOGLOBIN_DIFF       0.0
+## INR_DIFF              0.0
+## dtype: float64</code></pre>
 <p>Observando os primeiros valores já percebe-se que temos algumas colunas com variância igual a 0.</p>
-<pre class="python"><code>#Selecionando as colunas com variância igual a 0
-cols_0_var = [col for col in var.index if var[col] == 0]
-#Imprimindo na tela as colunas com variância igual a 0
-print(cols_0_var)
-#Mostrando na tela a quantidade de colunas</code></pre>
 <pre><code>## [&#39;ALBUMIN_DIFF&#39;, &#39;BE_ARTERIAL_DIFF&#39;, &#39;BE_VENOUS_DIFF&#39;, &#39;BIC_ARTERIAL_DIFF&#39;, &#39;BIC_VENOUS_DIFF&#39;, &#39;BILLIRUBIN_DIFF&#39;, &#39;BLAST_DIFF&#39;, &#39;CALCIUM_DIFF&#39;, &#39;CREATININ_DIFF&#39;, &#39;FFA_DIFF&#39;, &#39;GGT_DIFF&#39;, &#39;GLUCOSE_DIFF&#39;, &#39;HEMATOCRITE_DIFF&#39;, &#39;HEMOGLOBIN_DIFF&#39;, &#39;INR_DIFF&#39;, &#39;LACTATE_DIFF&#39;, &#39;LEUKOCYTES_DIFF&#39;, &#39;LINFOCITOS_DIFF&#39;, &#39;NEUTROPHILES_DIFF&#39;, &#39;P02_ARTERIAL_DIFF&#39;, &#39;P02_VENOUS_DIFF&#39;, &#39;PC02_ARTERIAL_DIFF&#39;, &#39;PC02_VENOUS_DIFF&#39;, &#39;PCR_DIFF&#39;, &#39;PH_ARTERIAL_DIFF&#39;, &#39;PH_VENOUS_DIFF&#39;, &#39;PLATELETS_DIFF&#39;, &#39;POTASSIUM_DIFF&#39;, &#39;SAT02_ARTERIAL_DIFF&#39;, &#39;SAT02_VENOUS_DIFF&#39;, &#39;SODIUM_DIFF&#39;, &#39;TGO_DIFF&#39;, &#39;TGP_DIFF&#39;, &#39;TTPA_DIFF&#39;, &#39;UREA_DIFF&#39;, &#39;DIMER_DIFF&#39;]</code></pre>
-<pre class="python"><code>print(len(cols_0_var))</code></pre>
-<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-65.png" width="1920" /></p>
+<pre><code>## 36</code></pre>
 <p>Podemos perceber que temos 36 colunas com variância igual a 0 no dataset, e, por esta razão irei eliminá-las.</p>
-<pre class="python"><code>#Eliminando as colunas com variância igual a 0
-df.drop(cols_0_var,axis=1, inplace=True)</code></pre>
-<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-67.png" width="1920" /></p>
-<pre class="python"><code>df.head()</code></pre>
-<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-69.png" width="1920" /></p>
-<pre class="python"><code>df.shape</code></pre>
-<p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-71.png" width="1920" /></p>
+<pre><code>##    AGE_ABOVE65  DISEASE GROUPING 1  ...  AGE_ABOVE_50th  AGE_ABOVE_80th
+## 0            1                   0  ...               1               0
+## 1            0                   0  ...               0               0
+## 2            0                   0  ...               0               0
+## 3            0                   0  ...               0               0
+## 4            0                   0  ...               0               0
+## 
+## [5 rows x 61 columns]</code></pre>
+<pre><code>## (294, 61)</code></pre>
 <p>Podemos ver que saímos de 231 para 62 colunas e agora chegou o momento de testar os modelos de Machine Learning a fim de solucionar o problema. Para isso vou salvar esses dados pré-processados na pasta <a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/tree/main/dados/dados_preprocessados">dados/dados_preprocessados</a>. E continuar o trabalho no notebook, dedicado aos modelos, <a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/notebooks/Previsoes.ipynb">notebooks/Previsoes</a>.</p>
 </div>
 </div>
-<div id="salvando-dados-pré-processados" class="section level1">
-<h1>Salvando dados pré-processados</h1>
-<pre class="python"><code>#df.to_csv(&#39;../../dados/dados_preprocessados/preprocessados.csv&#39;, index=False)</code></pre>
+
+
+
 </div>
-
-
-
+</div>
 
 </div>
 
@@ -828,6 +1142,35 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

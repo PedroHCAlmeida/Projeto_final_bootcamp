@@ -1,0 +1,3 @@
+"0","reticulate::repl_python()"
+"0","# Agrupando os dados por ""PATIENT_VISIT_IDENTIFIER"" e ""ICU"" e aplicando a função fill_table"
+"0","df = df.groupby(['PATIENT_VISIT_IDENTIFIER', 'ICU']).apply(fill_table)"

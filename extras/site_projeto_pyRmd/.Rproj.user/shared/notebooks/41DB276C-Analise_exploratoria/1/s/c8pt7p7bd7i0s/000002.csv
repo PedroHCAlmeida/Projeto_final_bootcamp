@@ -1,0 +1,3 @@
+"0","reticulate::repl_python()"
+"0","# Eliminando dados nulos"
+"0","df = df.dropna()"

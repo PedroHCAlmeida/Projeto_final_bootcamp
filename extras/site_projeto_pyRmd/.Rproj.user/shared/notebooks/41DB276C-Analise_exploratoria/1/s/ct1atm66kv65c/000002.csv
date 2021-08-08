@@ -1,0 +1,9 @@
+"0","reticulate::repl_python()"
+"0","df[binary] = df[binary].astype('int64')"
+"0","df.info()"
+"1","<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 294 entries, 0 to 293
+Columns: 229 entries, AGE_ABOVE65 to ICU
+dtypes: float64(216), int64(12), object(1)
+memory usage: 526.1+ KB
+"

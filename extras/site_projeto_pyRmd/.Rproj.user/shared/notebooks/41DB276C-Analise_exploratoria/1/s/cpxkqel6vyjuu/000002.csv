@@ -1,0 +1,9 @@
+"0","reticulate::repl_python()"
+"0","cont_melt.head()"
+"1","   ICU           variable     value
+0    1  LINFOCITOS_MEDIAN -0.914938
+1    1  LINFOCITOS_MEDIAN -0.908714
+2    0  LINFOCITOS_MEDIAN -0.836100
+3    0  LINFOCITOS_MEDIAN -0.641079
+4    0  LINFOCITOS_MEDIAN -0.340249
+"
