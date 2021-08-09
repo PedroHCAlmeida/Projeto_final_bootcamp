@@ -1,4 +1,18 @@
 "0","Sys.setenv(RETICULATE_PYTHON = ""C:/Users/pedro/anaconda3_02/envs/bootcampfinal/python.exe"")"
+"2","Warning messages:
+"
+"2","1: "
+"2","In readLines(index, encoding = encoding) :"
+"2","
+ "
+"2"," incomplete final line found on 'C:/Users/pedro/Documents/Alura/Projeto_final_bootcamp/extras/site_projeto_pyRmd/index.Rmd'
+"
+"2","2: "
+"2","In readLines(index, encoding = encoding) :"
+"2","
+ "
+"2"," incomplete final line found on 'C:/Users/pedro/Documents/Alura/Projeto_final_bootcamp/extras/site_projeto_pyRmd/index.Rmd'
+"
 "0","library(reticulate)"
 "0","use_condaenv(""C:/Users/pedro/anaconda3_02/envs/bootcampfinal"", required = TRUE)#"
 "0","repl_python()"

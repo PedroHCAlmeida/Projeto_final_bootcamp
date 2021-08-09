@@ -440,7 +440,7 @@ div.tocify {
 
 <div id="previsões" class="section level1">
 <h1>Previsões</h1>
-<p><img src="https://raw.githubusercontent.com/PedroHCAlmeida/Projeto_final_bootcamp/main/img/share.png?token=ASNXTHRK252ELJWBWQKPYETBB3TCG" /></p>
+<p><img src="https://raw.githubusercontent.com/PedroHCAlmeida/Projeto_final_bootcamp/main/img/share.png" /></p>
 <div id="resumo" class="section level2">
 <h2>Resumo</h2>
 <p>Após realizar o pré-processamento e a análise exploratória dos dados disponibilizados pelo Hospital Sírio-Libanês no <a href="https://www.kaggle.com/S%C3%ADrio-Libanes/covid19">kaggle</a>, neste notebook o foco foi na solução do problema, ou seja, foram testados modelos de Machine Learning a fim de resolver o problema notificado pelo hospital com a melhor eficácia possível. Para isso foram testados 6 modelos diferentes de classificação, aplicando técnicas de reamostragem e de seleção de variáveis.</p>
@@ -495,18 +495,18 @@ div.tocify {
 <div id="roc-auc" class="section level2">
 <h2>ROC AUC</h2>
 <p>A métrica ROC AUC é utilizada para problemas de classificação binárias e consiste na área abaixo da curva ROC do modelo. Essa curva é gerada através das taxas de valores verdadeiros positivos e falsos positivos previstos pelo modelo. Ela consegue mensurar o quão bem um modelo consegue separar os dados em relação a variável alvo, no nosso caso, a capacidade de um modelo em separar, através de <strong>probabilidades</strong>, os pacientes que precisaram de cuidados intensivos dos pacientes que não precisaram de cuidados intensivos. Por esta razão, essa métrica vai ser utilizada para selecionar os <strong>dois melhores modelos que possuem a maior capacidade de separar esses dois grupos</strong>.</p>
-<p><img src="https://raw.githubusercontent.com/PedroHCAlmeida/Projeto_final_bootcamp/main/img/roc_curve.jpg?token=ASNXTHRPZWZSIUSKA57LS2LBB3SVG" /></p>
+<p><img src="https://raw.githubusercontent.com/PedroHCAlmeida/Projeto_final_bootcamp/main/img/roc_curve.jpg" /></p>
 </div>
 <div id="f1-score" class="section level2">
 <h2>F1 score</h2>
-<p>A métrica F1 score combina a precisão, que mede, entre os valores classificados, quantos estavam corretos, e o recall, que mede entre, os valores corretos , quantos foram classificados corretamente. O principal fator que utilizarei essa métrica para <strong>realizar a otimização dos modelos</strong> é que ela sempre da um peso maior para o pior valor entre a precisão e o recall, ou seja, ela é mais sensível em modelos enviesados que possuem uma tendência maior de prever um determinado grupo. Com isso, tendo um maior valor dessa métrica, temos mais chances de um maior equilíbrio entre as demais.</p>
+<p>A métrica F1 score combina a precisão, que mede, entre os valores classificados, quantos estavam corretos, e o recall, que mede entre os valores corretos quantos foram classificados corretamente. O principal fator que utilizarei essa métrica para <strong>realizar a otimização dos modelos</strong> é que ela sempre da um peso maior para o pior valor entre a precisão e o recall, ou seja, ela é mais sensível em modelos enviesados que possuem uma tendência maior de prever um determinado grupo. Com isso, tendo um maior valor dessa métrica, temos mais chances de um maior equilíbrio entre as demais.</p>
 <p><strong>OBS: FOI UTILIZADA A MÉDIA MACRO DA F1 SCORE PARA REALIZAR ESSA OTIMIZAÇÃO</strong></p>
 </div>
 <div id="validação-cruzada" class="section level2">
 <h2>Validação cruzada</h2>
 <p>Além de selecionar as métricas, devemos ter a maior certeza possível do resultado obtido pelo modelo, tentando excluir ao máximo a aleatoriedade na hora de testá-los. Para isso utilizarei uma <strong>validação cruzada</strong> em todos os testes.</p>
 <p>A validação cruzada é um método estatístico usado para estimar a habilidade dos modelos de aprendizado de máquina. Tem o objetivo de resumir a performance de um modelo de Machine Learning da maneira mais realista possível tentando generalizar ao máximo os testes. Essa técnica consiste em realizar divisões dentro do dataset inteiro gerando vários <strong>subconjuntos</strong> dos dados e, posteriormente, realizar treinamentos e testes alternando o subconjunto que será destinado aos testes (utilizando os demais para treino), e dessa forma calcular as métricas de diferentes combinações dos dados destinados para treino e teste.</p>
-<p><img src="https://raw.githubusercontent.com/PedroHCAlmeida/Projeto_final_bootcamp/main/img/dataml_cross_validation.png?token=ASNXTHSHEXSDXFKCCL6AFZ3BB3SXK" /></p>
+<p><img src="https://raw.githubusercontent.com/PedroHCAlmeida/Projeto_final_bootcamp/main/img/dataml_cross_validation.png" /></p>
 <p>Porém realizar essa divisão de qualquer maneira pode criar um viés dependendo das proporções das classes da variável alvo nos subconjuntos, para isso podemos estabelecer um critério na hora dessa divisão, e o critério utilizado será tentar <strong>manter a mesma proporção</strong>, ou muito próximas, das classes 0 e 1(foi ou não foi para UTI) em <strong>todos os subconjuntos</strong>.<br><br> Além disso, como foi visto na análise exploratória(<a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/notebooks/Analise_exploratoria.ipynb">notebooks/Analise_explotaroria</a>), o nosso dataset pré-processado possui informações de <strong>294</strong> pacientes, o que é um número pequeno de observações, e para tentar diminuir o efeito desse problema podemos realizar essa validação cruzada diversas vezes, e, a cada vez, dividir novamente o conjunto de dados em subconjuntos diferentes de forma aleatória. Para isso vou utilizar a classe RepeatedStratifiedKFold( ) do pacote sklearn.model_selection, e ,dessa forma, realizar a validação cruzada da seguinte maneira: <br></p>
 <ul>
 <li>1 - Os dados serão embaralhados</li>
@@ -598,7 +598,7 @@ div.tocify {
 ## F1-SCORE  MÉDIO    : 0.391 ± 0.000   |0.783     |nan    
 ## 
 ## TEMPO MÉDIO DE TREINAMENTO:0.001 segundos</code></pre>
-<p>Agora que calculamos as métricas do modelo base, qualquer modelo que tiver uma média da curva <strong>ROC menor do que 0.5 será desconsiderado</strong>.</p>
+<p>Agora que calculamos as métricas do modelo base, qualquer modelo que tiver uma média da curva <strong>ROC menor ou igual que 0.5 será desconsiderado</strong>.</p>
 <p>OBS : No resultado das métricas do baseline nota-se que os resultados das médias para classe 1 foram valores nulos ou zero, isso é porque como a classe 0 é a mais frequente, ele preveu que ninguém ia para UTI em todos os casos, e com isso na hora de calcular as métricas houveram divisões por zero para o F1 score e precisão, e valor zero no numerador para o recall.</p>
 </div>
 <div id="logisticregression" class="section level2">
@@ -620,7 +620,7 @@ div.tocify {
 ## RECALL MÉDIO       : 0.639 ± 0.019   |0.842     |0.436     
 ## F1-SCORE  MÉDIO    : 0.642 ± 0.020   |0.781     |0.507    
 ## 
-## TEMPO MÉDIO DE TREINAMENTO:0.071 segundos</code></pre>
+## TEMPO MÉDIO DE TREINAMENTO:0.067 segundos</code></pre>
 <p>Vemos que com uma regressão logística tivemos uma ROC AUC razoável, porém em relação às demais métricas parece que o modelo se deu bem melhor para prever dados da classe 0, correspondentes aos pacientes que não foram para UTI, do que da <strong>classe 1</strong>, onde tivemos um recall de apenas <strong>0,436</strong>, o que significa que o modelo está classificando muitas pessoas que <strong>precisaram de UTI como se não fossem precisar</strong>, o que é um erro <strong>perigosíssimo</strong>, uma vez que em uma situação real cada erro desses pode <strong>significar uma vida</strong>.</p>
 </div>
 <div id="decisiontreeclassifier" class="section level2">
@@ -642,7 +642,7 @@ div.tocify {
 ## RECALL MÉDIO       : 0.609 ± 0.017   |0.723     |0.494     
 ## F1-SCORE  MÉDIO    : 0.608 ± 0.017   |0.721     |0.496    
 ## 
-## TEMPO MÉDIO DE TREINAMENTO:0.006 segundos</code></pre>
+## TEMPO MÉDIO DE TREINAMENTO:0.007 segundos</code></pre>
 <p>O modelo DescisionTreeClassifier se saiu pior ainda do que a regressão logística, e apresentou os mesmos padrões, em que teve muita dificuldade de prever dados da <strong>classe 1</strong>, e dessa vez obteve todas as métricas dessa classe <strong>abaixo de 0,5</strong>.</p>
 </div>
 <div id="randomforestclassifier" class="section level2">
@@ -664,7 +664,7 @@ div.tocify {
 ## RECALL MÉDIO       : 0.648 ± 0.015   |0.849     |0.447     
 ## F1-SCORE  MÉDIO    : 0.652 ± 0.017   |0.788     |0.520    
 ## 
-## TEMPO MÉDIO DE TREINAMENTO:0.201 segundos</code></pre>
+## TEMPO MÉDIO DE TREINAMENTO:0.293 segundos</code></pre>
 <p>No modelo RandomForestClassifier obteve uma pequena melhora na ROC AUC, porém ainda existe <strong>muita dificuldade ao prever se o paciente precisará ir para UTI</strong>, com um recall de 0,447 para esta classe.</p>
 </div>
 <div id="extratreesclassifier" class="section level2">
@@ -686,7 +686,7 @@ div.tocify {
 ## RECALL MÉDIO       : 0.600 ± 0.017   |0.834     |0.366     
 ## F1-SCORE  MÉDIO    : 0.600 ± 0.019   |0.763     |0.440    
 ## 
-## TEMPO MÉDIO DE TREINAMENTO:0.165 segundos</code></pre>
+## TEMPO MÉDIO DE TREINAMENTO:0.157 segundos</code></pre>
 <p>Com o modelo ExtraTreesClassifier mais uma vez o mesmo problema para prever a <strong>classe 1</strong>, dessa vez com o pior recall até agora de <strong>0,366</strong>.</p>
 </div>
 <div id="xgbclassifier" class="section level2">
@@ -716,7 +716,7 @@ div.tocify {
 ## RECALL MÉDIO       : 0.670 ± 0.014   |0.817     |0.524     
 ## F1-SCORE  MÉDIO    : 0.674 ± 0.014   |0.785     |0.565    
 ## 
-## TEMPO MÉDIO DE TREINAMENTO:0.105 segundos</code></pre>
+## TEMPO MÉDIO DE TREINAMENTO:0.078 segundos</code></pre>
 <p>Agora com o modelo XGBClassifier() fica evidente, mais uma vez, que, independente do modelo testado, estamos tendo um problema enorme em previsões da <strong>classe 1</strong>.</p>
 </div>
 <div id="lgbmclassifier" class="section level2">
@@ -738,7 +738,7 @@ div.tocify {
 ## RECALL MÉDIO       : 0.672 ± 0.015   |0.825     |0.519     
 ## F1-SCORE  MÉDIO    : 0.676 ± 0.015   |0.789     |0.566    
 ## 
-## TEMPO MÉDIO DE TREINAMENTO:0.044 segundos</code></pre>
+## TEMPO MÉDIO DE TREINAMENTO:0.033 segundos</code></pre>
 <p>Por fim o último modelo, LGBMClassifier, apresentou os mesmos problemas encontrados em todos os 6. Vamos observar a <strong>curva ROC</strong> para ver como que os modelos estão performando na hora de <strong>diferenciar as classes</strong>.</p>
 </div>
 <div id="curva-roc-dos-modelos" class="section level2">
@@ -782,7 +782,7 @@ div.tocify {
 ## RECALL MÉDIO       : 0.726 ± 0.014   |0.741     |0.712     
 ## F1-SCORE  MÉDIO    : 0.725 ± 0.014   |0.730     |0.722    
 ## 
-## TEMPO MÉDIO DE TREINAMENTO:0.068 segundos</code></pre>
+## TEMPO MÉDIO DE TREINAMENTO:0.061 segundos</code></pre>
 <p>Testando com o dataframe balanceado fica claro a diferença, o equilíbrio das métricas entre as classes é muito maior e o desempenho muito mais relevante para o problema. Porém ainda temos valores razoáveis, vamos testar uma árvore de decisão para verificar se conseguimos melhores métricas.</p>
 </div>
 <div id="decisiontreeclassifier-1" class="section level2">
@@ -804,7 +804,7 @@ div.tocify {
 ## RECALL MÉDIO       : 0.793 ± 0.010   |0.707     |0.878     
 ## F1-SCORE  MÉDIO    : 0.791 ± 0.011   |0.774     |0.809    
 ## 
-## TEMPO MÉDIO DE TREINAMENTO:0.008 segundos</code></pre>
+## TEMPO MÉDIO DE TREINAMENTO:0.007 segundos</code></pre>
 <p>Com uma árvore de decisão simples já temos valores mais interessantes perto de 80%, o que indica que os próximos modelos ensemble, baseados em árvores de decisão, podem ser uma solução interessante para o problema.</p>
 </div>
 <div id="randomforestclassifier-1" class="section level2">
@@ -826,7 +826,7 @@ div.tocify {
 ## RECALL MÉDIO       : 0.863 ± 0.011   |0.834     |0.892     
 ## F1-SCORE  MÉDIO    : 0.863 ± 0.011   |0.859     |0.867    
 ## 
-## TEMPO MÉDIO DE TREINAMENTO:0.24 segundos</code></pre>
+## TEMPO MÉDIO DE TREINAMENTO:0.202 segundos</code></pre>
 <p>Com um modelo RandomForestClassifier já temos uma ROC AUC média de <strong>0,945</strong>, uma melhora considerável, e possivelmente, já temos um forte candidato para otimização de hiperparâmetros. E dessa vez nota-se um equilíbrio das métricas, independente da classe, e exatamente isso que queremos.</p>
 </div>
 <div id="extratreesclassifier-1" class="section level2">
@@ -848,7 +848,7 @@ div.tocify {
 ## RECALL MÉDIO       : 0.869 ± 0.011   |0.886     |0.853     
 ## F1-SCORE  MÉDIO    : 0.869 ± 0.011   |0.871     |0.867    
 ## 
-## TEMPO MÉDIO DE TREINAMENTO:0.171 segundos</code></pre>
+## TEMPO MÉDIO DE TREINAMENTO:0.151 segundos</code></pre>
 <p>Com o modelo ExtraTreeClassifier temos métricas bem semelhantes ao RandomForestClassifier, e como vamos utilizar dois modelos na hora de otimizar os hyperparâmetros esse pode ser uma boa opção.</p>
 </div>
 <div id="xgbclassifier-1" class="section level2">
@@ -878,7 +878,7 @@ div.tocify {
 ## RECALL MÉDIO       : 0.847 ± 0.011   |0.806     |0.889     
 ## F1-SCORE  MÉDIO    : 0.847 ± 0.011   |0.841     |0.853    
 ## 
-## TEMPO MÉDIO DE TREINAMENTO:0.12 segundos</code></pre>
+## TEMPO MÉDIO DE TREINAMENTO:0.098 segundos</code></pre>
 <p>Com o XGBClassifier tivemos um resultado bom, mas um pouco atrás das duas anteriores, por esta razão esse modelo não será utilizado para otimização de hyperparâmetros.</p>
 </div>
 <div id="lgbmclassifier-1" class="section level2">
@@ -900,7 +900,7 @@ div.tocify {
 ## RECALL MÉDIO       : 0.860 ± 0.010   |0.823     |0.897     
 ## F1-SCORE  MÉDIO    : 0.860 ± 0.010   |0.855     |0.865    
 ## 
-## TEMPO MÉDIO DE TREINAMENTO:0.041 segundos</code></pre>
+## TEMPO MÉDIO DE TREINAMENTO:0.064 segundos</code></pre>
 <p>Com o modelo LGBMClassifier tivemos um resultado muito bom, porém ainda assim atrás da RandomForestClassifier e ExtraTreesClassifier em relação a ROC AUC, por isso este modelo também não será utilizado para otimização de hyperparâmetros.</p>
 </div>
 <div id="curva-roc-dos-modelos-1" class="section level2">
@@ -1021,7 +1021,7 @@ div.tocify {
 ## RECALL MÉDIO       : 0.882 ± 0.010   |0.895     |0.870     
 ## F1-SCORE  MÉDIO    : 0.882 ± 0.010   |0.884     |0.881    
 ## 
-## TEMPO MÉDIO DE TREINAMENTO:0.863 segundos</code></pre>
+## TEMPO MÉDIO DE TREINAMENTO:0.93 segundos</code></pre>
 <p>Nota se que o modelo escolhido pelo random_search foi um modelo com resultados muito consistentes, com valores de acurácia, precisão, recall e F1 muito semelhantes, com semelhança entre as classes também. Além disso, obteve a melhor média de ROC AUC de todos os modelos testados e as melhores médias macro de todas as métricas</p>
 <p>Para ficar mais claro os resultados vamos visualizar essas métricas por meio de histogramas de todos os 50 testes da validação cruzada.</p>
 <pre><code>## array([[&lt;AxesSubplot:title={&#39;left&#39;:&#39;F1 SCORE&#39;}, xlabel=&#39;Valor da métrica&#39;, ylabel=&#39;Frequência&#39;&gt;,

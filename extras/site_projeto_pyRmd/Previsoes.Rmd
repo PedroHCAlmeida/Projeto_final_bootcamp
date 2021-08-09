@@ -173,7 +173,7 @@ dummy = Classifier(DummyClassifier, df, strategy='most_frequent')
 dummy.cross_val()
 ```
 
-Agora que calculamos as métricas do modelo base, qualquer modelo que tiver uma média da curva **ROC menor do que 0.5 será desconsiderado**.
+Agora que calculamos as métricas do modelo base, qualquer modelo que tiver uma média da curva **ROC menor ou igual que 0.5 será desconsiderado**.
 
 OBS : No resultado das métricas do baseline nota-se que os resultados das médias para classe 1 foram valores nulos ou zero, isso é porque como a classe 0 é a mais frequente, ele preveu que ninguém ia para UTI em todos os casos, e com isso na hora de calcular as métricas houveram divisões por zero para o F1 score e precisão, e valor zero no numerador para o recall.
 

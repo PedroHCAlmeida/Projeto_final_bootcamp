@@ -221,7 +221,8 @@ class Classifier:
         '''
         Plota um mapa de calor com os valores compuatados de verdadeiros positivos, falsos positivos,
         verdadeiros neagtivos e falsos negativos. Esses valores são obtidos através da média de diversas 
-        matrizes de confusões geradas na validação cruzada. OBS: os valores foram aproximados para o número inteiro mais próximo da média.
+        matrizes de confusões geradas na validação cruzada. OBS: os valores foram aproximados para o 
+        número inteiro mais próximo da média.
         
         Parâmetros:
         -----------
@@ -362,7 +363,8 @@ class Classifier:
         Parâmetros:
         -----------
         ax : eixo a ser plotado o gráfico, se nenhum for passado será criado automaticamnete, tipo : matplotlib.axes, padrão : None
-        name_estimator: Nome do modelo que aparece na legenda do gráfico, se nenhum for passado será imprimido como o modelo foi instanciado, tipo : str, padrão : None
+        name_estimator: Nome do modelo que aparece na legenda do gráfico, se nenhum for passado será imprimido 
+                        como o modelo foi instanciado, tipo : str, padrão : None
         **kwargs_lineplot : argumentos adicionais a serem passados para função lineplot do seaborn
         
         Retorno:
