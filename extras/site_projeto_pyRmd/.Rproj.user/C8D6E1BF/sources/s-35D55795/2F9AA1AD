@@ -3,7 +3,7 @@
     "path": "~/Alura/Projeto_final_bootcamp/extras/site_projeto_pyRmd/Analise_exploratoria.Rmd",
     "project_path": "Analise_exploratoria.Rmd",
     "type": "r_markdown",
-    "hash": "329891696",
+    "hash": "1844204875",
     "contents": "",
     "dirty": false,
     "created": 1628465444123.0,
@@ -12,16 +12,16 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "283,57",
-        "scrollLine": "259",
+        "cursorPosition": "309,57",
+        "scrollLine": "285",
         "last_setup_crc32": ""
     },
     "folds": "",
-    "lastKnownWriteTime": 1628468586,
+    "lastKnownWriteTime": 1628469053,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1628468586510,
+    "last_content_update": 1628469053750,
     "read_only": false,
     "read_only_alternatives": []
 }

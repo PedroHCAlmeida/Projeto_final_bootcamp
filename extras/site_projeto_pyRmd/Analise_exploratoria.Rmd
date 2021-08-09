@@ -306,6 +306,9 @@ annot_bar(prop=False, ax=ax1, fontsize=25)
 #Definindo eixo y
 plt.ylim([0,220])
 
+#Configurando o eixo x
+plt.xticks(range(2),['Não foi para UTI', 'Foi para UTI'])
+
 #Adicionando uma referência para o gráfico
 plt.text(0,-0.1, 'GRÁFICO 1', color='black', transform=ax1.transAxes, fontsize=15)
 plt.show()
