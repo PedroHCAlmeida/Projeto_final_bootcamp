@@ -9,8 +9,8 @@
    * [Resumo](#res)
    * [Contexto](#cont)
    * [Estrutura do projeto](#estru)
-   * [Modelo Final](#model)
-   * [Bibliotecas utilizada](#bibli)
+   * [Modelos](#model)
+   * [Bibliotecas utilizadas](#bibli)
    * [Agradecimentos](#agrad)
    * [Referências](#ref)
    * [Contato](#contato)
@@ -118,9 +118,9 @@ F1-SCORE  | **0.882**
 
 Esse projeto foi realizado utilizando a linguagem Python versão 3.9.6, e os notebooks foram desenvolvidos através da ferramenta jupyter lab dentro de um ambiente criado pela plataforma anaconda, as principais bibliotecas usadas foram:
 * Pandas versão 1.3.1 : biblioteca rápida e poderosa usada para manipulação de dados
-* Matplotlib versão 3.1.3 : biblioteca usada para visualização de dados
+* Matplotlib versão 3.4.2 : biblioteca usada para visualização de dados
 * Seaborn versão 0.11.1 : biblioteca baseada no Matplotlib para visualização de gráficos estatísticos mais complexos
-* Numpy versão 1.20.2 : biblioteca utilizada para computação matemática
+* Numpy versão 1.19.5 : biblioteca utilizada para computação matemática
 * Scikit-learn versão 0.24.2 : biblioteca utilizada na criação de modelos de Machine Learning
 * Todas as bibliotecas e versões podem ser encontradas no arquivo [requirements.txt](https://github.com/PedroHCAlmeida/)
 
