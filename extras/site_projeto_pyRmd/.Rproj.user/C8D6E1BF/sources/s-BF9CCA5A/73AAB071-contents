@@ -110,7 +110,7 @@ A métrica ROC AUC é utilizada para problemas de classificação binárias e co
 
 ## F1 score
 
-A métrica F1 score combina a precisão, que mede, entre os valores classificados, quantos estavam corretos, e o recall, que mede entre, os valores corretos , quantos foram classificados corretamente. O principal fator que utilizarei essa métrica para **realizar a otimização dos modelos** é que ela sempre da um peso maior para o pior valor entre a precisão e o recall, ou seja, ela é mais sensível em modelos enviesados que possuem uma tendência maior de prever um determinado grupo. Com isso, tendo um maior valor dessa métrica, temos mais chances de um maior equilíbrio entre as demais.
+A métrica F1 score combina a precisão, que mede, entre os valores classificados, quantos estavam corretos, e o recall, que mede entre os valores corretos quantos foram classificados corretamente. O principal fator que utilizarei essa métrica para **realizar a otimização dos modelos** é que ela sempre da um peso maior para o pior valor entre a precisão e o recall, ou seja, ela é mais sensível em modelos enviesados que possuem uma tendência maior de prever um determinado grupo. Com isso, tendo um maior valor dessa métrica, temos mais chances de um maior equilíbrio entre as demais.
 
 **OBS: FOI UTILIZADA A MÉDIA MACRO DA F1 SCORE PARA REALIZAR ESSA OTIMIZAÇÃO**
 
@@ -173,7 +173,7 @@ dummy = Classifier(DummyClassifier, df, strategy='most_frequent')
 dummy.cross_val()
 ```
 
-Agora que calculamos as métricas do modelo base, qualquer modelo que tiver uma média da curva **ROC menor do que 0.5 será desconsiderado**.
+Agora que calculamos as métricas do modelo base, qualquer modelo que tiver uma média da curva **ROC menor ou igual que 0.5 será desconsiderado**.
 
 OBS : No resultado das métricas do baseline nota-se que os resultados das médias para classe 1 foram valores nulos ou zero, isso é porque como a classe 0 é a mais frequente, ele preveu que ninguém ia para UTI em todos os casos, e com isso na hora de calcular as métricas houveram divisões por zero para o F1 score e precisão, e valor zero no numerador para o recall.
 

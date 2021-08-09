@@ -110,7 +110,7 @@ A métrica ROC AUC é utilizada para problemas de classificação binárias e co
 
 ## F1 score
 
-A métrica F1 score combina a precisão, que mede, entre os valores classificados, quantos estavam corretos, e o recall, que mede entre, os valores corretos , quantos foram classificados corretamente. O principal fator que utilizarei essa métrica para **realizar a otimização dos modelos** é que ela sempre da um peso maior para o pior valor entre a precisão e o recall, ou seja, ela é mais sensível em modelos enviesados que possuem uma tendência maior de prever um determinado grupo. Com isso, tendo um maior valor dessa métrica, temos mais chances de um maior equilíbrio entre as demais.
+A métrica F1 score combina a precisão, que mede, entre os valores classificados, quantos estavam corretos, e o recall, que mede entre os valores corretos quantos foram classificados corretamente. O principal fator que utilizarei essa métrica para **realizar a otimização dos modelos** é que ela sempre da um peso maior para o pior valor entre a precisão e o recall, ou seja, ela é mais sensível em modelos enviesados que possuem uma tendência maior de prever um determinado grupo. Com isso, tendo um maior valor dessa métrica, temos mais chances de um maior equilíbrio entre as demais.
 
 **OBS: FOI UTILIZADA A MÉDIA MACRO DA F1 SCORE PARA REALIZAR ESSA OTIMIZAÇÃO**
 

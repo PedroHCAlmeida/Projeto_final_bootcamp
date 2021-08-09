@@ -3,24 +3,24 @@
     "path": "~/Alura/Projeto_final_bootcamp/extras/site_projeto_pyRmd/Previsoes.Rmd",
     "project_path": "Previsoes.Rmd",
     "type": "r_markdown",
-    "hash": "1874934344",
+    "hash": "0",
     "contents": "",
-    "dirty": false,
+    "dirty": true,
     "created": 1628454687446.0,
     "source_on_save": false,
     "relative_order": 4,
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "122,112",
-        "scrollLine": "121"
+        "cursorPosition": "175,114",
+        "scrollLine": "171"
     },
     "folds": "",
-    "lastKnownWriteTime": 1628465552,
+    "lastKnownWriteTime": 1628467022,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1628465552402,
+    "last_content_update": 1628467068688,
     "read_only": false,
     "read_only_alternatives": []
 }
