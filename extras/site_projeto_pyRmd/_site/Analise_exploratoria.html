@@ -726,6 +726,7 @@ div.tocify {
 <span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <pre><code>## &lt;AxesSubplot:xlabel=&#39;ICU&#39;, ylabel=&#39;count&#39;&gt;</code></pre>
 <pre><code>## (0.0, 220.0)</code></pre>
+<pre><code>## ([&lt;matplotlib.axis.XTick object at 0x0000000063DF0940&gt;, &lt;matplotlib.axis.XTick object at 0x0000000063DF05E0&gt;], [Text(0, 0, &#39;Não foi para UTI&#39;), Text(1, 0, &#39;Foi para UTI&#39;)])</code></pre>
 <pre><code>## Text(0, -0.1, &#39;GRÁFICO 1&#39;)</code></pre>
 <p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-1.png" width="1920" /></p>
 <p>Observando o gráfico 1 fica claro que a maioria dos pacientes presentes no dataset não precisaram de cuidados intensivos, fato este que apoia a realização de uma reamostragem a fim de balancear o dataframe em relação a variável “ICU”, porém essa reamostragem será realizada e testada apenas quando formos comparar os modelos de Machine Learning no notebook <a href="https://github.com/PedroHCAlmeida/Projeto_final_bootcamp/blob/main/notebooks/Previsoes.ipynb">notebooks/Previsoes</a>.</p>
@@ -767,27 +768,27 @@ div.tocify {
 ## 18    Above 90th    1  0.555556
 ## 19    Above 90th    0  0.444444</code></pre>
 <p>Com a tabela pronta podemos visualizar em um gráfico esse comportamento.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando a figura</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>fig, ax2 <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">20</span>,<span class="dv">10</span>)) </span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando o gráfico</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>sns.barplot(data<span class="op">=</span>percentil_prop, y<span class="op">=</span><span class="st">&#39;Prop&#39;</span>, x<span class="op">=</span><span class="st">&#39;AGE_PERCENTIL&#39;</span>, hue<span class="op">=</span><span class="st">&#39;ICU&#39;</span>, ax<span class="op">=</span>ax2, palette<span class="op">=</span>[<span class="st">&#39;#3366ff&#39;</span>, <span class="st">&#39;#993300&#39;</span>])</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotando rótulos e títulos</span></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>labs(title<span class="op">=</span><span class="st">&#39;Proporção de pacientes que foram para UTI por idade&#39;</span>, subtitle<span class="op">=</span><span class="st">&#39;IDADE REPRESENTADA PELO PERCENTIL DA IDADE DO PACIENTE&#39;</span>,</span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>     xlabel<span class="op">=</span><span class="st">&#39;Percentil da idade&#39;</span>, ylabel<span class="op">=</span><span class="st">&#39;Proporção&#39;</span>,ax<span class="op">=</span>ax2)</span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Configurando a legenda</span></span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>handles, labels <span class="op">=</span> ax2.get_legend_handles_labels()</span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>plt.legend(handles[<span class="dv">0</span>:<span class="dv">2</span>], [<span class="st">&#39;Não foi para UTI&#39;</span>, <span class="st">&#39;Foi para UTI&#39;</span>], bbox_to_anchor<span class="op">=</span>(<span class="fl">0.85</span>, <span class="dv">1</span>), loc<span class="op">=</span><span class="dv">2</span>, borderaxespad<span class="op">=</span><span class="fl">0.</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="co">#Definindo o eixo y</span></span>
-<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>plt.ylim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
-<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a><span class="co">#Adicionando uma referência para o gráfico</span></span>
-<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>plt.text(<span class="dv">0</span>,<span class="op">-</span><span class="fl">0.1</span>, <span class="st">&#39;GRÁFICO 2&#39;</span>, color<span class="op">=</span><span class="st">&#39;black&#39;</span>, transform<span class="op">=</span>ax2.transAxes, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
-<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando a figura</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>fig, ax2 <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">20</span>,<span class="dv">10</span>)) </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando o gráfico</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>sns.barplot(data<span class="op">=</span>percentil_prop, y<span class="op">=</span><span class="st">&#39;Prop&#39;</span>, x<span class="op">=</span><span class="st">&#39;AGE_PERCENTIL&#39;</span>, hue<span class="op">=</span><span class="st">&#39;ICU&#39;</span>, ax<span class="op">=</span>ax2, palette<span class="op">=</span>[<span class="st">&#39;#3366ff&#39;</span>, <span class="st">&#39;#993300&#39;</span>])</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotando rótulos e títulos</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>labs(title<span class="op">=</span><span class="st">&#39;Proporção de pacientes que foram para UTI por idade&#39;</span>, subtitle<span class="op">=</span><span class="st">&#39;IDADE REPRESENTADA PELO PERCENTIL DA IDADE DO PACIENTE&#39;</span>,</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>     xlabel<span class="op">=</span><span class="st">&#39;Percentil da idade&#39;</span>, ylabel<span class="op">=</span><span class="st">&#39;Proporção&#39;</span>,ax<span class="op">=</span>ax2)</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Configurando a legenda</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>handles, labels <span class="op">=</span> ax2.get_legend_handles_labels()</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>plt.legend(handles[<span class="dv">0</span>:<span class="dv">2</span>], [<span class="st">&#39;Não foi para UTI&#39;</span>, <span class="st">&#39;Foi para UTI&#39;</span>], bbox_to_anchor<span class="op">=</span>(<span class="fl">0.85</span>, <span class="dv">1</span>), loc<span class="op">=</span><span class="dv">2</span>, borderaxespad<span class="op">=</span><span class="fl">0.</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="co">#Definindo o eixo y</span></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>plt.ylim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a><span class="co">#Adicionando uma referência para o gráfico</span></span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>plt.text(<span class="dv">0</span>,<span class="op">-</span><span class="fl">0.1</span>, <span class="st">&#39;GRÁFICO 2&#39;</span>, color<span class="op">=</span><span class="st">&#39;black&#39;</span>, transform<span class="op">=</span>ax2.transAxes, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <pre><code>## &lt;AxesSubplot:xlabel=&#39;AGE_PERCENTIL&#39;, ylabel=&#39;Prop&#39;&gt;</code></pre>
-<pre><code>## &lt;matplotlib.legend.Legend object at 0x0000000064F1C5E0&gt;</code></pre>
+<pre><code>## &lt;matplotlib.legend.Legend object at 0x0000000064037FA0&gt;</code></pre>
 <pre><code>## (0.0, 1.0)</code></pre>
 <pre><code>## Text(0, -0.1, &#39;GRÁFICO 2&#39;)</code></pre>
 <p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-3.png" width="1920" /></p>
@@ -849,36 +850,36 @@ div.tocify {
 ## 8  AGE_UNDER_50th      0  0.477124
 ## 9  AGE_UNDER_50th      1  0.226950</code></pre>
 <p>Com a tabela pronta indicando a proporção, para cada valor de cada variável de idade, podemos visualizar em um gráfico esse comportamento.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando a figura</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>fig, ax3 <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">20</span>,<span class="dv">10</span>)) </span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando o gráfico</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>sns.barplot(data<span class="op">=</span>ages_prop, y<span class="op">=</span><span class="st">&#39;Prop&#39;</span>, x<span class="op">=</span><span class="st">&#39;variable&#39;</span>, hue<span class="op">=</span><span class="st">&#39;value&#39;</span>, ax<span class="op">=</span>ax3, palette<span class="op">=</span><span class="st">&#39;muted&#39;</span>)</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotando rótulos e títulos</span></span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>labs(title<span class="op">=</span><span class="st">&#39;Proporção de pacientes que foram para UTI dado que pertence a uma faixa etária&#39;</span>, </span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>     subtitle<span class="op">=</span><span class="st">&#39;PROPORÇÃO CALCULADA DE PACIENTES QUE FORAM PARA UTI DADO QUE PERTENCIA  A UM GRUPO DAS COLUNAS DE IDADE&#39;</span>,</span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>     xlabel<span class="op">=</span><span class="st">&#39;Variável&#39;</span>, ylabel<span class="op">=</span><span class="st">&#39;Proporção&#39;</span>,ax<span class="op">=</span>ax3)</span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Configurando a legenda</span></span>
-<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>handles, labels <span class="op">=</span> ax3.get_legend_handles_labels()</span>
-<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>plt.legend(handles[<span class="dv">0</span>:<span class="dv">2</span>], [<span class="st">&#39;0&#39;</span>,<span class="st">&#39;1&#39;</span>], bbox_to_anchor<span class="op">=</span>(<span class="fl">0.94</span>, <span class="dv">1</span>), loc<span class="op">=</span><span class="dv">2</span>, borderaxespad<span class="op">=</span><span class="fl">0.</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
-<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a><span class="co">#Configurando o eixo x</span></span>
-<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>plt.xticks(<span class="bu">range</span>(<span class="dv">5</span>),labels<span class="op">=</span>ages_prop[<span class="st">&#39;variable&#39;</span>].<span class="bu">str</span>.split(<span class="vs">r&#39;_| &#39;</span>).<span class="bu">str</span>.join(<span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span>).unique())</span>
-<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a><span class="co">#Anotando em cima das barras</span></span>
-<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a>annot_bar(ax3)</span>
-<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a><span class="co">#Definindo o eixo y</span></span>
-<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a>plt.ylim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
-<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a><span class="co">#Adicionando uma referência para o gráfico</span></span>
-<span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a>plt.text(<span class="dv">0</span>,<span class="op">-</span><span class="fl">0.1</span>, <span class="st">&#39;GRÁFICO 3&#39;</span>, color<span class="op">=</span><span class="st">&#39;black&#39;</span>, transform<span class="op">=</span>ax3.transAxes, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
-<span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando a figura</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>fig, ax3 <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">20</span>,<span class="dv">10</span>)) </span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando o gráfico</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>sns.barplot(data<span class="op">=</span>ages_prop, y<span class="op">=</span><span class="st">&#39;Prop&#39;</span>, x<span class="op">=</span><span class="st">&#39;variable&#39;</span>, hue<span class="op">=</span><span class="st">&#39;value&#39;</span>, ax<span class="op">=</span>ax3, palette<span class="op">=</span><span class="st">&#39;muted&#39;</span>)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotando rótulos e títulos</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>labs(title<span class="op">=</span><span class="st">&#39;Proporção de pacientes que foram para UTI dado que pertence a uma faixa etária&#39;</span>, </span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>     subtitle<span class="op">=</span><span class="st">&#39;PROPORÇÃO CALCULADA DE PACIENTES QUE FORAM PARA UTI DADO QUE PERTENCIA  A UM GRUPO DAS COLUNAS DE IDADE&#39;</span>,</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>     xlabel<span class="op">=</span><span class="st">&#39;Variável&#39;</span>, ylabel<span class="op">=</span><span class="st">&#39;Proporção&#39;</span>,ax<span class="op">=</span>ax3)</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Configurando a legenda</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>handles, labels <span class="op">=</span> ax3.get_legend_handles_labels()</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>plt.legend(handles[<span class="dv">0</span>:<span class="dv">2</span>], [<span class="st">&#39;0&#39;</span>,<span class="st">&#39;1&#39;</span>], bbox_to_anchor<span class="op">=</span>(<span class="fl">0.94</span>, <span class="dv">1</span>), loc<span class="op">=</span><span class="dv">2</span>, borderaxespad<span class="op">=</span><span class="fl">0.</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a><span class="co">#Configurando o eixo x</span></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>plt.xticks(<span class="bu">range</span>(<span class="dv">5</span>),labels<span class="op">=</span>ages_prop[<span class="st">&#39;variable&#39;</span>].<span class="bu">str</span>.split(<span class="vs">r&#39;_| &#39;</span>).<span class="bu">str</span>.join(<span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span>).unique())</span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a><span class="co">#Anotando em cima das barras</span></span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>annot_bar(ax3)</span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a><span class="co">#Definindo o eixo y</span></span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a>plt.ylim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
+<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a><span class="co">#Adicionando uma referência para o gráfico</span></span>
+<span id="cb33-26"><a href="#cb33-26" aria-hidden="true" tabindex="-1"></a>plt.text(<span class="dv">0</span>,<span class="op">-</span><span class="fl">0.1</span>, <span class="st">&#39;GRÁFICO 3&#39;</span>, color<span class="op">=</span><span class="st">&#39;black&#39;</span>, transform<span class="op">=</span>ax3.transAxes, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb33-27"><a href="#cb33-27" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <pre><code>## &lt;AxesSubplot:xlabel=&#39;variable&#39;, ylabel=&#39;Prop&#39;&gt;</code></pre>
-<pre><code>## &lt;matplotlib.legend.Legend object at 0x00000000046198E0&gt;</code></pre>
-<pre><code>## ([&lt;matplotlib.axis.XTick object at 0x000000006539F220&gt;, &lt;matplotlib.axis.XTick object at 0x000000006539F1F0&gt;, &lt;matplotlib.axis.XTick object at 0x0000000064F38880&gt;, &lt;matplotlib.axis.XTick object at 0x00000000045DA3A0&gt;, &lt;matplotlib.axis.XTick object at 0x00000000045DAAF0&gt;], [Text(0, 0, &#39;AGE\nABOVE65&#39;), Text(1, 0, &#39;AGE\nABOVE\n50th&#39;), Text(2, 0, &#39;AGE\nABOVE\n80th&#39;), Text(3, 0, &#39;AGE\nUNDER\n30th&#39;), Text(4, 0, &#39;AGE\nUNDER\n50th&#39;)])</code></pre>
+<pre><code>## &lt;matplotlib.legend.Legend object at 0x000000006402D910&gt;</code></pre>
+<pre><code>## ([&lt;matplotlib.axis.XTick object at 0x0000000063EAF8E0&gt;, &lt;matplotlib.axis.XTick object at 0x0000000063EAF8B0&gt;, &lt;matplotlib.axis.XTick object at 0x0000000063EAA4F0&gt;, &lt;matplotlib.axis.XTick object at 0x0000000064016A60&gt;, &lt;matplotlib.axis.XTick object at 0x00000000640141F0&gt;], [Text(0, 0, &#39;AGE\nABOVE65&#39;), Text(1, 0, &#39;AGE\nABOVE\n50th&#39;), Text(2, 0, &#39;AGE\nABOVE\n80th&#39;), Text(3, 0, &#39;AGE\nUNDER\n30th&#39;), Text(4, 0, &#39;AGE\nUNDER\n50th&#39;)])</code></pre>
 <pre><code>## (0.0, 1.0)</code></pre>
 <pre><code>## Text(0, -0.1, &#39;GRÁFICO 3&#39;)</code></pre>
 <p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-5.png" width="1920" /></p>
@@ -903,32 +904,32 @@ div.tocify {
 ## 1   GENDER      1  0.274336</code></pre>
 <p>Com a tabela pronta indicando a proporção de pacientes que foram para UTI dependendo do genêro podemos visualizar em um gráfico esse comportamento.</p>
 <p><strong>OBS: POR CONTA DA ANONIMIZAÇÃO DOS DADOS NÃO FOI INFORMADO QUAL GENÊRO É REPRESENTADO POR QUAL NÚMERO, POR ISSO SERÁ REPRESENTADO COMO 0 e 1</strong></p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando a figura</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>fig, ax4 <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">8</span>)) </span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando o gráfico</span></span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>sns.barplot(data<span class="op">=</span>gender_prop, y<span class="op">=</span><span class="st">&#39;Prop&#39;</span>, x<span class="op">=</span><span class="st">&#39;variable&#39;</span>, hue<span class="op">=</span><span class="st">&#39;value&#39;</span>, ax<span class="op">=</span>ax4, palette<span class="op">=</span>[<span class="st">&#39;#ffcc00&#39;</span>,<span class="st">&#39;#0066ff&#39;</span>])</span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotando rótulos e títulos</span></span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>labs(title<span class="op">=</span><span class="st">&#39;Proporção de pacientes que foram para UTI de acordo com o gênero&#39;</span>, </span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>     subtitle<span class="op">=</span><span class="st">&#39;PROPORÇÃO CALCULADA DE PACIENTES QUE FORAM PARA UTI DADO O GENÊRO&#39;</span>,</span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>     xlabel<span class="op">=</span><span class="st">&#39;Variável&#39;</span>, ylabel<span class="op">=</span><span class="st">&#39;Proporção&#39;</span>,ax<span class="op">=</span>ax4)</span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Configurando a legenda</span></span>
-<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>handles, labels <span class="op">=</span> ax4.get_legend_handles_labels()</span>
-<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>plt.legend(handles[<span class="dv">0</span>:<span class="dv">2</span>], [<span class="st">&#39;0&#39;</span>,<span class="st">&#39;1&#39;</span>], bbox_to_anchor<span class="op">=</span>(<span class="fl">0.94</span>, <span class="dv">1</span>), loc<span class="op">=</span><span class="dv">2</span>, borderaxespad<span class="op">=</span><span class="fl">0.</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
-<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a><span class="co">#Anotando em cima das barras</span></span>
-<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>annot_bar(ax4)</span>
-<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a><span class="co">#Definindo o eixo y</span></span>
-<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a>plt.ylim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
-<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a><span class="co">#Adicionando uma referência para o gráfico</span></span>
-<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a>plt.text(<span class="dv">0</span>,<span class="op">-</span><span class="fl">0.1</span>, <span class="st">&#39;GRÁFICO 4&#39;</span>, color<span class="op">=</span><span class="st">&#39;black&#39;</span>, transform<span class="op">=</span>ax4.transAxes, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
-<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando a figura</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>fig, ax4 <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">8</span>)) </span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando o gráfico</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>sns.barplot(data<span class="op">=</span>gender_prop, y<span class="op">=</span><span class="st">&#39;Prop&#39;</span>, x<span class="op">=</span><span class="st">&#39;variable&#39;</span>, hue<span class="op">=</span><span class="st">&#39;value&#39;</span>, ax<span class="op">=</span>ax4, palette<span class="op">=</span>[<span class="st">&#39;#ffcc00&#39;</span>,<span class="st">&#39;#0066ff&#39;</span>])</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotando rótulos e títulos</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>labs(title<span class="op">=</span><span class="st">&#39;Proporção de pacientes que foram para UTI de acordo com o gênero&#39;</span>, </span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>     subtitle<span class="op">=</span><span class="st">&#39;PROPORÇÃO CALCULADA DE PACIENTES QUE FORAM PARA UTI DADO O GENÊRO&#39;</span>,</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>     xlabel<span class="op">=</span><span class="st">&#39;Variável&#39;</span>, ylabel<span class="op">=</span><span class="st">&#39;Proporção&#39;</span>,ax<span class="op">=</span>ax4)</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Configurando a legenda</span></span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>handles, labels <span class="op">=</span> ax4.get_legend_handles_labels()</span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>plt.legend(handles[<span class="dv">0</span>:<span class="dv">2</span>], [<span class="st">&#39;0&#39;</span>,<span class="st">&#39;1&#39;</span>], bbox_to_anchor<span class="op">=</span>(<span class="fl">0.94</span>, <span class="dv">1</span>), loc<span class="op">=</span><span class="dv">2</span>, borderaxespad<span class="op">=</span><span class="fl">0.</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a><span class="co">#Anotando em cima das barras</span></span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>annot_bar(ax4)</span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a><span class="co">#Definindo o eixo y</span></span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a>plt.ylim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
+<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a><span class="co">#Adicionando uma referência para o gráfico</span></span>
+<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a>plt.text(<span class="dv">0</span>,<span class="op">-</span><span class="fl">0.1</span>, <span class="st">&#39;GRÁFICO 4&#39;</span>, color<span class="op">=</span><span class="st">&#39;black&#39;</span>, transform<span class="op">=</span>ax4.transAxes, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <pre><code>## &lt;AxesSubplot:xlabel=&#39;variable&#39;, ylabel=&#39;Prop&#39;&gt;</code></pre>
-<pre><code>## &lt;matplotlib.legend.Legend object at 0x00000000653142B0&gt;</code></pre>
+<pre><code>## &lt;matplotlib.legend.Legend object at 0x0000000004629B80&gt;</code></pre>
 <pre><code>## (0.0, 1.0)</code></pre>
 <pre><code>## Text(0, -0.1, &#39;GRÁFICO 4&#39;)</code></pre>
 <p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-7.png" width="1152" /></p>
@@ -960,36 +961,36 @@ div.tocify {
 ## 16               OTHER      0  0.375000
 ## 17               OTHER      1  0.352941</code></pre>
 <p>Com a tabela pronta indicando a proporção de pacientes que foram para UTI, dado que possuia alguma condição de saúde, podemos visualizar em um gráfico esse comportamento.<br> <strong>OBS: POR CONTA DA ANONIMIZAÇÃO DOS DADOS NÃO FOI INFORMADO O QUE REPRESENTA CADA GRUPO DE DOENÇA</strong></p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando a figura</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>fig, ax5 <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">20</span>,<span class="dv">10</span>)) </span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando o gráfico</span></span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>sns.barplot(data<span class="op">=</span>diseases_prop, y<span class="op">=</span><span class="st">&#39;Prop&#39;</span>, x<span class="op">=</span><span class="st">&#39;variable&#39;</span>, hue<span class="op">=</span><span class="st">&#39;value&#39;</span>, ax<span class="op">=</span>ax5, palette<span class="op">=</span><span class="st">&#39;muted&#39;</span>)</span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotando rótulos e títulos</span></span>
-<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>labs(title<span class="op">=</span><span class="st">&#39;Proporção de pacientes que foram para UTI dentre os grupos de doenças&#39;</span>, </span>
-<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>     subtitle<span class="op">=</span><span class="st">&#39;PROPORÇÃO CALCULADA DE PACIENTES QUE FORAM PARA UTI DADO QUE APRESENTOU DETERMINADO GRUPO DE DOENÇA&#39;</span>,</span>
-<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>     xlabel<span class="op">=</span><span class="st">&#39;Variável&#39;</span>, ylabel<span class="op">=</span><span class="st">&#39;Proporção&#39;</span>,ax<span class="op">=</span>ax5)</span>
-<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Configurando a legenda</span></span>
-<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>handles, labels <span class="op">=</span> ax5.get_legend_handles_labels()</span>
-<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>plt.legend(handles[<span class="dv">0</span>:<span class="dv">2</span>], [<span class="st">&#39;0&#39;</span>,<span class="st">&#39;1&#39;</span>], bbox_to_anchor<span class="op">=</span>(<span class="fl">0.94</span>, <span class="dv">1</span>), loc<span class="op">=</span><span class="dv">2</span>, borderaxespad<span class="op">=</span><span class="fl">0.</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
-<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a><span class="co">#Configurando o eixo x</span></span>
-<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a>plt.xticks(<span class="bu">range</span>(<span class="dv">9</span>),labels<span class="op">=</span>diseases_prop[<span class="st">&#39;variable&#39;</span>].<span class="bu">str</span>.split(<span class="vs">r&#39;_| &#39;</span>).<span class="bu">str</span>.join(<span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span>).unique())</span>
-<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a><span class="co">#Anotando em cima das barras</span></span>
-<span id="cb47-20"><a href="#cb47-20" aria-hidden="true" tabindex="-1"></a>annot_bar(ax5)</span>
-<span id="cb47-21"><a href="#cb47-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-22"><a href="#cb47-22" aria-hidden="true" tabindex="-1"></a><span class="co">#Definindo o eixo y</span></span>
-<span id="cb47-23"><a href="#cb47-23" aria-hidden="true" tabindex="-1"></a>plt.ylim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
-<span id="cb47-24"><a href="#cb47-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-25"><a href="#cb47-25" aria-hidden="true" tabindex="-1"></a><span class="co">#Adicionando uma referência para o gráfico</span></span>
-<span id="cb47-26"><a href="#cb47-26" aria-hidden="true" tabindex="-1"></a>plt.text(<span class="dv">0</span>,<span class="op">-</span><span class="fl">0.12</span>, <span class="st">&#39;GRÁFICO 5&#39;</span>, color<span class="op">=</span><span class="st">&#39;black&#39;</span>, transform<span class="op">=</span>ax5.transAxes, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
-<span id="cb47-27"><a href="#cb47-27" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando a figura</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>fig, ax5 <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">20</span>,<span class="dv">10</span>)) </span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando o gráfico</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>sns.barplot(data<span class="op">=</span>diseases_prop, y<span class="op">=</span><span class="st">&#39;Prop&#39;</span>, x<span class="op">=</span><span class="st">&#39;variable&#39;</span>, hue<span class="op">=</span><span class="st">&#39;value&#39;</span>, ax<span class="op">=</span>ax5, palette<span class="op">=</span><span class="st">&#39;muted&#39;</span>)</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotando rótulos e títulos</span></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>labs(title<span class="op">=</span><span class="st">&#39;Proporção de pacientes que foram para UTI dentre os grupos de doenças&#39;</span>, </span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>     subtitle<span class="op">=</span><span class="st">&#39;PROPORÇÃO CALCULADA DE PACIENTES QUE FORAM PARA UTI DADO QUE APRESENTOU DETERMINADO GRUPO DE DOENÇA&#39;</span>,</span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>     xlabel<span class="op">=</span><span class="st">&#39;Variável&#39;</span>, ylabel<span class="op">=</span><span class="st">&#39;Proporção&#39;</span>,ax<span class="op">=</span>ax5)</span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Configurando a legenda</span></span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>handles, labels <span class="op">=</span> ax5.get_legend_handles_labels()</span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>plt.legend(handles[<span class="dv">0</span>:<span class="dv">2</span>], [<span class="st">&#39;0&#39;</span>,<span class="st">&#39;1&#39;</span>], bbox_to_anchor<span class="op">=</span>(<span class="fl">0.94</span>, <span class="dv">1</span>), loc<span class="op">=</span><span class="dv">2</span>, borderaxespad<span class="op">=</span><span class="fl">0.</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a><span class="co">#Configurando o eixo x</span></span>
+<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a>plt.xticks(<span class="bu">range</span>(<span class="dv">9</span>),labels<span class="op">=</span>diseases_prop[<span class="st">&#39;variable&#39;</span>].<span class="bu">str</span>.split(<span class="vs">r&#39;_| &#39;</span>).<span class="bu">str</span>.join(<span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span>).unique())</span>
+<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a><span class="co">#Anotando em cima das barras</span></span>
+<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a>annot_bar(ax5)</span>
+<span id="cb48-21"><a href="#cb48-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-22"><a href="#cb48-22" aria-hidden="true" tabindex="-1"></a><span class="co">#Definindo o eixo y</span></span>
+<span id="cb48-23"><a href="#cb48-23" aria-hidden="true" tabindex="-1"></a>plt.ylim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
+<span id="cb48-24"><a href="#cb48-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-25"><a href="#cb48-25" aria-hidden="true" tabindex="-1"></a><span class="co">#Adicionando uma referência para o gráfico</span></span>
+<span id="cb48-26"><a href="#cb48-26" aria-hidden="true" tabindex="-1"></a>plt.text(<span class="dv">0</span>,<span class="op">-</span><span class="fl">0.12</span>, <span class="st">&#39;GRÁFICO 5&#39;</span>, color<span class="op">=</span><span class="st">&#39;black&#39;</span>, transform<span class="op">=</span>ax5.transAxes, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb48-27"><a href="#cb48-27" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <pre><code>## &lt;AxesSubplot:xlabel=&#39;variable&#39;, ylabel=&#39;Prop&#39;&gt;</code></pre>
-<pre><code>## &lt;matplotlib.legend.Legend object at 0x0000000065076EE0&gt;</code></pre>
-<pre><code>## ([&lt;matplotlib.axis.XTick object at 0x0000000065353AF0&gt;, &lt;matplotlib.axis.XTick object at 0x0000000065353AC0&gt;, &lt;matplotlib.axis.XTick object at 0x0000000065353190&gt;, &lt;matplotlib.axis.XTick object at 0x000000006506B220&gt;, &lt;matplotlib.axis.XTick object at 0x000000006506B970&gt;, &lt;matplotlib.axis.XTick object at 0x0000000065082130&gt;, &lt;matplotlib.axis.XTick object at 0x0000000065082880&gt;, &lt;matplotlib.axis.XTick object at 0x000000006506B8B0&gt;, &lt;matplotlib.axis.XTick object at 0x0000000065082820&gt;], [Text(0, 0, &#39;DISEASE\nGROUPING\n1&#39;), Text(1, 0, &#39;DISEASE\nGROUPING\n2&#39;), Text(2, 0, &#39;DISEASE\nGROUPING\n3&#39;), Text(3, 0, &#39;DISEASE\nGROUPING\n4&#39;), Text(4, 0, &#39;DISEASE\nGROUPING\n5&#39;), Text(5, 0, &#39;DISEASE\nGROUPING\n6&#39;), Text(6, 0, &#39;HTN&#39;), Text(7, 0, &#39;IMMUNOCOMPROMISED&#39;), Text(8, 0, &#39;OTHER&#39;)])</code></pre>
+<pre><code>## &lt;matplotlib.legend.Legend object at 0x0000000064115760&gt;</code></pre>
+<pre><code>## ([&lt;matplotlib.axis.XTick object at 0x0000000064152370&gt;, &lt;matplotlib.axis.XTick object at 0x0000000064152340&gt;, &lt;matplotlib.axis.XTick object at 0x0000000004642F40&gt;, &lt;matplotlib.axis.XTick object at 0x00000000049C6A90&gt;, &lt;matplotlib.axis.XTick object at 0x00000000049C1220&gt;, &lt;matplotlib.axis.XTick object at 0x00000000049C1970&gt;, &lt;matplotlib.axis.XTick object at 0x00000000049E5100&gt;, &lt;matplotlib.axis.XTick object at 0x00000000049C1B80&gt;, &lt;matplotlib.axis.XTick object at 0x00000000049C6730&gt;], [Text(0, 0, &#39;DISEASE\nGROUPING\n1&#39;), Text(1, 0, &#39;DISEASE\nGROUPING\n2&#39;), Text(2, 0, &#39;DISEASE\nGROUPING\n3&#39;), Text(3, 0, &#39;DISEASE\nGROUPING\n4&#39;), Text(4, 0, &#39;DISEASE\nGROUPING\n5&#39;), Text(5, 0, &#39;DISEASE\nGROUPING\n6&#39;), Text(6, 0, &#39;HTN&#39;), Text(7, 0, &#39;IMMUNOCOMPROMISED&#39;), Text(8, 0, &#39;OTHER&#39;)])</code></pre>
 <pre><code>## (0.0, 1.0)</code></pre>
 <pre><code>## Text(0, -0.12, &#39;GRÁFICO 5&#39;)</code></pre>
 <p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-9.png" width="1920" /></p>
@@ -1006,31 +1007,31 @@ div.tocify {
 <h2>Análise de correção entre as variáveis</h2>
 <p>Para entender se existem colunas com uma correlação muito alta em nosso dataset, vamos observar um mapa de calor com as correlações calculadas para cada combinação de colunas.</p>
 <p><strong>OBS: A CORRELAÇÃO SERÁ CALCULADA EM FORMA DE MÓDULO, OU SEJA, MEDINDO A FORÇA DESSA CORRELAÇÃO INDEPENDENTE DO SINAL(positiva ou negativa)</strong></p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando a figura</span></span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>fig,ax6 <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">35</span>, <span class="dv">30</span>))</span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando a matriz de correlação absoluta usando apenas colunas contínuas</span></span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>cor <span class="op">=</span> df.select_dtypes(<span class="st">&#39;float64&#39;</span>).corr().<span class="bu">abs</span>()</span>
-<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando uma máscara para ocultar a diagonal e a parte triangular superior da matriz</span></span>
-<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>mask <span class="op">=</span> np.triu(np.ones_like(cor, dtype<span class="op">=</span><span class="bu">bool</span>))</span>
-<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando o gráfico</span></span>
-<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>sns.heatmap(cor,</span>
-<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>            cmap<span class="op">=</span><span class="st">&#39;Reds&#39;</span>,</span>
-<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>            mask<span class="op">=</span>mask,</span>
-<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a>            ax<span class="op">=</span>ax6)</span>
-<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotando rótulos e títulos</span></span>
-<span id="cb53-17"><a href="#cb53-17" aria-hidden="true" tabindex="-1"></a>labs(title<span class="op">=</span><span class="st">&#39;Correlação entre variáveis contínuas do conjunto de dados&#39;</span>, ax<span class="op">=</span>ax6)</span>
-<span id="cb53-18"><a href="#cb53-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-19"><a href="#cb53-19" aria-hidden="true" tabindex="-1"></a><span class="co">#Mudando o tamnho da fonte da barra de cor</span></span>
-<span id="cb53-20"><a href="#cb53-20" aria-hidden="true" tabindex="-1"></a>cbar <span class="op">=</span> ax6.collections[<span class="dv">0</span>].colorbar</span>
-<span id="cb53-21"><a href="#cb53-21" aria-hidden="true" tabindex="-1"></a>cbar.ax.tick_params(labelsize<span class="op">=</span><span class="dv">20</span>)</span>
-<span id="cb53-22"><a href="#cb53-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-23"><a href="#cb53-23" aria-hidden="true" tabindex="-1"></a><span class="co">#Adicionando uma referência para o gráfico</span></span>
-<span id="cb53-24"><a href="#cb53-24" aria-hidden="true" tabindex="-1"></a>plt.text(<span class="dv">0</span>,<span class="op">-</span><span class="fl">0.15</span>, <span class="st">&#39;GRÁFICO 6&#39;</span>, color<span class="op">=</span><span class="st">&#39;black&#39;</span>, transform<span class="op">=</span>ax6.transAxes, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
-<span id="cb53-25"><a href="#cb53-25" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando a figura</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>fig,ax6 <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">35</span>, <span class="dv">30</span>))</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando a matriz de correlação absoluta usando apenas colunas contínuas</span></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>cor <span class="op">=</span> df.select_dtypes(<span class="st">&#39;float64&#39;</span>).corr().<span class="bu">abs</span>()</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando uma máscara para ocultar a diagonal e a parte triangular superior da matriz</span></span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>mask <span class="op">=</span> np.triu(np.ones_like(cor, dtype<span class="op">=</span><span class="bu">bool</span>))</span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando o gráfico</span></span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>sns.heatmap(cor,</span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a>            cmap<span class="op">=</span><span class="st">&#39;Reds&#39;</span>,</span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a>            mask<span class="op">=</span>mask,</span>
+<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a>            ax<span class="op">=</span>ax6)</span>
+<span id="cb54-15"><a href="#cb54-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-16"><a href="#cb54-16" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotando rótulos e títulos</span></span>
+<span id="cb54-17"><a href="#cb54-17" aria-hidden="true" tabindex="-1"></a>labs(title<span class="op">=</span><span class="st">&#39;Correlação entre variáveis contínuas do conjunto de dados&#39;</span>, ax<span class="op">=</span>ax6)</span>
+<span id="cb54-18"><a href="#cb54-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-19"><a href="#cb54-19" aria-hidden="true" tabindex="-1"></a><span class="co">#Mudando o tamnho da fonte da barra de cor</span></span>
+<span id="cb54-20"><a href="#cb54-20" aria-hidden="true" tabindex="-1"></a>cbar <span class="op">=</span> ax6.collections[<span class="dv">0</span>].colorbar</span>
+<span id="cb54-21"><a href="#cb54-21" aria-hidden="true" tabindex="-1"></a>cbar.ax.tick_params(labelsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb54-22"><a href="#cb54-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-23"><a href="#cb54-23" aria-hidden="true" tabindex="-1"></a><span class="co">#Adicionando uma referência para o gráfico</span></span>
+<span id="cb54-24"><a href="#cb54-24" aria-hidden="true" tabindex="-1"></a>plt.text(<span class="dv">0</span>,<span class="op">-</span><span class="fl">0.15</span>, <span class="st">&#39;GRÁFICO 6&#39;</span>, color<span class="op">=</span><span class="st">&#39;black&#39;</span>, transform<span class="op">=</span>ax6.transAxes, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb54-25"><a href="#cb54-25" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <pre><code>## &lt;AxesSubplot:&gt;</code></pre>
 <pre><code>## Text(0, -0.15, &#39;GRÁFICO 6&#39;)</code></pre>
 <p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-11.png" width="3360" /></p>
@@ -1050,39 +1051,39 @@ div.tocify {
 ## 2    0  SODIUM_DIFF   -1.0
 ## 3    0  SODIUM_DIFF   -1.0
 ## 4    0  SODIUM_DIFF   -1.0</code></pre>
-<div class="sourceCode" id="cb59"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando a figura</span></span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>fig, ax7 <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">20</span>,<span class="dv">12</span>))</span>
-<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando os boxplots</span></span>
-<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>ax7 <span class="op">=</span> sns.boxplot(x<span class="op">=</span><span class="st">&#39;variable&#39;</span>, y<span class="op">=</span><span class="st">&#39;value&#39;</span>, hue<span class="op">=</span><span class="st">&#39;ICU&#39;</span>,</span>
-<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>            data<span class="op">=</span>cont_melt, palette<span class="op">=</span>[<span class="st">&#39;#3366ff&#39;</span>, <span class="st">&#39;#993300&#39;</span>], </span>
-<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>            ax<span class="op">=</span>ax7, showfliers<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando os stripsplots</span></span>
-<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a>ax7 <span class="op">=</span> sns.stripplot(x<span class="op">=</span><span class="st">&#39;variable&#39;</span>, y<span class="op">=</span><span class="st">&#39;value&#39;</span>, hue<span class="op">=</span><span class="st">&#39;ICU&#39;</span>,</span>
-<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a>              data<span class="op">=</span>cont_melt, palette<span class="op">=</span>[<span class="st">&#39;#3366ff&#39;</span>, <span class="st">&#39;#993300&#39;</span>],</span>
-<span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a>              ax<span class="op">=</span>ax7, dodge<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb59-13"><a href="#cb59-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-14"><a href="#cb59-14" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotando rótulos e títulos</span></span>
-<span id="cb59-15"><a href="#cb59-15" aria-hidden="true" tabindex="-1"></a>labs(title<span class="op">=</span><span class="st">&#39;Boxplots de 15 colunas contínuas aleatórias&#39;</span>, </span>
-<span id="cb59-16"><a href="#cb59-16" aria-hidden="true" tabindex="-1"></a>     xlabel<span class="op">=</span><span class="st">&#39;Variável&#39;</span>, </span>
-<span id="cb59-17"><a href="#cb59-17" aria-hidden="true" tabindex="-1"></a>     ylabel<span class="op">=</span><span class="st">&#39;Valor&#39;</span>, </span>
-<span id="cb59-18"><a href="#cb59-18" aria-hidden="true" tabindex="-1"></a>     subtitle<span class="op">=</span><span class="st">&#39;COLUNAS REFERENTES AOS DADOS MÉDICOS DE EXAMES E SINAIS VITAIS&#39;</span>, ax<span class="op">=</span>ax7)</span>
-<span id="cb59-19"><a href="#cb59-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-20"><a href="#cb59-20" aria-hidden="true" tabindex="-1"></a><span class="co">#Configurando o eixo x</span></span>
-<span id="cb59-21"><a href="#cb59-21" aria-hidden="true" tabindex="-1"></a>plt.xticks(<span class="bu">range</span>(<span class="dv">15</span>),labels<span class="op">=</span>cont_melt[<span class="st">&#39;variable&#39;</span>].<span class="bu">str</span>.split(<span class="st">&#39;_&#39;</span>).<span class="bu">str</span>.join(<span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span>).unique(), rotation<span class="op">=</span><span class="dv">35</span>)</span>
-<span id="cb59-22"><a href="#cb59-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-23"><a href="#cb59-23" aria-hidden="true" tabindex="-1"></a><span class="co">#Configurando a legenda</span></span>
-<span id="cb59-24"><a href="#cb59-24" aria-hidden="true" tabindex="-1"></a>handles, labels <span class="op">=</span> ax7.get_legend_handles_labels()</span>
-<span id="cb59-25"><a href="#cb59-25" aria-hidden="true" tabindex="-1"></a>plt.legend(handles[<span class="dv">0</span>:<span class="dv">2</span>], [<span class="st">&#39;Não foi para UTI&#39;</span>, <span class="st">&#39;Foi para UTI&#39;</span>], bbox_to_anchor<span class="op">=</span>(<span class="fl">1.05</span>, <span class="dv">1</span>), loc<span class="op">=</span><span class="dv">2</span>, borderaxespad<span class="op">=</span><span class="fl">0.</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
-<span id="cb59-26"><a href="#cb59-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-27"><a href="#cb59-27" aria-hidden="true" tabindex="-1"></a><span class="co">#Adicionando uma referência para o gráfico</span></span>
-<span id="cb59-28"><a href="#cb59-28" aria-hidden="true" tabindex="-1"></a>plt.text(<span class="dv">0</span>,<span class="op">-</span><span class="fl">0.15</span>, <span class="st">&#39;GRÁFICO 7&#39;</span>, color<span class="op">=</span><span class="st">&#39;black&#39;</span>, transform<span class="op">=</span>ax7.transAxes, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
-<span id="cb59-29"><a href="#cb59-29" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando a figura</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>fig, ax7 <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">20</span>,<span class="dv">12</span>))</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando os boxplots</span></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>ax7 <span class="op">=</span> sns.boxplot(x<span class="op">=</span><span class="st">&#39;variable&#39;</span>, y<span class="op">=</span><span class="st">&#39;value&#39;</span>, hue<span class="op">=</span><span class="st">&#39;ICU&#39;</span>,</span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>            data<span class="op">=</span>cont_melt, palette<span class="op">=</span>[<span class="st">&#39;#3366ff&#39;</span>, <span class="st">&#39;#993300&#39;</span>], </span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>            ax<span class="op">=</span>ax7, showfliers<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Criando os stripsplots</span></span>
+<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>ax7 <span class="op">=</span> sns.stripplot(x<span class="op">=</span><span class="st">&#39;variable&#39;</span>, y<span class="op">=</span><span class="st">&#39;value&#39;</span>, hue<span class="op">=</span><span class="st">&#39;ICU&#39;</span>,</span>
+<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>              data<span class="op">=</span>cont_melt, palette<span class="op">=</span>[<span class="st">&#39;#3366ff&#39;</span>, <span class="st">&#39;#993300&#39;</span>],</span>
+<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a>              ax<span class="op">=</span>ax7, dodge<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-14"><a href="#cb60-14" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotando rótulos e títulos</span></span>
+<span id="cb60-15"><a href="#cb60-15" aria-hidden="true" tabindex="-1"></a>labs(title<span class="op">=</span><span class="st">&#39;Boxplots de 15 colunas contínuas aleatórias&#39;</span>, </span>
+<span id="cb60-16"><a href="#cb60-16" aria-hidden="true" tabindex="-1"></a>     xlabel<span class="op">=</span><span class="st">&#39;Variável&#39;</span>, </span>
+<span id="cb60-17"><a href="#cb60-17" aria-hidden="true" tabindex="-1"></a>     ylabel<span class="op">=</span><span class="st">&#39;Valor&#39;</span>, </span>
+<span id="cb60-18"><a href="#cb60-18" aria-hidden="true" tabindex="-1"></a>     subtitle<span class="op">=</span><span class="st">&#39;COLUNAS REFERENTES AOS DADOS MÉDICOS DE EXAMES E SINAIS VITAIS&#39;</span>, ax<span class="op">=</span>ax7)</span>
+<span id="cb60-19"><a href="#cb60-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-20"><a href="#cb60-20" aria-hidden="true" tabindex="-1"></a><span class="co">#Configurando o eixo x</span></span>
+<span id="cb60-21"><a href="#cb60-21" aria-hidden="true" tabindex="-1"></a>plt.xticks(<span class="bu">range</span>(<span class="dv">15</span>),labels<span class="op">=</span>cont_melt[<span class="st">&#39;variable&#39;</span>].<span class="bu">str</span>.split(<span class="st">&#39;_&#39;</span>).<span class="bu">str</span>.join(<span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span>).unique(), rotation<span class="op">=</span><span class="dv">35</span>)</span>
+<span id="cb60-22"><a href="#cb60-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-23"><a href="#cb60-23" aria-hidden="true" tabindex="-1"></a><span class="co">#Configurando a legenda</span></span>
+<span id="cb60-24"><a href="#cb60-24" aria-hidden="true" tabindex="-1"></a>handles, labels <span class="op">=</span> ax7.get_legend_handles_labels()</span>
+<span id="cb60-25"><a href="#cb60-25" aria-hidden="true" tabindex="-1"></a>plt.legend(handles[<span class="dv">0</span>:<span class="dv">2</span>], [<span class="st">&#39;Não foi para UTI&#39;</span>, <span class="st">&#39;Foi para UTI&#39;</span>], bbox_to_anchor<span class="op">=</span>(<span class="fl">1.05</span>, <span class="dv">1</span>), loc<span class="op">=</span><span class="dv">2</span>, borderaxespad<span class="op">=</span><span class="fl">0.</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb60-26"><a href="#cb60-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-27"><a href="#cb60-27" aria-hidden="true" tabindex="-1"></a><span class="co">#Adicionando uma referência para o gráfico</span></span>
+<span id="cb60-28"><a href="#cb60-28" aria-hidden="true" tabindex="-1"></a>plt.text(<span class="dv">0</span>,<span class="op">-</span><span class="fl">0.15</span>, <span class="st">&#39;GRÁFICO 7&#39;</span>, color<span class="op">=</span><span class="st">&#39;black&#39;</span>, transform<span class="op">=</span>ax7.transAxes, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb60-29"><a href="#cb60-29" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <pre><code>## &lt;AxesSubplot:xlabel=&#39;variable&#39;, ylabel=&#39;value&#39;&gt;</code></pre>
 <pre><code>## &lt;AxesSubplot:xlabel=&#39;variable&#39;, ylabel=&#39;value&#39;&gt;</code></pre>
-<pre><code>## ([&lt;matplotlib.axis.XTick object at 0x000000006529CC10&gt;, &lt;matplotlib.axis.XTick object at 0x000000006529CEB0&gt;, &lt;matplotlib.axis.XTick object at 0x0000000064F906D0&gt;, &lt;matplotlib.axis.XTick object at 0x0000000010532730&gt;, &lt;matplotlib.axis.XTick object at 0x0000000010532E80&gt;, &lt;matplotlib.axis.XTick object at 0x0000000010537610&gt;, &lt;matplotlib.axis.XTick object at 0x0000000010537D90&gt;, &lt;matplotlib.axis.XTick object at 0x00000000105372E0&gt;, &lt;matplotlib.axis.XTick object at 0x000000001053A1F0&gt;, &lt;matplotlib.axis.XTick object at 0x000000001053A880&gt;, &lt;matplotlib.axis.XTick object at 0x000000001053C0D0&gt;, &lt;matplotlib.axis.XTick object at 0x000000001053C760&gt;, &lt;matplotlib.axis.XTick object at 0x000000001053CEB0&gt;, &lt;matplotlib.axis.XTick object at 0x000000001053CBB0&gt;, &lt;matplotlib.axis.XTick object at 0x000000001053AA60&gt;], [Text(0, 0, &#39;SODIUM\nDIFF&#39;), Text(1, 0, &#39;CREATININ\nDIFF&#39;), Text(2, 0, &#39;BLOODPRESSURE\nSISTOLIC\nMEAN&#39;), Text(3, 0, &#39;LACTATE\nMEDIAN&#39;), Text(4, 0, &#39;PH\nVENOUS\nMEDIAN&#39;), Text(5, 0, &#39;GLUCOSE\nDIFF&#39;), Text(6, 0, &#39;TGO\nDIFF&#39;), Text(7, 0, &#39;P02\nVENOUS\nMEDIAN&#39;), Text(8, 0, &#39;BLOODPRESSURE\nSISTOLIC\nDIFF&#39;), Text(9, 0, &#39;PC02\nVENOUS\nDIFF&#39;), Text(10, 0, &#39;PC02\nVENOUS\nMEDIAN&#39;), Text(11, 0, &#39;OXYGEN\nSATURATION\nDIFF&#39;), Text(12, 0, &#39;BE\nVENOUS\nMEDIAN&#39;), Text(13, 0, &#39;HEART\nRATE\nMEAN&#39;), Text(14, 0, &#39;LEUKOCYTES\nDIFF&#39;)])</code></pre>
-<pre><code>## &lt;matplotlib.legend.Legend object at 0x00000000049D72B0&gt;</code></pre>
+<pre><code>## ([&lt;matplotlib.axis.XTick object at 0x0000000063D8AA00&gt;, &lt;matplotlib.axis.XTick object at 0x0000000063D8AD00&gt;, &lt;matplotlib.axis.XTick object at 0x000000001055AF40&gt;, &lt;matplotlib.axis.XTick object at 0x0000000010580A30&gt;, &lt;matplotlib.axis.XTick object at 0x00000000105831C0&gt;, &lt;matplotlib.axis.XTick object at 0x0000000010583910&gt;, &lt;matplotlib.axis.XTick object at 0x00000000105870D0&gt;, &lt;matplotlib.axis.XTick object at 0x00000000105834F0&gt;, &lt;matplotlib.axis.XTick object at 0x0000000010587430&gt;, &lt;matplotlib.axis.XTick object at 0x0000000010587B80&gt;, &lt;matplotlib.axis.XTick object at 0x000000001058B310&gt;, &lt;matplotlib.axis.XTick object at 0x000000001058BA60&gt;, &lt;matplotlib.axis.XTick object at 0x000000001058E1F0&gt;, &lt;matplotlib.axis.XTick object at 0x000000001058BC70&gt;, &lt;matplotlib.axis.XTick object at 0x0000000010587850&gt;], [Text(0, 0, &#39;SODIUM\nDIFF&#39;), Text(1, 0, &#39;CREATININ\nDIFF&#39;), Text(2, 0, &#39;BLOODPRESSURE\nSISTOLIC\nMEAN&#39;), Text(3, 0, &#39;LACTATE\nMEDIAN&#39;), Text(4, 0, &#39;PH\nVENOUS\nMEDIAN&#39;), Text(5, 0, &#39;GLUCOSE\nDIFF&#39;), Text(6, 0, &#39;TGO\nDIFF&#39;), Text(7, 0, &#39;P02\nVENOUS\nMEDIAN&#39;), Text(8, 0, &#39;BLOODPRESSURE\nSISTOLIC\nDIFF&#39;), Text(9, 0, &#39;PC02\nVENOUS\nDIFF&#39;), Text(10, 0, &#39;PC02\nVENOUS\nMEDIAN&#39;), Text(11, 0, &#39;OXYGEN\nSATURATION\nDIFF&#39;), Text(12, 0, &#39;BE\nVENOUS\nMEDIAN&#39;), Text(13, 0, &#39;HEART\nRATE\nMEAN&#39;), Text(14, 0, &#39;LEUKOCYTES\nDIFF&#39;)])</code></pre>
+<pre><code>## &lt;matplotlib.legend.Legend object at 0x0000000064006F40&gt;</code></pre>
 <pre><code>## Text(0, -0.15, &#39;GRÁFICO 7&#39;)</code></pre>
 <p><img src="Analise_exploratoria_files/figure-html/unnamed-chunk-1-13.png" width="1920" /></p>
 <p>A partir dos boxplots percebemos que algumas variáveis parecem realmente ter uma variância muito baixa, como a “SODIUM DIFF”, “CREATININ DIFF”, e as demais que representam diferenças. Por outro lado, percebe-se uma diferença muito grande dos valores de quem foi para UTI e de quem não foi na variável “LACTATE MEDIAN, podendo indicar que essa variável seja importante na hora de modelar os dados.<br><br> Por esta razão vou eliminar todas aquelas variáveis com um valor de variância igual a 0.</p>
