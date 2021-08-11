@@ -106,12 +106,15 @@ Entre os modelos testados, os dois com as melhores métricas de ROC AUC foram es
 
 Além disso, foram realizadas técnicas de reamostragem e de seleção de variáveis a partir de outro modelo. Os resultados obtidos do modelo final foram:
 
+Vamos listar todos os resultados do nosso modelo final:
+
 Métrica   |Média
 :---------|----------:
 ROC AUC   | **0.946**
 ACURÁCIA  | **0.882**
 PRECISÃO  | **0.885**
 F1-SCORE  | **0.882**
+RECALL    | **0.882**
 
 <a name="bibli"></a>
 # Bibliotecas utilizadas 💻
